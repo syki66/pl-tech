@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const main = require('./main/main.route');
+const input = require('./input');
+const rotate = require('./rotate');
 
-router.use('/main', main);
+router.use('/input', input);
+router.use('/rotate', rotate);
 
 module.exports = router;

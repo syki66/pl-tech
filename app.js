@@ -1,8 +1,11 @@
 const express = require('express');
 const http = require('http');
+const path = require('path');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+//static 미들웨어는 특정 폴더의 파일들을 특정 패스로 접근할 수 있도록 만들어줍니다. 
+const static = require('serve-static');
 const util = require('./middleware/util');
 
 const app = express();
@@ -15,6 +18,12 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+//setting engine
+app.set('view engine', 'html');
+app.engine('html', require('ejs').renderFile);
+//이 코드는 /views 폴더 안에 있는 파일들을 클라이언트에서 바로 접근할 수 있게 합니다.
+// app.use('/', static(path.join(__dirname, 'views')));
 
 let ip = '192.168.0.2';
 
