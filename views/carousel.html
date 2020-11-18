@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+    <style>
+        body {
+            background-color: red;
+            margin: 0;
+        }
+        .sliderItem{
+            background-color: blue;
+            height: 100vh;
+            width: 100vw;
+            text-align: center;
+            font-size: xx-large;
+            z-index: 0;
+            position: absolute;
+            /* transform: translate(100px, 0px);
+            transition: transform 0.5s; */
+        }
+
+        .sliderItem:nth-child(odd){
+            background-color: aqua;
+        }
+
+        .sliderItem:nth-child(even){
+            background-color: pink;
+        }
+
+        .sliderBox {
+            
+        }
+        .showing {
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="sliderBox">
+        <div class="sliderItem showing">1</div>
+        <div class="sliderItem">2</div>
+        <div class="sliderItem">3</div>
+        <div class="sliderItem">4</div>
+        <div class="sliderItem">5</div>
+        <div class="sliderItem">6</div>
+        <div class="sliderItem">7</div>
+        <div class="sliderItem">8</div>
+        <div class="sliderItem">9</div>
+    </div>
+
+    <!-- <button class="prevBtn">prev</button>
+    <button class="nextBtn">next</button> -->
+
+    <script>
+        const SHOWING_CLASS = "showing";
+        const firstSlide = document.querySelector('.sliderItem:first-child');
+        function slide() {
+            const currentSlide = document.querySelector(`.${SHOWING_CLASS}`);
+            if (currentSlide) {
+                currentSlide.classList.remove(SHOWING_CLASS);
+                const nextSlide = currentSlide.nextElementSibling;
+                if (nextSlide) { // 마지막 슬라이드가 아닐때 다음슬라이드로 변경
+                    nextSlide.classList.add(SHOWING_CLASS);
+                } else { // 마지막 슬라이드 일때 첫 슬라이드로 변경
+                    firstSlide.classList.add(SHOWING_CLASS);
+                }
+            } else {
+                firstSlide.classList.add(SHOWING_CLASS);
+            }
+        }
+        setInterval(slide,3000);
+
+        // const sliderBox = document.querySelector('.sliderItem');
+
+
+
+
+
+
+        // function getSliderSize (){
+        //     const sliderWidth = sliderBox.offsetWidth;
+        //     const sliderHeight = sliderBox.offsetHeight;
+        //     console.log(sliderWidth);
+        //     console.log(sliderHeight);
+        // }
+
+        // // window.onresize = function () {
+        // //     getSliderSize();
+        // // }
+
+        // const sliderWidth = sliderBox.offsetWidth;
+        
+        
+
+        // const prevBtn = document.querySelector('.prevBtn');
+        // const nextBtn = document.querySelector('.nextBtn');
+        
+
+        // nextBtn.addEventListener('click', ()=>{
+        //     sliderBox.style.transition = "transform 0.4s ease-in-out";
+        //     sliderBox.style.transform = `translateX(${sliderWidth}px)`;
+        // });
+
+        // prevBtn.addEventListener('click', ()=>{
+        //     sliderBox.style.transition = "transform 0.4s ease-in-out";
+        //     sliderBox.style.transform = `translateX(${-sliderWidth}px)`;
+        // });
+        
+    </script>
+</body>
+</html>
