@@ -6,71 +6,107 @@
     <title>test</title>
     <style>
         body {
-            background-color: red;
-            margin: 0;
+            
+            
+
         }
-        .sliderItem{
-            background-color: blue;
-            height: 100vh;
-            width: 100vw;
+        .carousel-container{
+            background-color: red;
+            position: relative;
+            margin: 0 auto;
+            height : 300px;
+            width : 500px;
+            transition: transform 250ms ease-in;
+            /* transform: translateX(-500px);            */
+        }
+        .carousel-item{
+            height : 200px;
+            width : 400px;
             text-align: center;
             font-size: xx-large;
-            z-index: 0;
             position: absolute;
-            /* transform: translate(100px, 0px);
-            transition: transform 0.5s; */
+            
         }
 
-        .sliderItem:nth-child(odd){
+        .carousel-item:nth-child(odd){
             background-color: aqua;
         }
 
-        .sliderItem:nth-child(even){
+        .carousel-item:nth-child(even){
             background-color: pink;
         }
 
-        .sliderBox {
-            
-        }
+
         .showing {
             z-index: 1;
         }
     </style>
 </head>
 <body>
-    <div id="sliderBox">
-        <div class="sliderItem showing">1</div>
-        <div class="sliderItem">2</div>
-        <div class="sliderItem">3</div>
-        <div class="sliderItem">4</div>
-        <div class="sliderItem">5</div>
-        <div class="sliderItem">6</div>
-        <div class="sliderItem">7</div>
-        <div class="sliderItem">8</div>
-        <div class="sliderItem">9</div>
+    <div class="carousel-container">
+        <div class="carousel-item">1</div>
+        <div class="carousel-item">2</div>
+        <div class="carousel-item">3</div>
+        <div class="carousel-item">4</div>
+        <div class="carousel-item">5</div>
+        <div class="carousel-item">6</div>
+        <div class="carousel-item">7</div>
+        <div class="carousel-item">8</div>
+        <div class="carousel-item">9</div>
     </div>
 
-    <!-- <button class="prevBtn">prev</button>
-    <button class="nextBtn">next</button> -->
+    <button class="prevBtn">prev</button>
+    <button class="nextBtn">next</button>
 
     <script>
-        const SHOWING_CLASS = "showing";
-        const firstSlide = document.querySelector('.sliderItem:first-child');
-        function slide() {
-            const currentSlide = document.querySelector(`.${SHOWING_CLASS}`);
-            if (currentSlide) {
-                currentSlide.classList.remove(SHOWING_CLASS);
-                const nextSlide = currentSlide.nextElementSibling;
-                if (nextSlide) { // 마지막 슬라이드가 아닐때 다음슬라이드로 변경
-                    nextSlide.classList.add(SHOWING_CLASS);
-                } else { // 마지막 슬라이드 일때 첫 슬라이드로 변경
-                    firstSlide.classList.add(SHOWING_CLASS);
-                }
-            } else {
-                firstSlide.classList.add(SHOWING_CLASS);
-            }
-        }
-        setInterval(slide,3000);
+
+        const container = document.querySelector('.carousel-container');
+        const slides = document.querySelectorAll('.carousel-item');
+        const slideWidth = slides[0].getBoundingClientRect().width;
+        const prevBtn = document.querySelector('.prevBtn');
+        const nextBtn = document.querySelector('.nextBtn');
+        
+        slides.forEach((e, i) => {
+            e.style.left = `${slideWidth * i}px`;
+        })
+
+        
+        let count = 0;
+        nextBtn.addEventListener('click', ()=>{
+            count -= slideWidth;
+            container.style.transform = `translateX(${count}px)`;
+            console.log(slideWidth);
+        });
+
+        prevBtn.addEventListener('click', ()=>{
+            count += slideWidth;
+            container.style.transform = `translateX(${count}px)`;
+            console.log(slideWidth);
+        });
+
+
+
+
+
+
+
+        // const SHOWING_CLASS = "showing";
+        // const firstSlide = document.querySelector('.sliderItem:first-child');
+        // function slide() {
+        //     const currentSlide = document.querySelector(`.${SHOWING_CLASS}`);
+        //     if (currentSlide) {
+        //         currentSlide.classList.remove(SHOWING_CLASS);
+        //         const nextSlide = currentSlide.nextElementSibling;
+        //         if (nextSlide) { // 마지막 슬라이드가 아닐때 다음슬라이드로 변경
+        //             nextSlide.classList.add(SHOWING_CLASS);
+        //         } else { // 마지막 슬라이드 일때 첫 슬라이드로 변경
+        //             firstSlide.classList.add(SHOWING_CLASS);
+        //         }
+        //     } else {
+        //         firstSlide.classList.add(SHOWING_CLASS);
+        //     }
+        // }
+        // setInterval(slide,3000);
 
         // const sliderBox = document.querySelector('.sliderItem');
 
@@ -94,19 +130,10 @@
         
         
 
-        // const prevBtn = document.querySelector('.prevBtn');
-        // const nextBtn = document.querySelector('.nextBtn');
+
         
 
-        // nextBtn.addEventListener('click', ()=>{
-        //     sliderBox.style.transition = "transform 0.4s ease-in-out";
-        //     sliderBox.style.transform = `translateX(${sliderWidth}px)`;
-        // });
 
-        // prevBtn.addEventListener('click', ()=>{
-        //     sliderBox.style.transition = "transform 0.4s ease-in-out";
-        //     sliderBox.style.transform = `translateX(${-sliderWidth}px)`;
-        // });
         
     </script>
 </body>
