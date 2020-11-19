@@ -13,7 +13,7 @@ const app = express();
 const routes = require('./routes');
 
 //environment
-app.set('port', process.env.PORT || 80);
+app.set('port', process.env.PORT || 3000);
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
