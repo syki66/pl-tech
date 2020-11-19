@@ -1,13 +1,13 @@
 :root {
-    --width : 1200px;
-    --height : 700px;
+    --width : 1600px;
+    --height : 900px;
     --btnWidth : 300px;
-    --btnHeight : 700px;
+    --btnHeight : 900px;
     --indicatorWidth: 25px;
     --indicatorHeight: 5px;
 }
 body {
-
+    
 }
 .carousel{
     position: relative;
