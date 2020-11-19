@@ -3,16 +3,19 @@ const slides = document.querySelectorAll('.carousel__item');
 const slideWidth = slides[0].getBoundingClientRect().width;
 const prevBtn = document.querySelector('.prevBtn');
 const nextBtn = document.querySelector('.nextBtn');
+const navigation = document.querySelector('.carousel__nav');
 
+
+
+// 슬라이드들 가로 1줄로 정렬
 let slidePointer = [];
 slides.forEach((e, i) => {
     e.style.left = `${slideWidth * i}px`;
     slidePointer.push(e.style.left)
 })
 
+// 슬라이드 버튼 리스터
 let num = 0;
-
-
 nextBtn.addEventListener('click', ()=>{
     (num >= slidePointer.length-1) ? (num = 0) : (num += 1);
     container.style.transform = `translateX(-${slidePointer[num]})`;
@@ -25,33 +28,23 @@ prevBtn.addEventListener('click', ()=>{
     console.log(num);
 });
 
+// 슬라이드 네비게이션
+slidePointer.map(() => {
+    var indicator = document.createElement("div");
+    indicator.classList.add("carousel__indicator");
+    navigation.appendChild(indicator);
+});
 
-
-        // const SHOWING_CLASS = "showing";
-        // const firstSlide = document.querySelector('.sliderItem:first-child');
-        // function slide() {
-        //     const currentSlide = document.querySelector(`.${SHOWING_CLASS}`);
-        //     if (currentSlide) {
-        //         currentSlide.classList.remove(SHOWING_CLASS);
-        //         const nextSlide = currentSlide.nextElementSibling;
-        //         if (nextSlide) { // 마지막 슬라이드가 아닐때 다음슬라이드로 변경
-        //             nextSlide.classList.add(SHOWING_CLASS);
-        //         } else { // 마지막 슬라이드 일때 첫 슬라이드로 변경
-        //             firstSlide.classList.add(SHOWING_CLASS);
-        //         }
-        //     } else {
-        //         firstSlide.classList.add(SHOWING_CLASS);
-        //     }
-        // }
-        // setInterval(slide,3000);
-
-        // const sliderBox = document.querySelector('.sliderItem');
+const navWidth = navigation.getBoundingClientRect().width;
+const indicatorWidth = document.querySelector(".carousel__indicator").getBoundingClientRect().width;
+navigation.style.transform = `translateX(-${navWidth/2}px)`;
 
 
 
 
 
 
+        // 동적으로 크기 바뀌게 하려면 이걸로
         // function getSliderSize (){
         //     const sliderWidth = sliderBox.offsetWidth;
         //     const sliderHeight = sliderBox.offsetHeight;
