@@ -35,3 +35,30 @@ exports.parsingFigures = (req, res) => {
         }
     });
 }
+
+
+exports.parsingFigures2 = (req, res) => {
+    console.log('called parsingFigures2');
+    let path = req.body.filepath;
+    fs.readFile(path, 'utf8', (err, data) => {
+        if(err){
+            console.dir(err);
+            console.log('파일 읽기 실패.\n');
+            res.status(500);
+            res.json(util.successFalse(err, '파일 읽기 실패.'));
+        } 
+        else {
+            console.log('파일 읽기 성공.')
+            let parsed = data.split('\r\n'); // 행으로 나누어줌
+            let regex =  /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g;
+            for(let i = 0; i < parsed.length; i++){
+                parsed[i] = parsed[i].replace(regex, ""); // 한글 제거
+                parsed[i] = parsed[i].replace(" ","") // 공백 제거
+                parsed[i] = parsed[i].split(", ");
+            }
+            console.log(figures.firstFigures(parsed));
+            res.status(201);
+            res.json(util.successTrue(figures.firstFigures(parsed)));
+        }
+    });
+}
