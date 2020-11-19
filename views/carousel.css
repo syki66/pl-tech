@@ -1,0 +1,62 @@
+:root {
+    --width : 1200px;
+    --height : 700px;
+    --btnWidth : 50px;
+    --btnHeight : 700px;
+}
+body {
+
+}
+.carousel{
+    position: relative;
+    width: var(--width);
+    height: var(--height);
+    background-color: green;
+
+    margin: 0 auto;
+}
+
+.carousel__container{
+    background-color: red;
+    position: relative;
+    margin: 0 auto;
+    height : var(--height);
+    width : var(--width);
+    transition: transform 0.4s ease-in-out;
+    
+}
+.carousel__item{
+    height : var(--height);
+    width : var(--width);
+    text-align: center;
+    font-size: xx-large;
+    position: absolute;
+    z-index: 0;
+}
+.carousel__button-prev{
+    position: absolute;
+    z-index: 1;
+    height: var(--btnHeight);
+    width: var(--btnWidth);
+    bottom: calc(var(--height) / 2 - var(--btnHeight) / 2);
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+}
+.carousel__button-next{
+    position: absolute;
+    z-index: 1;
+    height: var(--btnHeight);
+    width: var(--btnWidth);
+    left: calc(var(--width) - var(--btnWidth));
+    bottom: calc(var(--height) / 2 - var(--btnHeight) / 2);
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+.carousel__item:nth-child(odd){
+    background-color: aqua;
+}
+
+.carousel__item:nth-child(even){
+    background-color: pink;
+}
