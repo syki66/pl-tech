@@ -63,7 +63,10 @@ carousel.addEventListener('click', ()=>{
 });
 
 // 자동 슬라이드 기능
-setInterval(() => nextBtn.click(), 5000);
+//setInterval(() => nextBtn.click(), 10000);
+
+
+
 
         // 동적으로 크기 바뀌게 하려면 이걸로
         // function getSliderSize (){
