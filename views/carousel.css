@@ -1,7 +1,7 @@
 :root {
     --width : 1200px;
     --height : 700px;
-    --btnWidth : 50px;
+    --btnWidth : 300px;
     --btnHeight : 700px;
     --indicatorWidth: 25px;
     --indicatorHeight: 5px;
@@ -16,8 +16,9 @@ body {
     background-color: green;
 
     margin: 0 auto;
-}
 
+
+}
 .carousel__container{
     background-color: red;
     position: relative;
@@ -41,8 +42,9 @@ body {
     height: var(--btnHeight);
     width: var(--btnWidth);
     bottom: calc(var(--height) / 2 - var(--btnHeight) / 2);
-    background-color: rgba(0, 0, 0, 0.2);
-    border: none;
+    background: linear-gradient( to left, transparent, rgba(0, 0, 0, 0.4) );
+    opacity: 0;
+    transition: opacity .2s;
 }
 .carousel__button-next{
     position: absolute;
@@ -51,10 +53,16 @@ body {
     width: var(--btnWidth);
     left: calc(var(--width) - var(--btnWidth));
     bottom: calc(var(--height) / 2 - var(--btnHeight) / 2);
-    background-color: rgba(0, 0, 0, 0.2);
-    border: none;
+    background: linear-gradient( to right, transparent, rgba(0, 0, 0, 0.4) );
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
 }
-
+.carousel__button-prev:hover{
+    opacity: 1;
+}
+.carousel__button-next:hover{
+    opacity: 1;
+}
 .carousel__item:nth-child(odd){
     background-color: aqua;
 }
@@ -62,9 +70,6 @@ body {
 .carousel__item:nth-child(even){
     background-color: pink;
 }
-
-
-
 
 .carousel__nav{
     position: absolute;
@@ -81,4 +86,8 @@ body {
     border-radius: var(--indicatorHeight);
 
     margin: 4px;
+}
+
+.current__carousel{
+    background-color: rgba(0, 0, 0, 0.6);
 }
