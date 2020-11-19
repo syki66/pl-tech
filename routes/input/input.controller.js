@@ -1,6 +1,7 @@
 //controller.js : api 동작 코드
+const fs = require('fs');
 const util = require('../../middleware/util');
-const figures = require('../../models/figures.json');
+const figures = require('../../models/figures');
 
 exports.inputFigures = (req, res) => {
     console.log('called inputFigures');
@@ -10,47 +11,27 @@ exports.inputFigures = (req, res) => {
 exports.parsingFigures = (req, res) => {
     console.log('called parsingFigures');
     console.log(req.file);
-    res.send('uploaded: ' + req.file.filename);
+    let path = 'figures/' + req.file.filename;
+    fs.readFile(path, 'utf8', (err, data) => {
+        if(err){
+            console.dir(err);
+            console.log('파일 읽기 실패.\n');
+            res.status(500);
+            res.json(util.successFalse(err, '파일 읽기 실패.'));
+        } 
+        else {
+            console.log('파일 읽기 성공.')
+            let parsed = data.split('\r\n'); // 행으로 나누어줌
+            let regex =  /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g;
+            for(let i = 0; i < parsed.length; i++){
+                parsed[i] = parsed[i].replace(regex, ""); // 한글 제거
+                parsed[i] = parsed[i].replace(" ","") // 공백 제거
+                parsed[i] = parsed[i].split(", ");
+            }
+
+            console.log(figures.firstFigures(parsed));
+            res.status(201);
+            res.json(util.successTrue(figures.firstFigures(parsed)));
+        }
+    });
 }
-
-//window.onload = function(){} 함수는 웹브라우저의 모든 구성요소에 대한 로드가 끝났을 때 브라우저에 의해서 호출되는 함수
-// window.onload = function () {
-//     const input = document.querySelector('#file_uploads');
-//     const preview = document.querySelector('#preview');
-
-//     //input에 'change' 이벤트가 발생(파일 선택)되면 showTextFile 함수를 실행
-//     input.addEventListener('change', function () {
-//         const selectedFiles = input.files;
-//         const list = document.createElement('ul');
-//         preview.appendChild(list);
-
-
-//         // 선택된 파일 목록에서 파일을 하나씩 꺼내온다.
-//         for (const file of selectedFiles) {
-//             const listItem = document.createElement('li');
-
-//             if (validFileType(file)) {
-//                 const textContents = document.createElement('div');
-//                 let reader = new FileReader();
-//                 reader.onload = function () {
-//                     textContents.innerText = reader.result;
-//                 };
-//                 reader.readAsText(file, "UTF-8");
-//                 listItem.appendChild(textContents);
-//             } else {
-//                 const message = document.createElement('div');
-//                 message.textContent = `파일명 ${file.name}: .txt 파일을 선택하세요`;
-//                 listItem.appendChild(message);
-//             }
-//             list.appendChild(listItem);
-//         }
-//     });
-
-//     const fileTypes = [
-//         'text/plain',
-//     ];
-
-//     function validFileType(file) {
-//         return fileTypes.includes(file.type);
-//     }
-// }
