@@ -22,8 +22,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage }); // 업로드 경로 설정
 
-router.get('/', controller.inputFigures);
-router.post('/', upload.single('inputfile'), controller.parsingFigures);
-router.post('/2', controller.parsingFigures2);
+// router.get('/', controller.inputFigures);
+// router.post('/', upload.single('inputfile'), controller.parsingFigures);
+// router.post('/2', controller.parsingFigures2);
 
 module.exports = router;
