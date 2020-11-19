@@ -3,6 +3,8 @@
     --height : 700px;
     --btnWidth : 50px;
     --btnHeight : 700px;
+    --indicatorWidth: 25px;
+    --indicatorHeight: 5px;
 }
 body {
 
@@ -59,4 +61,24 @@ body {
 
 .carousel__item:nth-child(even){
     background-color: pink;
+}
+
+
+
+
+.carousel__nav{
+    position: absolute;
+    display: flex;
+    left: calc((var(--width)) / 2);
+    bottom: var(--indicatorHeight);
+}
+
+.carousel__indicator{
+    flex: 1;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: var(--indicatorWidth);
+    height: var(--indicatorHeight);
+    border-radius: var(--indicatorHeight);
+
+    margin: 4px;
 }
