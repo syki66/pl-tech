@@ -16,8 +16,6 @@ body {
     background-color: green;
 
     margin: 0 auto;
-
-
 }
 .carousel__container{
     background-color: red;
@@ -42,7 +40,7 @@ body {
     height: var(--btnHeight);
     width: var(--btnWidth);
     bottom: calc(var(--height) / 2 - var(--btnHeight) / 2);
-    background: linear-gradient( to left, transparent, rgba(0, 0, 0, 0.4) );
+    background: linear-gradient( to left, transparent, rgba(0, 0, 0, 0.2) );
     opacity: 0;
     transition: opacity .2s;
 }
@@ -53,7 +51,7 @@ body {
     width: var(--btnWidth);
     left: calc(var(--width) - var(--btnWidth));
     bottom: calc(var(--height) / 2 - var(--btnHeight) / 2);
-    background: linear-gradient( to right, transparent, rgba(0, 0, 0, 0.4) );
+    background: linear-gradient( to right, transparent, rgba(0, 0, 0, 0.2) );
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
 }
