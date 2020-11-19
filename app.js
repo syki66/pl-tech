@@ -13,7 +13,7 @@ const app = express();
 const routes = require('./routes');
 
 //environment
-app.set('port', process.env.PORT || 80);
+app.set('port', process.env.PORT || 3000);
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -25,7 +25,7 @@ app.engine('html', require('ejs').renderFile);
 //이 코드는 /views 폴더 안에 있는 파일들을 클라이언트에서 바로 접근할 수 있게 합니다.
 // app.use('/', static(path.join(__dirname, 'views')));
 
-let ip = '192.168.0.2';
+let ip = 'localhost';
 
 //router setting
 app.use('/', routes);

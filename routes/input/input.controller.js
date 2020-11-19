@@ -1,9 +1,6 @@
 //controller.js : api 동작 코드
-
 const util = require('../../middleware/util');
 const figures = require('../../models/figures.json');
-const multer = require('multer');
-const upload = multer({dest: '../../figures'}); // 업로드 경로 설정
 
 exports.inputFigures = (req, res) => {
     console.log('called inputFigures');
@@ -12,8 +9,8 @@ exports.inputFigures = (req, res) => {
 
 exports.parsingFigures = (req, res) => {
     console.log('called parsingFigures');
-    let figureFile = req.file;
-    console.log(figureFile);
+    console.log(req.file);
+    res.send('uploaded: ' + req.file.filename);
 }
 
 //window.onload = function(){} 함수는 웹브라우저의 모든 구성요소에 대한 로드가 끝났을 때 브라우저에 의해서 호출되는 함수
