@@ -23,7 +23,7 @@ nextBtn.addEventListener('click', ()=>{
 
 prevBtn.addEventListener('click', ()=>{
     (current <= 0) ? (current = slidePointer.length - 1) : (current -= 1);
-    container.style.transform = `translateX(-${slidePointer[current]})`;            
+    container.style.transform = `translateX(-${slidePointer[current]})`;
     // console.log(current);
 });
 
@@ -41,14 +41,22 @@ const navWidth = navigation.getBoundingClientRect().width;
 const indicatorWidth = document.querySelector(".carousel__indicator").getBoundingClientRect().width;
 navigation.style.transform = `translateX(-${navWidth/2}px)`;
 
-carousel.addEventListener('click', ()=>{
-    const navArray = document.querySelectorAll('.carousel__indicator');
-    navArray.forEach((e,i)=>{
-        navArray[i].classList.remove('current__carousel');
-    });
-    navArray[current].classList.add('current__carousel');
+const indicatorArray = document.querySelectorAll('.carousel__indicator');
 
+indicatorArray.forEach((each, i)=>{
+    each.addEventListener('click', ()=>{
+        container.style.transform = `translateX(-${slidePointer[i]})`;
+        current = i;
+    });
 });
+
+carousel.addEventListener('click', ()=>{
+    indicatorArray.forEach((e,i)=>{
+        indicatorArray[i].classList.remove('current__carousel');
+    });
+    indicatorArray[current].classList.add('current__carousel');
+});
+
 
 
 
