@@ -16,6 +16,7 @@
     "express": "^4.17.1",
     "express-error-handler": "^1.1.0",
     "express-session": "^1.17.0",
+    "got": "^11.8.0",
     "http": "^0.0.0",
     "install": "^0.13.0",
     "jstoxml": "^1.6.1",
