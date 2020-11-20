@@ -1,13 +1,13 @@
 :root {
-    --width : 1600px;
-    --height : 900px;
+    --width : 1920px;
+    --height : 1080px;
     --btnWidth : 300px;
-    --btnHeight : 900px;
     --indicatorWidth: 25px;
     --indicatorHeight: 5px;
 }
 body {
-    
+    overflow:hidden;
+    margin: 0;
 }
 .carousel{
     position: relative;
@@ -37,9 +37,9 @@ body {
 .carousel__button-prev{
     position: absolute;
     z-index: 1;
-    height: var(--btnHeight);
+    height: var(--height);
     width: var(--btnWidth);
-    bottom: calc(var(--height) / 2 - var(--btnHeight) / 2);
+    bottom: calc(var(--height) / 2 - var(--height) / 2);
     background: linear-gradient( to left, transparent, rgba(0, 0, 0, 0.2) );
     opacity: 0;
     transition: opacity .2s;
@@ -47,10 +47,10 @@ body {
 .carousel__button-next{
     position: absolute;
     z-index: 1;
-    height: var(--btnHeight);
+    height: var(--height);
     width: var(--btnWidth);
     left: calc(var(--width) - var(--btnWidth));
-    bottom: calc(var(--height) / 2 - var(--btnHeight) / 2);
+    bottom: calc(var(--height) / 2 - var(--height) / 2);
     background: linear-gradient( to right, transparent, rgba(0, 0, 0, 0.2) );
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
