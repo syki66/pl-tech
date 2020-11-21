@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>1</title>
     <style>
         body{
-            background-color:lightgreen;
+            /* background-color:lightgreen; */
             padding: 0;
         }
         table{
@@ -16,17 +16,17 @@
             padding: 0.7vw 0vw;
         }
         td{
-            text-align: right;
+            text-align: center;
             padding: 0.7vw;
         }
     </style>
 </head>
 <body>
     <div>
-        <div style="font-size: 5vw; text-align: center; margin-bottom: 2vw;">0000년 00월 열생산량 및 판매량</div>
+        <div class="title" style="font-size: 5vw; text-align: center; margin-bottom: 2vw;"></div>
     
         <table border="1" style="width: 90%; margin: 0 auto; font-size: 3vw;">
-            <th>구분</th>
+            <th colspan="2">구분</th>
             <th>전년</th>
             <th>계획</th>
             <th>실적</th>
@@ -34,62 +34,125 @@
             <th>전년대비</th>
     
             <tr>
-                <td>외기온도</td>
-                <td>6.1</td>
-                <td>6.1</td>
-                <td>6.1</td>
-                <td>6.1</td>
-                <td>6.1</td>
+                <td colspan="2">외기온도</td>
+                <td class="outsideTemp"></td>
+                <td class="outsideTemp"></td>
+                <td class="outsideTemp"></td>
+                <td class="outsideTemp"></td>
+                <td class="outsideTemp"></td>
             </tr>
             <tr>
-                <td>열생산량</td>
-                <td>314</td>
-                <td>314</td>
-                <td>314</td>
-                <td>314</td>
-                <td>314</td>
+                <td colspan="2">열생산량</td>
+                <td class="heatProd">314</td>
+                <td class="heatProd">314</td>
+                <td class="heatProd">314</td>
+                <td class="heatProd">314</td>
+                <td class="heatProd">314</td>
             </tr>
             <tr>
+                <td rowspan="4">열<br>공<br>급<br>량</td>
                 <td>계</td>
-                <td>315</td>
-                <td>315</td>
-                <td>315</td>
-                <td>315</td>
-                <td>315</td>
+                <td class="amount">315</td>
+                <td class="amount">315</td>
+                <td class="amount">315</td>
+                <td class="amount">315</td>
+                <td class="amount">315</td>
             </tr>
             <tr>
+                
                 <td>자체공급</td>
-                <td>181</td>
-                <td>181</td>
-                <td>181</td>
-                <td>181</td>
-                <td>181</td>
+                <td class="selfSupp">181</td>
+                <td class="selfSupp">181</td>
+                <td class="selfSupp">181</td>
+                <td class="selfSupp">181</td>
+                <td class="selfSupp">181</td>
             </tr>
             <tr>
                 <td>연계공급</td>
-                <td>133</td>
-                <td>133</td>
-                <td>133</td>
-                <td>133</td>
-                <td>133</td>
+                <td class="linkedSupp">133</td>
+                <td class="linkedSupp">133</td>
+                <td class="linkedSupp">133</td>
+                <td class="linkedSupp">133</td>
+                <td class="linkedSupp">133</td>
             </tr>
             <tr>
                 <td>연계수열</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
+                <td class="linkedSeq">-</td>
+                <td class="linkedSeq">-</td>
+                <td class="linkedSeq">-</td>
+                <td class="linkedSeq">-</td>
+                <td class="linkedSeq">-</td>
             </tr>
             <tr>
-                <td>열판매량</td>
-                <td>173</td>
-                <td>173</td>
-                <td>173</td>
-                <td>173</td>
-                <td>173</td>
+                <td colspan="2">열판매량</td>
+                <td class="heatSales">173</td>
+                <td class="heatSales">173</td>
+                <td class="heatSales">173</td>
+                <td class="heatSales">173</td>
+                <td class="heatSales">173</td>
             </tr>
         </table>
     </div>
+
+    <script>
+        const url = "http://localhost:3000/rotate";
+
+        const title = document.querySelector('.title');
+        const timestamp = document.querySelector('.timestamp');
+
+        const outsideTemp = document.querySelectorAll('.outsideTemp');
+        const heatProd = document.querySelectorAll('.heatProd');
+        const amount = document.querySelectorAll('.amount');
+        const selfSupp = document.querySelectorAll('.selfSupp');
+        const linkedSupp = document.querySelectorAll('.linkedSupp');
+        const linkedSeq = document.querySelectorAll('.linkedSeq');
+        const heatSales = document.querySelectorAll('.heatSales');
+
+        function fetchData(json){
+            title.innerHTML = `${json.timestamp}0000년 00월 열생산량 및 판매량`;
+            
+            // 외기온도 데이터 입력
+            outsideTemp.forEach((e, i) => {
+                e.innerHTML = json.data.outsideTemp[i];
+            })
+            // 열생산량 데이터 입력
+            heatProd.forEach((e, i) => {
+                e.innerHTML = json.data.heatProd[i];
+            })
+            // 계 데이터 입력
+            amount.forEach((e, i) => {
+                e.innerHTML = json.data.amount[i];
+            })
+            // 자체공급 데이터 입력
+            selfSupp.forEach((e, i) => {
+                e.innerHTML = json.data.selfSupp[i];
+            })
+            // 연계공급 데이터 입력
+            linkedSupp.forEach((e, i) => {
+                e.innerHTML = json.data.linkedSupp[i];
+            })
+            // 연계수열 데이터 입력
+            linkedSeq.forEach((e, i) => {
+                e.innerHTML = json.data.linkedSeq[i];
+            })
+            // 열판매량 데이터 입력
+            heatSales.forEach((e, i) => {
+                e.innerHTML = json.data.heatSales[i];
+            })
+        }
+
+
+        fetch(url)
+            .then(function (res) {
+                return res.json();
+            })
+            .then(function (json) {
+                if (!json.success) {
+                    alert('서버에서 데이터를 가져오는데 실패하였습니다.');
+                } else{
+                    fetchData(json);
+                }
+            })
+    </script>
 </body>
 </html>
