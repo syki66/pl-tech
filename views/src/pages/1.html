@@ -22,9 +22,12 @@
 </head>
 <body>
     <div>
-        <div class="title" style="font-size: 5vw; text-align: center; margin-bottom: 2vw;"></div>
-    
-        <div class="js-clock">00:00</div>
+        <div class="title" style="font-size: 3vw; text-align: center; margin-bottom: 2vw;">
+            <span class="year"></span><span class="month"></span>열생산량 및 판매량
+            <span class="js-clock"></span>
+        </div>
+        
+        
         <table border="1" style="width: 90%; margin: 0 auto; font-size: 3vw;">
             <th colspan="2">구분</th>
             <th>전년</th>
@@ -35,68 +38,67 @@
     
             <tr>
                 <td colspan="2">외기온도</td>
-                <td class="outsideTemp"></td>
-                <td class="outsideTemp"></td>
-                <td class="outsideTemp"></td>
-                <td class="outsideTemp"></td>
-                <td class="outsideTemp"></td>
+                <td class="outsideTemp">-</td>
+                <td class="outsideTemp">-</td>
+                <td class="outsideTemp">-</td>
+                <td class="outsideTemp">-</td>
+                <td class="outsideTemp">-</td>
             </tr>
             <tr>
                 <td colspan="2">열생산량</td>
-                <td class="heatProd"></td>
-                <td class="heatProd"></td>
-                <td class="heatProd"></td>
-                <td class="heatProd"></td>
-                <td class="heatProd"></td>
+                <td class="heatProd">-</td>
+                <td class="heatProd">-</td>
+                <td class="heatProd">-</td>
+                <td class="heatProd">-</td>
+                <td class="heatProd">-</td>
             </tr>
             <tr>
                 <td rowspan="4">열<br>공<br>급<br>량</td>
                 <td>계</td>
-                <td class="amount"></td>
-                <td class="amount"></td>
-                <td class="amount"></td>
-                <td class="amount"></td>
-                <td class="amount"></td>
+                <td class="amount">-</td>
+                <td class="amount">-</td>
+                <td class="amount">-</td>
+                <td class="amount">-</td>
+                <td class="amount">-</td>
             </tr>
             <tr>
                 
                 <td>자체공급</td>
-                <td class="selfSupp"></td>
-                <td class="selfSupp"></td>
-                <td class="selfSupp"></td>
-                <td class="selfSupp"></td>
-                <td class="selfSupp"></td>
+                <td class="selfSupp">-</td>
+                <td class="selfSupp">-</td>
+                <td class="selfSupp">-</td>
+                <td class="selfSupp">-</td>
+                <td class="selfSupp">-</td>
             </tr>
             <tr>
                 <td>연계공급</td>
-                <td class="linkedSupp"></td>
-                <td class="linkedSupp"></td>
-                <td class="linkedSupp"></td>
-                <td class="linkedSupp"></td>
-                <td class="linkedSupp"></td>
+                <td class="linkedSupp">-</td>
+                <td class="linkedSupp">-</td>
+                <td class="linkedSupp">-</td>
+                <td class="linkedSupp">-</td>
+                <td class="linkedSupp">-</td>
             </tr>
             <tr>
                 <td>연계수열</td>
-                <td class="linkedSeq"></td>
-                <td class="linkedSeq"></td>
-                <td class="linkedSeq"></td>
-                <td class="linkedSeq"></td>
-                <td class="linkedSeq"></td>
+                <td class="linkedSeq">-</td>
+                <td class="linkedSeq">-</td>
+                <td class="linkedSeq">-</td>
+                <td class="linkedSeq">-</td>
+                <td class="linkedSeq">-</td>
             </tr>
             <tr>
                 <td colspan="2">열판매량</td>
-                <td class="heatSales"></td>
-                <td class="heatSales"></td>
-                <td class="heatSales"></td>
-                <td class="heatSales"></td>
-                <td class="heatSales"></td>
+                <td class="heatSales">-</td>
+                <td class="heatSales">-</td>
+                <td class="heatSales">-</td>
+                <td class="heatSales">-</td>
+                <td class="heatSales">-</td>
             </tr>
         </table>
     </div>
 
     <script>
-        const title = document.querySelector('.title');
-        const timestamp = document.querySelector('.timestamp');
+
 
         const outsideTemp = document.querySelectorAll('.outsideTemp'),
               heatProd = document.querySelectorAll('.heatProd'),
@@ -106,9 +108,7 @@
               linkedSeq = document.querySelectorAll('.linkedSeq'),
               heatSales = document.querySelectorAll('.heatSales');
 
-        function paintPageOne(json){
-            title.innerText = `${json.timestamp}0000년 00월 열생산량 및 판매량`;
-            
+        function paintPage(json){
             // 외기온도 데이터 입력
             outsideTemp.forEach((e, i) => {
                 e.innerText = json.data.outsideTemp[i];
@@ -140,10 +140,10 @@
         }
 
         const json = JSON.parse(localStorage.getItem('json'));
-        console.log(json);
 
-        paintPageOne(json);
-        
+        paintPage(json);
+
     </script>
+    <script src="../clock.js"></script>
 </body>
 </html>

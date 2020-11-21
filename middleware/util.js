@@ -3,7 +3,7 @@ var util = {};
 util.successTrue = function (data) {
     return {
         success: true,
-        timestamp: new Date(Date.now()),
+        timestamp: new Date().getTime(),
         data: data
     };
 };
@@ -24,7 +24,7 @@ util.successFalse = function (err, comment) {
 
     return {
         success: false,
-        timestamp: new Date(Date.now()),
+        timestamp: new Date().getTime(),
         data: (err) ? util.parseError(err) : null,
         comment: (comment) ? comment : null
     };
