@@ -17,9 +17,13 @@ function getTime() {
     const seconds = date.getSeconds();
     
     clock.innerText = `${year}-${month}-${today}(${days[day]}) ${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
-    YY.innerText = `${year}년 `;
-    MM.innerText = `${month}월 `
-
+    
+    if (YY){
+        YY.innerText = `${year}년 `;
+    }
+    if (MM){
+        MM.innerText = `${month}월 `;
+    }
     
 }
 
