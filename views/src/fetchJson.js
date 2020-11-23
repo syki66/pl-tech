@@ -1,4 +1,4 @@
-const url = "http://localhost:3000/rotate";
+const url = "http://localhost:3000/home";
 
 function fetchJson(url){
     fetch(url)
