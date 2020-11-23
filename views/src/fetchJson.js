@@ -1,4 +1,4 @@
-const url = "http://localhost:3000/home";
+const url = "http://localhost:3000/home/getfigures";
 
 function fetchJson(url){
     fetch(url)
