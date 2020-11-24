@@ -12,6 +12,26 @@ const app = express();
 
 const routes = require('./routes');
 
+const models = require('./models');
+
+models.sequelize.sync()
+.then(function(){
+    console.log('DB에 연결되었습니다.');
+})
+.catch(function(err){
+    console.error(err);
+    console.log("DB connection error. Please make sure DB is running");
+    process.exit();
+});
+
+// models.User.create({userID:'gogam', password:'123456'})
+// .then(result => {
+//     //res.json(result);
+// })
+// .catch( err => {
+//     console.error(err);
+// })
+
 //environment
 app.set('port', process.env.PORT || 3000);
 app.use(cors());
