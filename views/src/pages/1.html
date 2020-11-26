@@ -18,17 +18,52 @@
             text-align: center;
             padding: 0.7vw;
         }
+        .clock{
+            position: absolute;
+            right: 5.5vw;
+            padding: 2vw;
+            font-size: xx-large;
+            display: flex;
+            padding: 0vw;
+        }
+        .js-clock__1{
+            font-size: 5vw;
+            padding: 0;
+            margin: 0 1vw 0 0;
+        }
+        .js-clock__2{
+            font-size: 1.5vw;
+            padding: 0;
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            
+        }
+        .js-clock__3{
+            font-size: 1.5vw;
+            padding: 0;
+            flex: 1;
+        }
     </style>
 </head>
 <body>
+    <span class="clock">
+        
+        <div class="js-clock__1"></div>
+        <div style="display: flex; flex-direction: column;">
+            <div class="js-clock__2"></div>
+            <div class="js-clock__3"></div>
+        </div>
+    </span>
+
     <div>
-        <div class="title" style="font-size: 3vw; text-align: center; margin-bottom: 2vw;">
+        <div class="title" style="font-size: 3vw; ">
             <span class="year"></span><span class="month"></span>열생산량 및 판매량
-            <span class="js-clock"></span>
         </div>
         
         
-        <table border="1" style="width: 90%; margin: 0 auto; font-size: 3vw;">
+        <table border="1" style="width: 90%; margin: 4vw auto 0vw auto; font-size: 3vw;">
             <th colspan="2">구분</th>
             <th>전년</th>
             <th>계획</th>
