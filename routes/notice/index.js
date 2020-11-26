@@ -5,8 +5,15 @@ const controller = require('./notice.controller');
 const router = express.Router();
 
 
-router.get('/', controller.inputFigures)
+router.get('/', controller.inputFigures);
+
+router.get('/:id', controller.noticeFigures);
+
+router.get('/:id/update', controller.updateNotice);
+
+//router.post('/:id/delete', controller.deleteNotice);
+
 router.get('/writing', controller.writingFigures);
-router.post('/writing/parsing', controller.parsingFigures);
+
 
 module.exports = router;
