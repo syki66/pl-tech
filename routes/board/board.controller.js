@@ -12,7 +12,7 @@ return `
 <body>
 <h2>공지게시판</h2>
   ${list}
-<a href="/writing">dd글작성</a>
+<a href="/manage">관리자설정</a>
 </body>
 </html>
 `
