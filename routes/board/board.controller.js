@@ -50,8 +50,9 @@ function templateList(filelist) {
     return list;
   }
 
-exports.inputFigures = (req, res) =>{
-    console.log('called inputFigures');
+// 전체 공지 리스트 표시
+exports.boardFigures = (req, res) =>{
+    console.log('called boardFigures');
     //res.render('../views/notice.html');
 
     models.Notice.findAll({
