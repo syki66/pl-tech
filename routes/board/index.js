@@ -7,6 +7,8 @@ const router = express.Router();
 // 공지 전체 목록 출력 
 router.get('/', controller.boardFigures);
 
+router.get('/:page', controller.noticeFigures);
+
 // id 값에 해당하는 공지의 contents(내용) 출력
 //router.get('/:id', controller.contentsFigures);
 

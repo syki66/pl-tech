@@ -1,7 +1,8 @@
 const util = require('../../middleware/util');
 const models = require('../../models');
 
-function templateHTML(list){
+// 공지사항 템플릿
+function template_notice(_title, _contents){
 return `
 <!doctype html>
 <html>
@@ -10,38 +11,36 @@ return `
   <meta charset="utf-8">
 </head>
 <body>
-<h2>공지게시판</h2>
-  ${list}
-<a href="/manage">관리자설정</a>
+<h2>${_title}</h2>
+  ${_contents}
+<p><a href="/board">홈으로 돌아가기</a></p>
 </body>
 </html>
-`
-}
+`}
 
-function templateNotice(notice){
-    return  `
-    <!doctype html>
-    <html>
-    <head>
-      <title> ${notice.title} </title>
-      <meta charset="utf-8">
-    </head>
-    <body>
-    <h2>공지게시판</h2>
-      ${notice.contents}
-    <a href="/update">수정</a>
-    </body>
-    </html>
-    `
-}
+// 게시판 템플릿
+function template_board(list){
+  return `
+  <!doctype html>
+  <html>
+  <head>
+    <title> Notice </title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+  <h2>공지사항 게시판</h2>
+    ${list}
+  <a href="/manage">관리자 설정</a>
+  </body>
+  </html>
+  `}
 
+// 공지사항 목록
 function templateList(filelist) {
-
-
     var list = '<ul>';
     var i = 0;
     while (i < filelist.length) {
-      list = list + `<li><a href="/notice/page?id=${filelist[i].id}">${filelist[i].title}</a></li>`;
+      list = list + `<li><a href="/board/${filelist[i].id}">${filelist[i].title}</a></li>`;
       i = i + 1;
   
     }
@@ -50,7 +49,7 @@ function templateList(filelist) {
     return list;
   }
 
-// 전체 공지 리스트 표시
+// 전체 공지 목록 표시
 exports.boardFigures = (req, res) =>{
     console.log('called boardFigures');
     //res.render('../views/notice.html');
@@ -62,7 +61,7 @@ exports.boardFigures = (req, res) =>{
     .then(result=>{
         console.log(result);
         var list = templateList(result);
-        var template = templateHTML(list);
+        var template = template_board(list);
 
         //res.writeHead(200);
         res.end(template);
@@ -70,55 +69,26 @@ exports.boardFigures = (req, res) =>{
 
 }
 
+// 공지사항 페이지 표시
 exports.noticeFigures = (req, res)=>{
     console.log('called noticeFigures');
 
-    console.log(req)
-    // var result = models.Notice.findAll({
-    //     where:{
-    //         id : req.params.id
-    //     },
-    //     attributes : ['title','contents'],
-    //     raw: true
-    // })
-    // .then(result=>{
-    //     var notice = result[0];
-    //     var template = templateNotice(notice);
-        
-    //     res.end(template);
-    // });
+    var _id = req.params.page;
 
-    
-    
-}
+    console.log(_id);
+    models.Notice.findAll({
+      where : {id: _id},
+      attributes: ['title', 'contents'],
+      raw : true
+  })
+  .then(result=>{
+      console.log(result);
+      var _title = result[0].title;
+      var _contents = result[0].contents;
+      var template = template_notice(_title, _contents);
 
-exports.updateNotice = (req,res) =>{
-    console.log('called updateNotice');
-
-}
-
-exports.writingFigures = (req, res) => {
-    console.log('called writingFigures');
-    res.render('../views/writing.html');
-}
-
-exports.createNotice = (req, res) =>{
-    var body = req.body;
-    var _title = body.title;
-    var _contents = body.contents;
-    
-    models.Notice.create({
-        title: _title,
-        contents : _contents
-    })
-    .then(result=>{
-        console.log(result);
-        res.writeHead(302, {Location : '/notice'});
-        res.end('success')
-    })
-    .catch(err=>{
-        console.error(err);
-    })
-
+      //res.writeHead(200);
+      res.end(template);
+  })
 }
 
