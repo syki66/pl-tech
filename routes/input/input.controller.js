@@ -51,13 +51,6 @@ function parsingFigures(path, callback){
                 }
             }
 
-
-            // for (let i = 0; i < parsing.length; i++) {
-            //     parsing[i] = parsing[i].replace(regex, ""); // 한글 제거
-            //     parsing[i] = parsing[i].replace(" ", "") // 공백 제거
-            //     if(parsing[i] === '') console.log(i + '까지\n');
-            //     parsing[i] = parsing[i].split(", ");
-            // }
             console.log(parsing);
 
             let result = figures.firstFigures(parsing);
