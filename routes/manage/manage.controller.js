@@ -13,6 +13,7 @@ function templateHTML(list) {
     <body>
     <h2>공지사항 글 관리</h2>
       ${list}
+    <a href="/board">홈으로 돌아가기</a>
     </body>
     </html>
     `
@@ -52,6 +53,7 @@ function template_edit(_id, _title, _contents) {
       <p><textarea name="contents">${_contents}</textarea></p>
       <p><input type="submit" value="수정"></p>
     </form>
+    <a href="/manage/post">돌아가기</a>
     </body>
     </html>
     `
