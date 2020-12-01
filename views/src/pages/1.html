@@ -5,35 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>carousel 1</title>
     <style>
-        :root {
-            --paddingX: 5vw;
-            --paddingY: 2vw;
-        }
+        /* :root {
+            --paddingX: 11vw;
+            --paddingY: 0vw;
+        } */
         body{
             margin: 0vw;
-            padding: var(--paddingY) var(--paddingX);
-            /* background-color: aqua; */
+            /* padding: var(--paddingY) var(--paddingX); */
+            background-image: url('../images/1.png');
+            background-size: 100%;
         }
         .title{ 
-            font-size: 4vw;
+            font-size: 3vw;
             font-weight: 600;
-            /* background-color: #6a5acd; */
-            margin-bottom: var(--paddingY);
-            
+            background-color: #6a5acd;
+            display: none;
+        }
+        .table__container{
+            position: relative;
+        }
+        table, th, td{
+            border: 2px solid transparent;
+            /* border: 2px solid #444444; */
         }
         table{
+            position: absolute;
+            left: 10.1vw;
+            /* width: 78vw; */
+            top: 11.15vw;
             /* background-color: slategrey; */
-            margin: 0px;
-            width: 100%;
-            margin: 0vw auto;
-            font-size: 3vw;
+
+            font-size: 2vw;
+            border-collapse: separate;
+
+            color: #F4FFFF;
+            text-shadow: 2px 2px 2px black;;
+            font-weight: 600;
+        }
+        th, td{
+            height: 4.02vw;
         }
         th{
-            padding: 0.7vw;
+            /* padding: 0.7vw; */
+            
+            color: #094b3e;
+            text-shadow: black;
         }
         td{
             text-align: center;
-            padding: 0.7vw;
+
+            /* padding: 0.7vw; */
+        }
+        .first__col{
+            width: 17vw;
+        }
+        .row__span{
+            width: 6.3vw;
+        }
+        .other__col{
+            width: 11.4vw;
         }
         .clock{
             position: absolute;
@@ -64,27 +94,26 @@
     </style>
 </head>
 <body>
-    <span class="clock">
+    <!-- <span class="clock">
         <div class="js-clock__1"></div>
         <div style="display: flex; flex-direction: column;">
             <div class="js-clock__2"></div>
             <div class="js-clock__3"></div>
         </div>
-    </span>
+    </span> -->
 
-    <div>
-        <div class="title">
-            • <span class="year"></span><span class="month"></span>열생산량 및 판매량
-        </div>
-        
-        
-        <table border="1">
-            <th colspan="2">구분</th>
-            <th>전년</th>
-            <th>계획</th>
-            <th>실적</th>
-            <th>계획대비</th>
-            <th>전년대비</th>
+    <!-- <div class="title">
+        • <span class="year"></span><span class="month"></span>열생산량 및 판매량
+    </div> -->
+
+    <div class="table__container">    
+        <table>
+            <th colspan="2" class="first__col">구분</th>
+            <th class="other__col">전년</th>
+            <th class="other__col">계획</th>
+            <th class="other__col">실적</th>
+            <th class="other__col">계획대비</th>
+            <th class="other__col">전년대비</th>
     
             <tr>
                 <td colspan="2">외기온도</td>
@@ -103,7 +132,7 @@
                 <td class="heatProd">-</td>
             </tr>
             <tr>
-                <td rowspan="4">열<br>공<br>급<br>량</td>
+                <td rowspan="4" class="row__span">열<br>공<br>급<br>량</td>
                 <td>계</td>
                 <td class="amount">-</td>
                 <td class="amount">-</td>
