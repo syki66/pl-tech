@@ -23,7 +23,6 @@ body {
     height : var(--height);
     width : var(--width);
     transition: transform 0.4s ease-in-out;
-    
 }
 .carousel__item{
     height : var(--height);
