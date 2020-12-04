@@ -10,34 +10,8 @@
             margin: 0vw;
             background-image: url('../images/1.png');
             background-size: 100%;
+            background-repeat:no-repeat;
         }
-        /* .clock{
-            position: absolute;
-            right: var(--paddingX);
-            font-size: xx-large;
-            display: flex;
-            font-weight: 550;
-        }
-        .js-clock__1{
-            font-size: 4vw;
-            background-color: red;
-            padding-right: 1vw;
-        }
-        .js-clock__2{
-            font-size: 1.3vw;
-            flex: 4;
-            display: flex;
-            flex-direction: row;
-            align-items: flex-end;
-            background-color: blue;
-            
-        }
-        .js-clock__3{
-            font-size: 1.3vw;
-            flex: 3;
-            background-color: sandybrown;
-        } */
-
 
         .table__container{
             position: relative;
@@ -85,13 +59,6 @@
     </style>
 </head>
 <body>
-    <!-- <span class="clock">
-        <div class="js-clock__1"></div>
-        <div style="display: flex; flex-direction: column;">
-            <div class="js-clock__2"></div>
-            <div class="js-clock__3"></div>
-        </div>
-    </span> -->
     <div class="clock__container"></div>
 
     <div class="title">
@@ -169,8 +136,6 @@
     </div>
 
     <script>
-
-
         const outsideTemp = document.querySelectorAll('.outsideTemp'),
               heatProd = document.querySelectorAll('.heatProd'),
               amount = document.querySelectorAll('.amount'),

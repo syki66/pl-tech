@@ -1,15 +1,14 @@
 :root {
-    /* --width : 1280px;
-    --height : 720px; */
     --width : 1920px;
     --height : 1080px;
     --btnWidth : 150px;
-    --indicatorWidth: 25px;
-    --indicatorHeight: 5px;
+    --indicatorWidth: 50px;
+    --indicatorHeight: 20px;
 }
 body {
     overflow:hidden;
     margin: 0;
+    background-color: black;
 }
 .carousel{
     position: relative;
@@ -72,7 +71,9 @@ body {
     position: absolute;
     display: flex;
     left: calc((var(--width)) / 2);
-    bottom: var(--indicatorHeight);
+    /* bottom: var(--indicatorHeight); */
+    bottom: 100px;
+    background-color: red;
 }
 
 .carousel__indicator{
