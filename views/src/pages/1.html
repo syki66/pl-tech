@@ -4,29 +4,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>carousel 1</title>
+    <link rel="stylesheet" type="text/css" href="../styles/page.css" />
     <style>
-        /* :root {
-            --paddingX: 11vw;
-            --paddingY: 0vw;
-        } */
         body{
             margin: 0vw;
-            /* padding: var(--paddingY) var(--paddingX); */
             background-image: url('../images/1.png');
             background-size: 100%;
         }
-        .title{ 
-            font-size: 3vw;
-            font-weight: 600;
-            background-color: #6a5acd;
-            display: none;
+        /* .clock{
+            position: absolute;
+            right: var(--paddingX);
+            font-size: xx-large;
+            display: flex;
+            font-weight: 550;
         }
+        .js-clock__1{
+            font-size: 4vw;
+            background-color: red;
+            padding-right: 1vw;
+        }
+        .js-clock__2{
+            font-size: 1.3vw;
+            flex: 4;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            background-color: blue;
+            
+        }
+        .js-clock__3{
+            font-size: 1.3vw;
+            flex: 3;
+            background-color: sandybrown;
+        } */
+
+
         .table__container{
             position: relative;
         }
         table, th, td{
-            border: 2px solid transparent;
-            /* border: 2px solid #444444; */
+            border: 0.105vw solid transparent;
         }
         table{
             position: absolute;
@@ -39,7 +56,7 @@
             border-collapse: separate;
 
             color: #F4FFFF;
-            text-shadow: 2px 2px 2px black;;
+            text-shadow: 0.11vw 0.11vw 0.11vw black;
             font-weight: 600;
         }
         th, td{
@@ -48,8 +65,7 @@
         th{
             /* padding: 0.7vw; */
             
-            color: #094b3e;
-            text-shadow: black;
+            color: rgb(13, 105, 100);
         }
         td{
             text-align: center;
@@ -65,32 +81,7 @@
         .other__col{
             width: 11.4vw;
         }
-        .clock{
-            position: absolute;
-            right: var(--paddingX);
-            font-size: xx-large;
-            display: flex;
-            /* font-weight: 550; */
-        }
-        .js-clock__1{
-            font-size: 4vw;
-            /* background-color: red; */
-            padding-right: 1vw;
-        }
-        .js-clock__2{
-            font-size: 1.3vw;
-            flex: 4;
-            display: flex;
-            flex-direction: row;
-            align-items: flex-end;
-            /* background-color: blue; */
-            
-        }
-        .js-clock__3{
-            font-size: 1.3vw;
-            flex: 3;
-            /* background-color: sandybrown; */
-        }
+
     </style>
 </head>
 <body>
@@ -101,10 +92,11 @@
             <div class="js-clock__3"></div>
         </div>
     </span> -->
+    <div class="clock__container"></div>
 
-    <!-- <div class="title">
-        • <span class="year"></span><span class="month"></span>열생산량 및 판매량
-    </div> -->
+    <div class="title">
+        <span class="year">0000년 </span><span class="month">00월 </span>열생산량 및 판매량
+    </div>
 
     <div class="table__container">    
         <table>
@@ -224,6 +216,6 @@
         paintPage(json);
 
     </script>
-    <script src="../clock.js"></script>
+    <script src="../scripts/clock.js"></script>
 </body>
 </html>
