@@ -1,4 +1,4 @@
-const e = require('express');
+const express = require('express');
 const util = require('../../middleware/util');
 const inputController = require('../input/input.controller');
 
@@ -7,7 +7,7 @@ exports.homepage = (req, res) => {
     res.render('../views/index.html');
 }
 
-exports.responseFigures = (req, res) => {
+exports.responseValues = (req, res) => {
     let data = inputController.parsed;
     if(data === null || data === undefined) {
         const err = new Error('parsed data is not exist!');
