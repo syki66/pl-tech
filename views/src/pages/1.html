@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>carousel 1</title>
+    <title>열생산량 및 판매량</title>
     <link rel="stylesheet" type="text/css" href="../styles/page.css" />
     <style>
         body{
@@ -61,8 +61,8 @@
 <body>
     <div class="clock__container"></div>
 
-    <div class="title">
-        <span class="year">0000년 </span><span class="month">00월 </span>열생산량 및 판매량
+    <div class="title__container">
+        <span class="year">0000년 </span><span class="month">00월 </span><span class="title">열생산량 및 판매량</span>
     </div>
 
     <div class="table__container">    
@@ -75,104 +75,106 @@
             <th class="other__col">전년대비</th>
     
             <tr>
-                <td colspan="2">외기온도</td>
-                <td class="outsideTemp">-</td>
-                <td class="outsideTemp">-</td>
-                <td class="outsideTemp">-</td>
-                <td class="outsideTemp">-</td>
-                <td class="outsideTemp">-</td>
+                <td class="row__0" colspan="2">외기온도</td>
+                <td class="row__0">-</td>
+                <td class="row__0">-</td>
+                <td class="row__0">-</td>
+                <td class="row__0">-</td>
+                <td class="row__0">-</td>
             </tr>
             <tr>
-                <td colspan="2">열생산량</td>
-                <td class="heatProd">-</td>
-                <td class="heatProd">-</td>
-                <td class="heatProd">-</td>
-                <td class="heatProd">-</td>
-                <td class="heatProd">-</td>
+                <td class="row__1" colspan="2">열생산량</td>
+                <td class="row__1">-</td>
+                <td class="row__1">-</td>
+                <td class="row__1">-</td>
+                <td class="row__1">-</td>
+                <td class="row__1">-</td>
             </tr>
             <tr>
                 <td rowspan="4" class="row__span">열<br>공<br>급<br>량</td>
-                <td>계</td>
-                <td class="amount">-</td>
-                <td class="amount">-</td>
-                <td class="amount">-</td>
-                <td class="amount">-</td>
-                <td class="amount">-</td>
+                <td class="row__2">계</td>
+                <td class="row__2">-</td>
+                <td class="row__2">-</td>
+                <td class="row__2">-</td>
+                <td class="row__2">-</td>
+                <td class="row__2">-</td>
             </tr>
             <tr>
                 
-                <td>자체공급</td>
-                <td class="selfSupp">-</td>
-                <td class="selfSupp">-</td>
-                <td class="selfSupp">-</td>
-                <td class="selfSupp">-</td>
-                <td class="selfSupp">-</td>
+                <td class="row__3">자체공급</td>
+                <td class="row__3">-</td>
+                <td class="row__3">-</td>
+                <td class="row__3">-</td>
+                <td class="row__3">-</td>
+                <td class="row__3">-</td>
             </tr>
             <tr>
-                <td>연계공급</td>
-                <td class="linkedSupp">-</td>
-                <td class="linkedSupp">-</td>
-                <td class="linkedSupp">-</td>
-                <td class="linkedSupp">-</td>
-                <td class="linkedSupp">-</td>
+                <td class="row__4">연계공급</td>
+                <td class="row__4">-</td>
+                <td class="row__4">-</td>
+                <td class="row__4">-</td>
+                <td class="row__4">-</td>
+                <td class="row__4">-</td>
             </tr>
             <tr>
-                <td>연계수열</td>
-                <td class="linkedSeq">-</td>
-                <td class="linkedSeq">-</td>
-                <td class="linkedSeq">-</td>
-                <td class="linkedSeq">-</td>
-                <td class="linkedSeq">-</td>
+                <td class="row__5">연계수열</td>
+                <td class="row__5">-</td>
+                <td class="row__5">-</td>
+                <td class="row__5">-</td>
+                <td class="row__5">-</td>
+                <td class="row__5">-</td>
             </tr>
             <tr>
-                <td colspan="2">열판매량</td>
-                <td class="heatSales">-</td>
-                <td class="heatSales">-</td>
-                <td class="heatSales">-</td>
-                <td class="heatSales">-</td>
-                <td class="heatSales">-</td>
+                <td class="row__6" colspan="2">열판매량</td>
+                <td class="row__6">-</td>
+                <td class="row__6">-</td>
+                <td class="row__6">-</td>
+                <td class="row__6">-</td>
+                <td class="row__6">-</td>
             </tr>
         </table>
     </div>
 
     <script>
-        const outsideTemp = document.querySelectorAll('.outsideTemp'),
-              heatProd = document.querySelectorAll('.heatProd'),
-              amount = document.querySelectorAll('.amount'),
-              selfSupp = document.querySelectorAll('.selfSupp'),
-              linkedSupp = document.querySelectorAll('.linkedSupp'),
-              linkedSeq = document.querySelectorAll('.linkedSeq'),
-              heatSales = document.querySelectorAll('.heatSales');
-
+        const title = document.querySelector('.title'),
+              row0 = document.querySelectorAll('.row__0'),
+              row1 = document.querySelectorAll('.row__1'),
+              row2 = document.querySelectorAll('.row__2'),
+              row3 = document.querySelectorAll('.row__3'),
+              row4 = document.querySelectorAll('.row__4'),
+              row5 = document.querySelectorAll('.row__5'),
+              row6 = document.querySelectorAll('.row__6');
+        
         function paintPage(json){
-            // 외기온도 데이터 입력
-            outsideTemp.forEach((e, i) => {
-                // e.innerText = json.data.outsideTemp[i];
-                e.innerText = json.data[0].outsideTemp[i];
+            // 제목
+            title.innerText = json.data[0].itemname;
+            // 외기온도 데이터
+            row0.forEach((e, i) => {
+                e.innerText = json.data[0].row0[i];
             })
-            // 열생산량 데이터 입력
-            heatProd.forEach((e, i) => {
-                e.innerText = json.data[0].heatProd[i];
+            // 열생산량 데이터
+            row1.forEach((e, i) => {
+                e.innerText = json.data[0].row1[i];
             })
-            // 계 데이터 입력
-            amount.forEach((e, i) => {
-                e.innerText = json.data[0].amount[i];
+            // 계 데이터
+            row2.forEach((e, i) => {
+                e.innerText = json.data[0].row2[i];
             })
-            // 자체공급 데이터 입력
-            selfSupp.forEach((e, i) => {
-                e.innerText = json.data[0].selfSupp[i];
+            // 자체공급 데이터
+            row3.forEach((e, i) => {
+                e.innerText = json.data[0].row3[i];
             })
-            // 연계공급 데이터 입력
-            linkedSupp.forEach((e, i) => {
-                e.innerText = json.data[0].linkedSupp[i];
+            // 연계공급 데이터
+            row4.forEach((e, i) => {
+                e.innerText = json.data[0].row4[i];
             })
-            // 연계수열 데이터 입력
-            linkedSeq.forEach((e, i) => {
-                e.innerText = json.data[0].linkedSeq[i];
+            // 연계수열 데이터
+            row5.forEach((e, i) => {
+                e.innerText = json.data[0].row5[i];
             })
-            // 열판매량 데이터 입력
-            heatSales.forEach((e, i) => {
-                e.innerText = json.data[0].heatSales[i];
+            // 열판매량 데이터
+            row6.forEach((e, i) => {
+                e.innerText = json.data[0].row6[i];
             })
         }
 
