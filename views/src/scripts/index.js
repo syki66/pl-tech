@@ -22,10 +22,20 @@ function autoAdjustScreenSize(width, height){
 let pageWidth = autoAdjustScreenSize(screenWidth, screenHeight)[0];
 let pageHeight = autoAdjustScreenSize(screenWidth, screenHeight)[1];
 
-console.log(`현재 모니터의 해상도 : ${pageWidth} x ${pageHeight}`)
+console.log(`현재 모니터의 해상도 : ${screenWidth} x ${screenHeight}`)
+console.log(`슬라이드 출력 해상도 : ${pageWidth} x ${pageHeight}`)
 
 document.documentElement.style.setProperty('--width', `${pageWidth}px`);
 document.documentElement.style.setProperty('--height', `${pageHeight}px`);
 
 
-//
+// vw 정의
+let vw = pageWidth / 100;
+
+// indicator
+document.documentElement.style.setProperty('--navBottomPosition', `${5 * vw}px`);
+document.documentElement.style.setProperty('--indicatorWidth', `${2.5 * vw}px`);
+document.documentElement.style.setProperty('--indicatorHeight', `${1 * vw}px`);
+
+// prev next buttons
+document.documentElement.style.setProperty('--sideBtnWidth', `${5 * vw}px`);
