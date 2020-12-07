@@ -1,9 +1,11 @@
 :root {
     --width : 1920px;
     --height : 1080px;
-    --btnWidth : 150px;
-    --indicatorWidth: 50px;
+    --sideBtnWidth : 100px;
+    --indicatorWidth: 55px;
     --indicatorHeight: 20px;
+    --navBottomPosition: 100px;
+    --arrowWidth: 10px;
 }
 body {
     overflow:hidden;
@@ -15,6 +17,7 @@ body {
     width: var(--width);
     height: var(--height);
     margin: 0 auto;
+    overflow: hidden;
 }
 .carousel__container{
     position: relative;
@@ -22,6 +25,7 @@ body {
     height : var(--height);
     width : var(--width);
     transition: transform 0.4s ease-in-out;
+    
 }
 .carousel__item{
     height : var(--height);
@@ -31,26 +35,25 @@ body {
     position: absolute;
     z-index: 0;
 }
-.carousel__button-prev{
+.carousel__button-prev, .carousel__button-next{
     position: absolute;
     z-index: 1;
     height: var(--height);
-    width: var(--btnWidth);
+    width: var(--sideBtnWidth);
     bottom: calc(var(--height) / 2 - var(--height) / 2);
-    background: linear-gradient( to left, transparent, rgba(0, 0, 0, 0.2) );
-    opacity: 0;
-    transition: opacity .2s;
-}
-.carousel__button-next{
-    position: absolute;
-    z-index: 1;
-    height: var(--height);
-    width: var(--btnWidth);
-    left: calc(var(--width) - var(--btnWidth));
-    bottom: calc(var(--height) / 2 - var(--height) / 2);
-    background: linear-gradient( to right, transparent, rgba(0, 0, 0, 0.2) );
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
+    cursor: pointer;
+    text-align: center;
+
+    display: flex;
+}
+.carousel__button-prev{
+    background: linear-gradient( to left, transparent, rgba(0, 0, 0, 0.3) );
+}
+.carousel__button-next{
+    left: calc(var(--width) - var(--sideBtnWidth));
+    background: linear-gradient( to right, transparent, rgba(0, 0, 0, 0.3) );
 }
 .carousel__button-prev:hover{
     opacity: 1;
@@ -58,22 +61,16 @@ body {
 .carousel__button-next:hover{
     opacity: 1;
 }
-
-/* .carousel__item:nth-child(odd){
-    background-color: aqua;
+.arrow__left, .arrow__right{
+    width: 100%;
+    filter: invert(84%) sepia(27%) saturate(268%) hue-rotate(313deg) brightness(115%) contrast(103%);
 }
-
-.carousel__item:nth-child(even){
-    background-color: pink;
-} */
 
 .carousel__nav{
     position: absolute;
     display: flex;
     left: calc((var(--width)) / 2);
-    /* bottom: var(--indicatorHeight); */
-    bottom: 100px;
-    background-color: red;
+    bottom: var(--navBottomPosition);
 }
 
 .carousel__indicator{
@@ -82,8 +79,8 @@ body {
     width: var(--indicatorWidth);
     height: var(--indicatorHeight);
     border-radius: var(--indicatorHeight);
-
     margin: 4px;
+    cursor: pointer;
 }
 
 .current__carousel{
