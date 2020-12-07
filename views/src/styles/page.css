@@ -1,4 +1,4 @@
-.title{
+.title__container{
     position: absolute;
     font-size: 3vw;
     font-weight: 900;
@@ -13,7 +13,7 @@
     position: absolute;
     right:3.7vw;
     top: 1.1vw;
-    font-size: 2.5vw;
+    font-size: 2.4vw;
     color: snow;
     text-shadow: 0.1vw 0.1vw 0.1vw black;
     font-weight: 900;

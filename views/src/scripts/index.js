@@ -1,4 +1,4 @@
-// 외부 html 파일 div 내부로 임포트하기
+// 외부 html 파일 div 내부로 임포트하기 // 여기서 슬라이드 순서 변경 가능
 document.querySelectorAll('.carousel__item').forEach((e,i)=>{
     e.innerHTML=`<object type="text/html" data="src/pages/${i+1}.html" ></object>`;
 });
@@ -22,8 +22,7 @@ function autoAdjustScreenSize(width, height){
 let pageWidth = autoAdjustScreenSize(screenWidth, screenHeight)[0];
 let pageHeight = autoAdjustScreenSize(screenWidth, screenHeight)[1];
 
-console.log(pageWidth)
-console.log(pageHeight)
+console.log(`현재 모니터의 해상도 : ${pageWidth} x ${pageHeight}`)
 
 document.documentElement.style.setProperty('--width', `${pageWidth}px`);
 document.documentElement.style.setProperty('--height', `${pageHeight}px`);
