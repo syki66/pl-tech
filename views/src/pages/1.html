@@ -135,54 +135,8 @@
         </table>
     </div>
 
-    <script>
-        const title = document.querySelector('.title'),
-              row0 = document.querySelectorAll('.row__0'),
-              row1 = document.querySelectorAll('.row__1'),
-              row2 = document.querySelectorAll('.row__2'),
-              row3 = document.querySelectorAll('.row__3'),
-              row4 = document.querySelectorAll('.row__4'),
-              row5 = document.querySelectorAll('.row__5'),
-              row6 = document.querySelectorAll('.row__6');
-        
-        function paintPage(json){
-            // 제목
-            title.innerText = json.data[0].itemname;
-            // 외기온도 데이터
-            row0.forEach((e, i) => {
-                e.innerText = json.data[0].row0[i];
-            })
-            // 열생산량 데이터
-            row1.forEach((e, i) => {
-                e.innerText = json.data[0].row1[i];
-            })
-            // 계 데이터
-            row2.forEach((e, i) => {
-                e.innerText = json.data[0].row2[i];
-            })
-            // 자체공급 데이터
-            row3.forEach((e, i) => {
-                e.innerText = json.data[0].row3[i];
-            })
-            // 연계공급 데이터
-            row4.forEach((e, i) => {
-                e.innerText = json.data[0].row4[i];
-            })
-            // 연계수열 데이터
-            row5.forEach((e, i) => {
-                e.innerText = json.data[0].row5[i];
-            })
-            // 열판매량 데이터
-            row6.forEach((e, i) => {
-                e.innerText = json.data[0].row6[i];
-            })
-        }
-
-        const json = JSON.parse(localStorage.getItem('json'));
-
-        paintPage(json);
-
-    </script>
+    <script>const pageNum = 1;</script>
+    <script src="../scripts/paintPage.js"></script>
     <script src="../scripts/clock.js"></script>
 </body>
 </html>

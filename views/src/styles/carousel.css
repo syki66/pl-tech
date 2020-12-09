@@ -5,7 +5,6 @@
     --indicatorWidth: 55px;
     --indicatorHeight: 20px;
     --navBottomPosition: 100px;
-    --arrowWidth: 10px;
 }
 body {
     overflow:hidden;
