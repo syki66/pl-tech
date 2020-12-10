@@ -1,63 +1,7 @@
 const util = require('../../middleware/util');
 const models = require('../../models');
+const template = require('../../lib/template');
 
-
-function templateHTML(list) {
-    return `
-    <!doctype html>
-    <html>
-    <head>
-      <title> Notice </title>
-      <meta charset="utf-8">
-    </head>
-    <body>
-    <h2>공지사항 글 관리</h2>
-      ${list}
-    <a href="/board">홈으로 돌아가기</a>
-    </body>
-    </html>
-    `
-}
-
-function templateList(datalist) {
-
-    var list = '<ul>';
-    var i = 0;
-    while (i < datalist.length) {
-        list = list + `<li><a href="/manage/newnotice/${datalist[i].id}">${datalist[i].title}</a>
-          <form action="/manage/newnotice/delete_process" method="post">
-              <input type="hidden" name="id" value="${datalist[i].id}">
-              <input type="submit" value="삭제">
-             </form></li>`;
-        i = i + 1;
-
-    }
-    list = list + '</ul>';
-
-    return list;
-}
-
-function template_edit(_id, _title, _contents) {
-    return `
-    <!doctype html>
-    <html>
-    <head>
-      <title> Edit </title>
-      <meta charset="utf-8">
-    </head>
-    <body>
-    <form action ="/manage/newnotice/update_process" method="post"> 
-    <input type="hidden" name="id" value="${_id}"> 
-    
-      <h2>${_title}</h2>
-      <p><textarea name="contents">${_contents}</textarea></p>
-      <p><input type="submit" value="수정"></p>
-    </form>
-    <a href="/manage/post">돌아가기</a>
-    </body>
-    </html>
-    `
-}
 
 // 관리자 설정 페이지 표시
 exports.manageFigures = (req, res) => {
@@ -89,7 +33,7 @@ exports.editFigures = (req, res) => {
       var _title = result[0].title;
       var _contents = result[0].contents;
       console.log(_title);
-      var template = template_edit(_id, _title, _contents);
+      var template = template.m_edit(_id, _title, _contents);
 
       //res.writeHead(200);
       res.end(template);
@@ -158,11 +102,8 @@ exports.postFigures = (req, res) => {
         raw: true
     })
         .then(result => {
-            console.log(result);
-            var list = templateList(result);
-            var template = templateHTML(list);
 
             //res.writeHead(200);
-            res.end(template);
+            res.end(template.m_board(template.m_noticeList(result)));
         })
 }
