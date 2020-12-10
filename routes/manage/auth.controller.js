@@ -27,27 +27,33 @@ exports.loginProcess = (req, res) => {
 
     models.Manager.findAll({
         attributes: ['manager_id', 'password'],
-        where: {manager_id:id},
+        where: { manager_id: id },
         raw: true
     })
         .then(result => {
-            var result_id = result[0].manager_id;
-            var hash = result[0].password;
-            bcrypt.compare(password, hash, function(err, correspond) {
-                // result == true
-                if (id === result_id && correspond) {
-                    //success!
-                    req.session.is_logined = true;
-                    req.session.nickname = id;
-                    req.session.save(function () {
-                        console.log('로그인 성공!');
-                        res.redirect('/manage');
-                    })
-                } else {
-                    res.send('Who?');
-                }
-            });
-            
+            console.log(result);
+            if (result.length !== 0) {
+                var result_id = result[0].manager_id;
+                var hash = result[0].password;
+                bcrypt.compare(password, hash, function (err, correspond) {
+                    // result == true
+                    if (id === result_id && correspond) {
+                        //success!
+                        req.session.is_logined = true;
+                        req.session.nickname = id;
+                        req.session.save(function () {
+                            console.log('로그인 성공!');
+                            res.redirect('/manage');
+                        })
+                    } else {
+                        res.send('비밀번호가 틀렸습니다');
+                    }
+                });
+
+            } else {
+                res.send('아이디가 존재하지 않습니다.');
+            }
+
         })
 }
 
@@ -75,7 +81,6 @@ exports.registerProcess = (req, res) => {
 
     if(password === confirm){
         bcrypt.hash(password, saltRounds, function(err, hash) {
-            // Store hash in your password DB.
             models.Manager.create({
                 manager_id: id,
                 password: hash
