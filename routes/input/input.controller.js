@@ -1,7 +1,7 @@
 //controller.js : api 동작 코드
 const fs = require('fs');
 const Iconv = require('iconv').Iconv;
-const values = require('../../models/values');
+const values = require('../../value/values');
 const util = require('../../middleware/util');
 const { reject } = require('async');
 const DCSPath = 'DCS_val.csv';
