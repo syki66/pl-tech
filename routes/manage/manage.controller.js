@@ -32,11 +32,9 @@ exports.editFigures = (req, res) => {
       var _id = result[0].id;
       var _title = result[0].title;
       var _contents = result[0].contents;
-      console.log(_title);
-      var template = template.m_edit(_id, _title, _contents);
 
       //res.writeHead(200);
-      res.end(template);
+      res.end(template.m_edit(_id, _title, _contents));
   })
 }
 

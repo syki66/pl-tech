@@ -31,15 +31,6 @@ router.post('/newnotice/update_process', controller.updateNotice);
 // 글 삭제 처리 프로세스
 router.post('/newnotice/delete_process', controller.deleteNotice);
 
-router.get('/auth', function (req, res, next) {
-    if(req.session.num === undefined){
-        req.session.num = 1;
-    } else{
-        req.session.num = req.session.num +1;
-    }
-    res.send(`Views : ${req.session.num}`);
-})
-
 // 세션 생성
 router.use('/auth',session({
     secret: 'keyboard cat',
@@ -47,6 +38,7 @@ router.use('/auth',session({
     saveUninitialized: true,
     store:new FileStore()
   }))
+
 
 // 로그인 페이지
 router.get('/auth/login', auth_controller.loginFigures);
@@ -59,5 +51,11 @@ router.get('/auth/logout', auth_controller.logoutMessage);
 
 // 로그아웃 처리 프로세스
 router.get('/auth/logout_process', auth_controller.logoutProcess);
+
+// 관리자 등록 페이지
+router.get('/auth/register', auth_controller.registerFigures);
+
+// 관리자 등록 처리 프로세스
+router.post('/auth/register_process', auth_controller.registerProcess);
 
 module.exports = router;

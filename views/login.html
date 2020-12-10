@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+
+<head>
+    <title> Login </title>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <h2>관리자 페이지 로그인</h2>
+    <form action="/manage/auth/login_process" method="post">
+        <p><input type="text" name="id" placeholder="아이디"></p>
+        <p><input type="password" name="password" placeholder="비밀번호"></p>
+        <p><input type="submit" value="로그인"></p>
+        <a href="/manage/auth/register">새 관리자 등록</a>
+    </form>
+</body>
+
+</html>
