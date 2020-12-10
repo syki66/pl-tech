@@ -1,11 +1,11 @@
 const express = require('express');
 const http = require('http');
+const https = require('https');
 const path = require('path');
+const axios = require('axios');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-//static 미들웨어는 특정 폴더의 파일들을 특정 패스로 접근할 수 있도록 만들어줍니다. 
-const static = require('serve-static');
 const util = require('./middleware/util');
 
 var app = express()
@@ -35,9 +35,13 @@ app.use(cookieParser());
 app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 //이 코드는 /views 폴더 안에 있는 파일들을 클라이언트에서 바로 접근할 수 있게 합니다.
-// app.use('/', static(path.join(__dirname, 'views')));
+app.use('/', express.static(path.join(__dirname, '/views')));
 
 let ip = 'localhost';
+<<<<<<< HEAD
+=======
+axios.defaults.baseURL = ip;
+>>>>>>> df782bb885257dc6ae535b901a77a5c9d0798660
 
 //router setting
 app.use('/', routes);
@@ -54,7 +58,7 @@ let server = http.createServer(app);
 
 //single thread server
 server.listen(app.get('port'), ip, function () {
-    // console.log('ip : ' + ip + ' | port : ' + app.get('port'));
+    console.log('ip : ' + ip + ' | port : ' + app.get('port'));
     console.log('server is running');
 });
 
