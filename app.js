@@ -8,7 +8,7 @@ const cors = require('cors');
 const static = require('serve-static');
 const util = require('./middleware/util');
 
-const app = express();
+var app = express()
 
 const routes = require('./routes');
 
