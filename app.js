@@ -38,10 +38,7 @@ app.engine('html', require('ejs').renderFile);
 app.use('/', express.static(path.join(__dirname, '/views')));
 
 let ip = 'localhost';
-<<<<<<< HEAD
-=======
 axios.defaults.baseURL = ip;
->>>>>>> df782bb885257dc6ae535b901a77a5c9d0798660
 
 //router setting
 app.use('/', routes);
