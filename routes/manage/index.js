@@ -3,11 +3,12 @@ const express = require('express');
 const controller = require('./manage.controller');
 const auth_controller = require('./auth.controller');
 const router = express.Router();
-var bodyParser = require('body-parser');
+const session = require('express-session');
+const MySQLStore = require('express-mysql-session')(session);
+const bodyParser = require('body-parser');
 
 // session
-var session = require('express-session')
-var FileStore = require('session-file-store')(session);
+// var FileStore = require('session-file-store')(session);
 
 
 // 관리자 페이지
@@ -32,11 +33,18 @@ router.post('/newnotice/update_process', controller.updateNotice);
 router.post('/newnotice/delete_process', controller.deleteNotice);
 
 // 세션 생성
+
 router.use('/auth',session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
-    store:new FileStore()
+    store:new MySQLStore({
+        host: 'localhost',
+        port: 3306,
+        user: 'root',
+        password: 'rkawk35088',
+        database: 'pl-tech'
+    })
   }))
 
 

@@ -4,13 +4,6 @@ const models = require('../../models');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-var authData =  {
-    id : 'tpgus2303',
-    password : '111111',
-    nickname : 'gogam'
-}
-
-
 
 exports.loginFigures = (req, res) => {
     if(req.session.is_logined){
