@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>carousel 3</title>
+    <title>대기오염정보 관리시스템</title>
     <link rel="stylesheet" type="text/css" href="../styles/page.css" />
     <style>
         body{
@@ -12,64 +12,92 @@
             background-size: 100%;
             background-repeat:no-repeat;
         }
+        .table__container{
+            position: relative;
+        }
+        table, th, td{
+            border: 0.105vw solid transparent;
+        }
+        
         table{
-            margin-top: 2vw;
-        }
-        td{
+            position: absolute;
+
+            font-size: 2.5vw;
+            text-shadow: 0.11vw 0.11vw 0.11vw black;
+            font-weight: 900;
+
+            left: 34vw;
+            top: 11.6vw;
+
             text-align: center;
-            padding: 1vw;
+            color: white;
+
         }
-        .image{
-            padding: 0vw 3vw 0vw 3vw;
-            width: 20%;
+        tr > td:nth-child(1){
+            width: 14.6vw;
+        }
+        tr > td:nth-child(2){
+            width: 16vw;
+            font-size: 3.5vw;
+        }
+        tr > td:nth-child(3){
+            width: 15.35vw;
+        }
+        tr > td:nth-child(4){
+            width: 14.6vw;
+        }
+        tr:nth-child(1){
+            height: 7.7vw;
+        }
+        tr:nth-child(2){
+            height: 8.85vw;
+        }
+        tr:nth-child(3){
+            height: 8.85vw;
+        }
+        tr:nth-child(4){
+            height: 8.85vw;
         }
     </style>
 </head>
 <body>
+    <div class="clock__container"></div>
 
-    <div>
-        <div class="title" style="font-size: 3vw; margin-bottom: 2vw;">
-            전일 열공급 및 판매실적
-        </div>
-
-        <div style="display: flex; padding: 2vw;">
-            <div class="image">
-                <img style="flex: 1; width: 100%;" src="https://www.thesun.co.uk/wp-content/uploads/2020/06/NINTCHDBPICT000586749878.jpg?w=620" />
-            </div>
-
-            <table border="1" style="width: 40%; margin: 0 auto; font-size: 3vw; flex: 3;">
-                <td>구분</td>
-                <td>운전수치</td>
-                <td>사내규제치</td>
-                <td>법정규제치</td>
-
-                <tr>
-                    <td>Nox<br><span style="font-size: 2vw;">(ppm)</span></td>
-                    <td>220</td>
-                    <td>225</td>
-                    <td>250</td>
-                </tr>
-                <tr>
-                    <td>Sox<br><span style="font-size: 2vw;">(ppm)</span></td>
-                    <td>120</td>
-                    <td>130</td>
-                    <td>180</td>
-                </tr>
-                <tr>
-                    <td>Dust<br><span style="font-size: 2vw;">(µg/Sm³)</span></td>
-                    <td>220</td>
-                    <td>225</td>
-                    <td>250</td>
-                </tr>
-            </table>
-        </div>
+    <div class="title__container">
+        <span class="title">대기오염정보 관리시스템</span>
     </div>
 
+    <div class="table__container">    
+        <table>
+            <tr>
+                <td class="category">구분</td>
+                <td class="category">운전수치</td>
+                <td class="category">사내규제치</td>
+                <td class="category">법정규제치</td>
+            </tr>
+            <tr>
+                <td class="row__0">Nox</td>
+                <td class="row__0">-</td>
+                <td class="row__0">-</td>
+                <td class="row__0">-</td>
+            </tr>
+            <tr>
+                <td class="row__1">Sox</td>
+                <td class="row__1">-</td>
+                <td class="row__1">-</td>
+                <td class="row__1">-</td>
+            </tr>
+            <tr>
+                <td class="row__2">Dust</td>
+                <td class="row__2">-</td>
+                <td class="row__2">-</td>
+                <td class="row__2">-</td>
+            </tr>
+        </table>
 
-
-
-
+    </div>
+    <script>const pageNum = 3;</script>
+    <script src="../scripts/paintPage.js"></script>
     <script src="../scripts/clock.js"></script>
 </body>
-
 </html>
