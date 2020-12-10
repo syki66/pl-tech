@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>carousel 4</title>
+    <title>크리티컬포인트 운영현황1</title>
     <link rel="stylesheet" type="text/css" href="../styles/page.css" />
     <style>
         body{
@@ -12,9 +12,149 @@
             background-size: 100%;
             background-repeat:no-repeat;
         }
+        .table__container{
+            position: relative;
+        }
+        table, th, td{
+            border: 0.105vw solid transparent;
+        }
+        table{
+            position: absolute;
+
+            text-align: right;
+            font-weight: 900;
+            text-shadow: 0.11vw 0.11vw 0.11vw black;
+            color: white;
+            font-size: 2.4vw;
+
+            top: 9.5vw;
+            left: 14vw;
+
+            /* 오버플로우 방지 */
+            table-layout: fixed;
+            width: 0vw;
+            word-break: keep-all;
+        }
+        .row__0, .row__1, .row__2, .row__3, .row__4, .row__5, .row__6{
+            margin-right:1vw;
+        }
+        tr > td:nth-child(1){
+            /* width: 14.6vw; */
+            width: 15.75vw;
+            color: #B7D1EC;
+            font-size: 1.8vw;
+        }
+        tr > td:nth-child(2){
+            width: 13vw;
+        }
+        tr > td:nth-child(3){
+            width: 13.05vw;
+        }
+        tr > td:nth-child(4){
+            width: 13.05vw;
+        }
+        tr > td:nth-child(5){
+            width: 13vw;
+        }
+        tr > td:nth-child(6){
+            width: 13.25vw;
+        }
+        tr:nth-child(1){
+            height: 5.35vw;
+            color: #14316D;
+            text-align: center;
+            font-size: 1.8vw;
+        }
+        tr:nth-child(2){
+            height: 4.8vw;
+        }
+        tr:nth-child(3){
+            height: 4.8vw;
+        }
+        tr:nth-child(4){
+            height: 4.7vw;
+        }
+        tr:nth-child(5){
+            height: 4.8vw;
+        }
+        tr:nth-child(6){
+            height: 4.8vw;
+        }
+        tr:nth-child(7){
+            height: 4.8vw;
+        }
     </style>
 </head>
 <body>
+    <div class="clock__container"></div>
 
+    <div class="title__container">
+        <span class="title">크리티컬포인트 운영현황1</span>
+    </div>
+
+    <div class="table__container">
+        <table>
+            <tr>
+                <td></td>
+                <td class="category">공급온도</td>
+                <td class="category">회수온도</td>
+                <td class="category">공급압력</td>
+                <td class="category">회수압력</td>
+                <td class="category">차압</td>
+            </tr>
+            <tr>
+                <td><span class="row__0">삼부 수진</span></td>
+                <td><span class="row__0">-</span></td>
+                <td><span class="row__0">-</span></td>
+                <td><span class="row__0">-</span></td>
+                <td><span class="row__0">-</span></td>
+                <td><span class="row__0">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="row__1">야탑 SK-VIEW</span></td>
+                <td><span class="row__1">-</span></td>
+                <td><span class="row__1">-</span></td>
+                <td><span class="row__1">-</span></td>
+                <td><span class="row__1">-</span></td>
+                <td><span class="row__1">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="row__2">탑마을 선경</span></td>
+                <td><span class="row__2">-</span></td>
+                <td><span class="row__2">-</span></td>
+                <td><span class="row__2">-</span></td>
+                <td><span class="row__2">-</span></td>
+                <td><span class="row__2">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="row__3">탑마을 선경</span></td>
+                <td><span class="row__3">-</span></td>
+                <td><span class="row__3">-</span></td>
+                <td><span class="row__3">-</span></td>
+                <td><span class="row__3">-</span></td>
+                <td><span class="row__3">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="row__4">탑마을 선경</span></td>
+                <td><span class="row__4">-</span></td>
+                <td><span class="row__4">-</span></td>
+                <td><span class="row__4">-</span></td>
+                <td><span class="row__4">-</span></td>
+                <td><span class="row__4">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="row__5">탑마을 선경</span></td>
+                <td><span class="row__5">-</span></td>
+                <td><span class="row__5">-</span></td>
+                <td><span class="row__5">-</span></td>
+                <td><span class="row__5">-</span></td>
+                <td><span class="row__5">-</span></td>
+            </tr>
+        </table>
+
+    </div>
+    <script>const pageNum = 4;</script>
+    <script src="../scripts/paintPage.js"></script>
+    <script src="../scripts/clock.js"></script>
 </body>
 </html>
