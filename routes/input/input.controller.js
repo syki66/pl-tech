@@ -1,59 +1,115 @@
 //controller.js : api 동작 코드
-
+const fs = require('fs');
+const Iconv = require('iconv').Iconv;
+const values = require('../../models/values');
 const util = require('../../middleware/util');
-const figures = require('../../models/figures.json');
-const multer = require('multer');
-const upload = multer({dest: '../../figures'}); // 업로드 경로 설정
+const { reject } = require('async');
+const DCSPath = 'DCS_val.csv';
 
-exports.inputFigures = (req, res) => {
-    console.log('called inputFigures');
-    res.render('../views/input.html');
+
+function parsingValues(path, callback){
+    let encode = new Iconv('euc-kr', 'utf-8'); // csv 파일을 그냥 읽어오면 한글이 깨지기 때문에 인코딩 필요
+
+    fs.readFile(path, async (err, data) => {
+        if (err) {
+            console.dir(err);
+            console.log('파일 읽기 실패.\n');
+            callback(err, null);
+        }
+        else {
+            console.log('파일 읽기 성공.');
+
+            let content = encode.convert(data); // euc-kr => utf-8로 컨버팅
+            data = content.toString('utf-8'); // 컨버팅 데이터 utf-8 문자열로 변환
+
+            let hangle = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g; // 한글 정규식
+            let special = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/gi; // 특수문자 정규식
+
+            let parsing = data.split('\r\n'); // 행으로 나누어줌
+
+            console.log(parsing);
+
+
+            for (let i = 0; i < parsing.length; ++i) {
+                if(parsing[i][0] === '*') {
+                    parsing[i] = await removeSpecial(parsing[i]);
+                } 
+                else {
+                    // parsing[i] = await removeLetters(parsing[i]);
+                    parsing[i] = await removeSpecial(parsing[i]);
+                }
+            }
+
+            for (let i = 0; i < parsing.length; ++i) {
+                if(parsing[i] == ''){
+                    parsing.splice(i, 1);
+                }
+            }
+
+            for (let i = 0; i < parsing.length; ++i) {
+                parsing[i] = parsing[i].split(",");
+            }
+
+
+            console.log(parsing);
+
+            let result = values.valuesToJson(parsing)
+
+            callback(null, result);
+        }
+    });
 }
 
-exports.parsingFigures = (req, res) => {
-    console.log('called parsingFigures');
-    let figureFile = req.file;
-    console.log(figureFile);
+const removeLetters = (str) => {
+    return new Promise((resolve, reject) => {
+        try {
+            let kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g; // 한글 정규식
+            let eng = /[a-zA-Z]/g; 
+            str = str.replace(kor, ""); // 한글 제거
+            str = str.replace(eng, ""); // 한글 제거
+            resolve(str);
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+ 
+const removeSpecial = (str) => {
+    return new Promise((resolve, reject) => {
+        try {
+            let i;
+            for (i = 0; i < str.length; ++i) {
+                let special = /[\{\}\[\]\/?.,;:|\)~`!^\_+<>@\#$%&\\\=\(\'\"]/gi; // 특수문자 정규식
+                if (!special.test(str[i])) break;
+            }
+    
+            str = str.substring(i, str.length);
+            for (i = str.length - 1; i >= 0; --i) {
+                let special = /[\{\}\[\]\/?.,;:|\)~`!^\_+<>@\#$%&\\\=\(\'\"]/gi; // 특수문자 정규식
+                if (!special.test(str[i])) break;
+            }
+
+            str = str.substring(0, i + 1);
+
+            resolve(str);
+        } catch (error) {
+            reject(error);
+        }
+    });
 }
 
-//window.onload = function(){} 함수는 웹브라우저의 모든 구성요소에 대한 로드가 끝났을 때 브라우저에 의해서 호출되는 함수
-// window.onload = function () {
-//     const input = document.querySelector('#file_uploads');
-//     const preview = document.querySelector('#preview');
-
-//     //input에 'change' 이벤트가 발생(파일 선택)되면 showTextFile 함수를 실행
-//     input.addEventListener('change', function () {
-//         const selectedFiles = input.files;
-//         const list = document.createElement('ul');
-//         preview.appendChild(list);
+parsingValues(DCSPath, (err, data) =>{
+    exports.parsed = data;
+});
 
 
-//         // 선택된 파일 목록에서 파일을 하나씩 꺼내온다.
-//         for (const file of selectedFiles) {
-//             const listItem = document.createElement('li');
+(async () => { // 파일 수정시 읽어오기, 상시 동작
+    fs.watchFile(DCSPath, (curr, prev) => {
+        console.log('File modification detected.');
+        parsingValues(DCSPath, (err, data) =>{
+            exports.parsed = data;
+        });
+    })
+})();
 
-//             if (validFileType(file)) {
-//                 const textContents = document.createElement('div');
-//                 let reader = new FileReader();
-//                 reader.onload = function () {
-//                     textContents.innerText = reader.result;
-//                 };
-//                 reader.readAsText(file, "UTF-8");
-//                 listItem.appendChild(textContents);
-//             } else {
-//                 const message = document.createElement('div');
-//                 message.textContent = `파일명 ${file.name}: .txt 파일을 선택하세요`;
-//                 listItem.appendChild(message);
-//             }
-//             list.appendChild(listItem);
-//         }
-//     });
 
-//     const fileTypes = [
-//         'text/plain',
-//     ];
-
-//     function validFileType(file) {
-//         return fileTypes.includes(file.type);
-//     }
-// }

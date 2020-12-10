@@ -1,0 +1,87 @@
+:root {
+    --width : 1920px;
+    --height : 1080px;
+    --sideBtnWidth : 100px;
+    --indicatorWidth: 55px;
+    --indicatorHeight: 20px;
+    --navBottomPosition: 100px;
+}
+body {
+    overflow:hidden;
+    margin: 0;
+    background-color: black;
+}
+.carousel{
+    position: relative;
+    width: var(--width);
+    height: var(--height);
+    margin: 0 auto;
+    overflow: hidden;
+}
+.carousel__container{
+    position: relative;
+    margin: 0 auto;
+    height : var(--height);
+    width : var(--width);
+    transition: transform 0.4s ease-in-out;
+    
+}
+.carousel__item{
+    height : var(--height);
+    width : var(--width);
+    text-align: center;
+    font-size: xx-large;
+    position: absolute;
+    z-index: 0;
+}
+.carousel__button-prev, .carousel__button-next{
+    position: absolute;
+    z-index: 1;
+    height: var(--height);
+    width: var(--sideBtnWidth);
+    bottom: calc(var(--height) / 2 - var(--height) / 2);
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    cursor: pointer;
+    text-align: center;
+
+    display: flex;
+}
+.carousel__button-prev{
+    background: linear-gradient( to left, transparent, rgba(0, 0, 0, 0.3) );
+}
+.carousel__button-next{
+    left: calc(var(--width) - var(--sideBtnWidth));
+    background: linear-gradient( to right, transparent, rgba(0, 0, 0, 0.3) );
+}
+.carousel__button-prev:hover{
+    opacity: 1;
+}
+.carousel__button-next:hover{
+    opacity: 1;
+}
+.arrow__left, .arrow__right{
+    width: 100%;
+    filter: invert(84%) sepia(27%) saturate(268%) hue-rotate(313deg) brightness(115%) contrast(103%);
+}
+
+.carousel__nav{
+    position: absolute;
+    display: flex;
+    left: calc((var(--width)) / 2);
+    bottom: var(--navBottomPosition);
+}
+
+.carousel__indicator{
+    flex: 1;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: var(--indicatorWidth);
+    height: var(--indicatorHeight);
+    border-radius: var(--indicatorHeight);
+    margin: 4px;
+    cursor: pointer;
+}
+
+.current__carousel{
+    background-color: rgba(0, 0, 0, 0.6);
+}

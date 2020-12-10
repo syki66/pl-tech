@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>열생산량 및 판매량</title>
+    <link rel="stylesheet" type="text/css" href="../styles/page.css" />
+    <style>
+        body{
+            margin: 0vw;
+            background-image: url('../images/1.png');
+            background-size: 100%;
+            background-repeat:no-repeat;
+        }
+
+        .table__container{
+            position: relative;
+        }
+        table, th, td{
+            border: 0.105vw solid transparent;
+        }
+        table{
+            position: absolute;
+            left: 10.1vw;
+            /* width: 78vw; */
+            top: 11.15vw;
+            /* background-color: slategrey; */
+
+            font-size: 2vw;
+            border-collapse: separate;
+
+            color: #F4FFFF;
+            text-shadow: 0.11vw 0.11vw 0.11vw black;
+            font-weight: 600;
+        }
+        th, td{
+            height: 4.02vw;
+        }
+        th{
+            /* padding: 0.7vw; */
+            
+            color: rgb(13, 105, 100);
+        }
+        td{
+            text-align: center;
+
+            /* padding: 0.7vw; */
+        }
+        .first__col{
+            width: 17vw;
+        }
+        .row__span{
+            width: 6.3vw;
+        }
+        .other__col{
+            width: 11.4vw;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="clock__container"></div>
+
+    <div class="title__container">
+        <span class="year">0000년 </span><span class="month">00월 </span><span class="title">열생산량 및 판매량</span>
+    </div>
+
+    <div class="table__container">    
+        <table>
+            <th colspan="2" class="first__col">구분</th>
+            <th class="other__col">전년</th>
+            <th class="other__col">계획</th>
+            <th class="other__col">실적</th>
+            <th class="other__col">계획대비</th>
+            <th class="other__col">전년대비</th>
+    
+            <tr>
+                <td class="row__0" colspan="2">외기온도</td>
+                <td class="row__0">-</td>
+                <td class="row__0">-</td>
+                <td class="row__0">-</td>
+                <td class="row__0">-</td>
+                <td class="row__0">-</td>
+            </tr>
+            <tr>
+                <td class="row__1" colspan="2">열생산량</td>
+                <td class="row__1">-</td>
+                <td class="row__1">-</td>
+                <td class="row__1">-</td>
+                <td class="row__1">-</td>
+                <td class="row__1">-</td>
+            </tr>
+            <tr>
+                <td rowspan="4" class="row__span">열<br>공<br>급<br>량</td>
+                <td class="row__2">계</td>
+                <td class="row__2">-</td>
+                <td class="row__2">-</td>
+                <td class="row__2">-</td>
+                <td class="row__2">-</td>
+                <td class="row__2">-</td>
+            </tr>
+            <tr>
+                
+                <td class="row__3">자체공급</td>
+                <td class="row__3">-</td>
+                <td class="row__3">-</td>
+                <td class="row__3">-</td>
+                <td class="row__3">-</td>
+                <td class="row__3">-</td>
+            </tr>
+            <tr>
+                <td class="row__4">연계공급</td>
+                <td class="row__4">-</td>
+                <td class="row__4">-</td>
+                <td class="row__4">-</td>
+                <td class="row__4">-</td>
+                <td class="row__4">-</td>
+            </tr>
+            <tr>
+                <td class="row__5">연계수열</td>
+                <td class="row__5">-</td>
+                <td class="row__5">-</td>
+                <td class="row__5">-</td>
+                <td class="row__5">-</td>
+                <td class="row__5">-</td>
+            </tr>
+            <tr>
+                <td class="row__6" colspan="2">열판매량</td>
+                <td class="row__6">-</td>
+                <td class="row__6">-</td>
+                <td class="row__6">-</td>
+                <td class="row__6">-</td>
+                <td class="row__6">-</td>
+            </tr>
+        </table>
+    </div>
+
+    <script>const pageNum = 1;</script>
+    <script src="../scripts/paintPage.js"></script>
+    <script src="../scripts/clock.js"></script>
+</body>
+</html>
