@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "rkawk35088",
-    "database": "database_development",
+    "database": "pl-tech",
     "host": "localhost",
     "dialect": "mysql"
   },
