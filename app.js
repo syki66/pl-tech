@@ -24,14 +24,6 @@ models.sequelize.sync()
     process.exit();
 });
 
-// models.User.create({userID:'gogam', password:'123456'})
-// .then(result => {
-//     //res.json(result);
-// })
-// .catch( err => {
-//     console.error(err);
-// })
-
 //environment
 app.set('port', process.env.PORT || 3000);
 app.use(cors());
