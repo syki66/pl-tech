@@ -33,6 +33,14 @@
             font-size: 3.5vw;
             text-shadow: 0.11vw 0.11vw 0.11vw black;
             font-weight: 900;
+
+            /* 오버플로우 방지 */
+            table-layout: fixed;
+            width: 0vw;
+            word-break: keep-all;
+        }
+        .indent{
+            margin-right: 1.5vw;
         }
         th{            
             height: 6.1vw;
@@ -65,51 +73,51 @@
     <div class="table__container">    
         <table class="table__1">
             <th class="row__0 first__col">열생산량</th>
-            <th class="row__0 second__col">-</th>
+            <th class="second__col"><span class="row__0 indent">-</span></th>
             <tr>
                 <td class="row__1">CHP</td>
-                <td class="row__1">-</td>
+                <td><span class="row__1 indent">-</span></td>
             </tr>
             <tr>
                 <td class="row__2">연돌</td>
-                <td class="row__2">-</td>
+                <td><span class="row__2 indent">-</span></td>
             </tr>
             <tr>
                 <td class="row__3">자원회수</td>
-                <td class="row__3">-</td>
+                <td><span class="row__3 indent">-</span></td>
             </tr>
             <tr>
                 <td class="row__4">PLb</td>
-                <td class="row__4">-</td>
+                <td><span class="row__4 indent">-</span></td>
             </tr>
             <tr>
                 <td class="row__5">태양열</td>
-                <td class="row__5">-</td>
+                <td><span class="row__5 indent">-</span></td>
             </tr>
         </table>
 
         <table class="table__2">
             <th class="row__6 first__col">열공급량</th>
-            <th class="row__6 second__col">-</th>
+            <th class="second__col"><span class="row__6 indent">-</span></th>
             <tr>
                 <td class="row__7">지역공급</td>
-                <td class="row__7">-</td>
+                <td><span class="row__7 indent">-</span></td>
             </tr>
             <tr>
                 <td class="row__8">지역판매</td>
-                <td class="row__8">-</td>
+                <td><span class="row__8 indent">-</span></td>
             </tr>
             <tr>
                 <td class="row__9">강남연계</td>
-                <td class="row__9">-</td>
+                <td><span class="row__9 indent">-</span></td>
             </tr>
             <tr>
                 <td class="row__10">용인연계</td>
-                <td class="row__10">-</td>
+                <td><span class="row__10 indent">-</span></td>
             </tr>
             <tr>
                 <td class="row__11">판교연계</td>
-                <td class="row__11">-</td>
+                <td><span class="row__11 indent">-</span></td>
             </tr>
         </table>
     </div>
