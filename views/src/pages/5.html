@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>carousel 5</title>
+    <title>크리티컬포인트 운영현황2</title>
     <link rel="stylesheet" type="text/css" href="../styles/page.css" />
     <style>
         body{
@@ -12,9 +12,181 @@
             background-size: 100%;
             background-repeat:no-repeat;
         }
+        .table__container{
+            position: relative;
+        }
+        table, th, td{
+            border: 0.105vw solid transparent;
+        }
+        table{
+            position: absolute;
+
+            text-align: center;
+
+            /* 오버플로우 방지 */
+            table-layout: fixed;
+            width: 0vw;
+            word-break: keep-all;
+        }
+        .table__0{
+            top: 6.5vw;
+            left: 29vw;
+        }
+        .table__1{
+            top: 13.1vw;
+            left: 11.9vw;
+        }
+        .table__2{
+            top: 28.1vw;
+            left: 3.8vw;
+        }
+        .table__3{
+            right: 3.7vw;
+            top: 13.2vw;
+        }
+        .table__4{
+            right: 16.3vw;
+            top: 28.3vw;
+        }
+        .table__5{
+            top: 34.9vw;
+            right: 33.65vw;
+        }
+
+        th{
+            width: 13.4vw;
+            height: 2.6vw;
+            color: white;
+            font-size: 1.6vw;
+            font-weight: 600;
+            text-shadow: 0.05vw 0.05vw 0.05vw black;
+        }
+        tr > td{
+            height: 2.9vw;
+        }
+        tr > td:nth-child(1){
+            color: black;
+            font-size: 2vw;
+            font-weight: 600;
+            text-shadow: 0.05vw 0.05vw 0.05vw gray;
+        }
+        tr > td:nth-child(2){
+            color: white;
+            font-size: 2vw;
+            font-weight: 600;
+            text-shadow: 0.05vw 0.05vw 0.05vw black;
+        }
+
     </style>
 </head>
 <body>
+    <div class="clock__container"></div>
 
+    <div class="title__container">
+        <span class="title">크리티컬포인트 운영현황2</span>
+    </div>
+
+    <div class="table__container">
+        <table class="table__0">
+            <th class="row__0" colspan="2">수진 삼부</th>
+            
+            <tr>
+                <td><span class="category">S.T</span></td>
+                <td><span class="row__0">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="category">R.T</span></td>
+                <td><span class="row__0">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="category">D.P</span></td>
+                <td><span class="row__0">-</span></td>
+            </tr>
+        </table>
+        <table class="table__1">
+            <th class="row__1" colspan="2">탑마을 선경</th>
+            
+            <tr>
+                <td><span class="category">S.T</span></td>
+                <td><span class="row__1">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="category">R.T</span></td>
+                <td><span class="row__1">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="category">D.P</span></td>
+                <td><span class="row__1">-</span></td>
+            </tr>
+        </table>
+        <table class="table__2">
+            <th class="row__2" colspan="2">벤처타운 인텔리지</th>
+            
+            <tr>
+                <td><span class="category">S.T</span></td>
+                <td><span class="row__2">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="category">R.T</span></td>
+                <td><span class="row__2">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="category">D.P</span></td>
+                <td><span class="row__2">-</span></td>
+            </tr>
+        </table>
+        <table class="table__3">
+            <th class="row__3" colspan="2">야탑 SK-VIEW</th>
+            
+            <tr>
+                <td><span class="category">S.T</span></td>
+                <td><span class="row__3">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="category">R.T</span></td>
+                <td><span class="row__3">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="category">D.P</span></td>
+                <td><span class="row__3">-</span></td>
+            </tr>
+        </table>
+        <table class="table__4">
+            <th class="row__4" colspan="2">파크타운 롯데</th>
+            
+            <tr>
+                <td><span class="category">S.T</span></td>
+                <td><span class="row__4">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="category">R.T</span></td>
+                <td><span class="row__4">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="category">D.P</span></td>
+                <td><span class="row__4">-</span></td>
+            </tr>
+        </table>
+        <table class="table__5">
+            <th class="row__5" colspan="2">무지개 제일</th>
+            
+            <tr>
+                <td><span class="category">S.T</span></td>
+                <td><span class="row__5">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="category">R.T</span></td>
+                <td><span class="row__5">-</span></td>
+            </tr>
+            <tr>
+                <td><span class="category">D.P</span></td>
+                <td><span class="row__5">-</span></td>
+            </tr>
+        </table>
+
+    </div>
+    <script>const pageNum = 5;</script>
+    <script src="../scripts/paintPage.js"></script>
+    <script src="../scripts/clock.js"></script>
 </body>
 </html>
