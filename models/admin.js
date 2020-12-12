@@ -1,7 +1,7 @@
 module.exports = function (sequelize, DataTypes) {
-  const manager = sequelize.define('Manager', {
-    manager_id: { field: 'manager_id', type: DataTypes.STRING(50), unique: true, allowNull: false },
-    password: { field: 'password', type: DataTypes.STRING(100), allowNull: false },
+  const admin = sequelize.define('Admin', {
+    admin_id: { type: DataTypes.STRING(50), unique: true, allowNull: false },
+    password: { type: DataTypes.STRING(100), allowNull: false },
   }, {
     // don't use camelcase for automatically added attributes but underscore style
     // so updatedAt will be updated_at
@@ -13,10 +13,10 @@ module.exports = function (sequelize, DataTypes) {
     freezeTableName: true,
     timestamps: false,
     // define the table's name
-    tableName: "manager"
+    tableName: "admin"
   });
 
-  return manager;
+  return admin;
 };
 
   /*

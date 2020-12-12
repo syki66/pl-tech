@@ -18,6 +18,6 @@ function fetchJson(url){
     // localStorage.clear();
 }
 
-setInterval(()=>{
-    fetchJson(url)
-}, 1000)
+// setInterval(()=>{
+//     fetchJson(url)
+// }, 1000)
