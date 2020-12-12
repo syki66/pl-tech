@@ -4,12 +4,10 @@ const express = require('express');
 const controller = require('./board.controller');
 const router = express.Router();
 
-// 공지 전체 목록 출력 
-router.get('/', controller.boardFigures);
+// GET /board - 글 목록 출력 
+router.get('/', controller.postList);
 
-router.get('/:page', controller.noticeFigures);
-
-// id 값에 해당하는 공지의 contents(내용) 출력
-//router.get('/:id', controller.contentsFigures);
+// GET /board/:page - 해당 페이지 글 내용 출력
+router.get('/:postnum', controller.postContents);
 
 module.exports = router;

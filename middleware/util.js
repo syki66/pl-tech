@@ -35,12 +35,21 @@ util.parseError = function (err) {
         name: err.name,
         msg: err.message
     };
-    if (err.name == 'ValidationError') {
+    if (err.name == 'ValidationError' || err.name == 'AuthenticationError') {
         return err;
     }
     else {
         return parsed;
     }
 };
+
+util.isAdminStatus = function(req, res){
+    // console.log(req.session);
+    if(req.session.is_logined !== undefined && req.session.is_logined){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 module.exports = util;

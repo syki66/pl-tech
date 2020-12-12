@@ -1,46 +1,49 @@
 const util = require('../../middleware/util');
 const models = require('../../models');
-const template = require('../../lib/template.js');
+const error = require('../../lib/error');
 
 
-// 전체 공지 목록 표시
-exports.boardFigures = (req, res) =>{
-    console.log('called boardFigures');
+// GET /board 공지 목록 출력
+exports.postList = (req, res) =>{
+    console.log('called postList');
     //res.render('../views/notice.html');
 
     models.Notice.findAll({
         attributes: ['id','title'],
         raw : true
     })
-    .then(result=>{
-        console.log(result);
-        var list = template.noticeList(result);
-
+    .then(data=>{
+        console.log(data);
+        //var list = template.noticeList(result);
         //res.writeHead(200);
-        res.end(template.board(list));
+        res.json(util.successTrue(data));
+    })
+    .catch(err=>{
+        console.log('데이터를 불러올 수 없습니다.');
+        res.json(util.successFalse(error.loadErr()));
     })
 
 }
 
-// 공지사항 페이지 표시
-exports.noticeFigures = (req, res)=>{
-    console.log('called noticeFigures');
+// GET /board/:postnum 해당 공지 내용 출력
+exports.postContents = (req, res)=>{
+    console.log('called postContents');
 
-    var _id = req.params.page;
+    var _id = req.params.postnum;
 
-    console.log(_id);
+    //console.log(_id);
     models.Notice.findAll({
       where : {id: _id},
       attributes: ['title', 'contents'],
       raw : true
   })
-  .then(result=>{
-      console.log(result);
-      var _title = result[0].title;
-      var _contents = result[0].contents;
-
-      //res.writeHead(200);
-      res.end(template.notice(_title, _contents));
+  .then(data=>{
+      console.log(data);
+      res.json(util.successTrue(data));
+  })
+  .catch(err=>{
+      console.log('데이터를 불러올 수 없습니다.');
+      res.json(util.successFalse(error.loadErr()));
   })
 }
 
