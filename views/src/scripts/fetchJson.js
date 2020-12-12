@@ -14,10 +14,11 @@ function fetchJson(url){
             }
         })
     
-    console.log(JSON.parse(localStorage.getItem('json')))
+    // console.log(JSON.parse(localStorage.getItem('json')))
     // localStorage.clear();
 }
 
-// setInterval(()=>{
-//     fetchJson(url)
-// }, 1000)
+fetchJson(url);
+setInterval(()=>{
+    fetchJson(url)
+}, 1000)
