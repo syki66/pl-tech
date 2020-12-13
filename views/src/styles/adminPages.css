@@ -1,0 +1,18 @@
+body{
+    margin: 0;
+    background-color:black;
+    overflow: hidden;
+}
+
+.container{
+    background-size: 100%;
+    background-repeat:no-repeat;
+    
+    margin: 0 auto;
+
+    width: var(--width);
+    height: var(--height);
+
+    position: relative;
+    
+}
