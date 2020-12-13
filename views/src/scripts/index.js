@@ -40,3 +40,15 @@ document.documentElement.style.setProperty('--indicatorHeight', `${1 * vw}px`);
 
 // prev next buttons
 document.documentElement.style.setProperty('--sideBtnWidth', `${5 * vw}px`);
+
+
+// 제목, 시계
+document.documentElement.style.setProperty('--titleFontSize', `${3.3 * vw}px`);
+document.documentElement.style.setProperty('--titleTop', `${0.7 * vw}px`);
+document.documentElement.style.setProperty('--titleLeft', `${5.4 * vw}px`);
+document.documentElement.style.setProperty('--titleTextShadow', `${0.15 * vw}px`);
+
+document.documentElement.style.setProperty('--clockFontSize', `${2.4 * vw}px`);
+document.documentElement.style.setProperty('--clockRight', `${3.7 * vw}px`);
+document.documentElement.style.setProperty('--clockTop', `${1.1 * vw}px`);
+document.documentElement.style.setProperty('--clockTextShadow', `${0.1 * vw}px`);
