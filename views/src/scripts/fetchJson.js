@@ -1,4 +1,6 @@
-const url = "http://localhost:3000/home/getValues";
+const baseUrl = window.location.origin;
+const path = '/home/getValues';
+const url = baseUrl + path;
 
 function fetchJson(url){
     fetch(url)
