@@ -35,7 +35,7 @@ app.use(cookieParser());
 app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 //이 코드는 /views 폴더 안에 있는 파일들을 클라이언트에서 바로 접근할 수 있게 합니다.
-app.use('/', express.static(path.join(__dirname, '/views')));
+app.use('/', express.static(path.join(__dirname, '/')));
 
 let ip = 'localhost';
 axios.defaults.baseURL = ip;
