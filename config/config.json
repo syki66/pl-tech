@@ -1,21 +1,25 @@
 {
   "development": {
     "username": "root",
+<<<<<<< HEAD:config/config.json
     "password": "rkawk35088",
+=======
+    "password": "1028",
+>>>>>>> 76cfef724e0096a4b0c6c4e6a73c6c9a46323315:config/sequelize.json
     "database": "pltech",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password":  "rkawk35088",
+    "password": "1028",
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
-    "password":  "rkawk35088",
+    "password": "1028",
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql"
