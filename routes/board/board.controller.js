@@ -1,7 +1,7 @@
 const util = require('../../middleware/util');
 const models = require('../../models');
 const error = require('../../lib/error');
-
+const template = require('../../lib/template');
 
 // GET /board 공지 목록 출력
 exports.postList = (req, res) =>{
@@ -14,12 +14,13 @@ exports.postList = (req, res) =>{
     })
     .then(data=>{
         console.log(data);
-        //var list = template.noticeList(result);
-        //res.writeHead(200);
-        res.json(util.successTrue(data));
+        var list = template.noticeList(data);
+        res.send(template.board(list));
+        //res.json(util.successTrue(data));
     })
     .catch(err=>{
         console.log('데이터를 불러올 수 없습니다.');
+        console.log(err);
         res.json(util.successFalse(error.loadErr()));
     })
 
