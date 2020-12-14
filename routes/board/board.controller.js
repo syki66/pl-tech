@@ -9,13 +9,14 @@ exports.postList = (req, res) =>{
     //res.render('../views/notice.html');
 
     models.Notice.findAll({
-        attributes: ['id','title'],
+        attributes: ['id','title', 'cdate'],
         raw : true
     })
     .then(data=>{
-        console.log(data);
+        //console.log(data);
         //var list = template.noticeList(result);
         //res.writeHead(200);
+        data[0].cdate = util.cdateParser(data);
         res.json(util.successTrue(data));
     })
     .catch(err=>{
@@ -34,7 +35,7 @@ exports.postContents = (req, res)=>{
     //console.log(_id);
     models.Notice.findAll({
       where : {id: _id},
-      attributes: ['title', 'contents'],
+      attributes: ['title', 'contents', 'cdate'],
       raw : true
   })
   .then(data=>{

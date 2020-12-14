@@ -12,7 +12,7 @@ const home = require('./home');
 
 // 세션 생성
 router.use('/',session({
-    secret: 'pl-tech key',
+    secret: 'pltech key',
     resave: false,
     saveUninitialized: true,
     store:new MySQLStore({
@@ -20,7 +20,7 @@ router.use('/',session({
         port: 3306,
         user: 'root',
         password: 'rkawk35088',
-        database: 'pl-tech'
+        database: 'pltech'
     })
   }));
 

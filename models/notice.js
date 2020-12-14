@@ -9,8 +9,14 @@ module.exports = (sequelize, DataTypes) => {
           field: 'contents',
         type: DataTypes.STRING,
         allowNull: false
+      },
+      cdate: {
+        field: 'cdate',
+      type: DataTypes.STRING,
+      allowNull: false
       }
-    }, {
+    }, 
+     {
       underscored: true,
       freezeTableName: true, //Sequelize는 define method의 첫 번째 파라미터 값으로 tablename을 자동 변환하는데, 이 옵션의 값이 true이면 변환 작업을 하지 않도록 합니다.
       timestamps: false,
