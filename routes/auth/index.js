@@ -10,7 +10,7 @@ router.get('/login', controller.login);
 router.post('/linprocess', controller.loginProcess); 
 
 // DELET - /auth/loutprocess 로그아웃 처리 프로세스
-router.delete('/loutprocess', controller.logoutProcess);
+router.post('/loutprocess', controller.logoutProcess);
 
 // GET - /auth/register 관리자 등록 페이지
 router.get('/register', controller.register);

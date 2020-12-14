@@ -13,18 +13,10 @@ exports.postList = (req, res) =>{
         raw : true
     })
     .then(data=>{
-<<<<<<< HEAD
-        //console.log(data);
-        //var list = template.noticeList(result);
-        //res.writeHead(200);
-        data[0].cdate = util.cdateParser(data);
-        res.json(util.successTrue(data));
-=======
         console.log(data);
         var list = template.noticeList(data);
         res.send(template.board(list));
         //res.json(util.successTrue(data));
->>>>>>> 76cfef724e0096a4b0c6c4e6a73c6c9a46323315
     })
     .catch(err=>{
         console.log('데이터를 불러올 수 없습니다.');
@@ -47,8 +39,13 @@ exports.postContents = (req, res)=>{
       raw : true
   })
   .then(data=>{
+
       console.log(data);
-      res.json(util.successTrue(data));
+      var title = data[0].title;
+      var contents = data[0].contents;
+      var cdate = data[0].cdate;
+      res.send(template.notice(title, contents, cdate));
+      //res.json(util.successTrue(data));
   })
   .catch(err=>{
       console.log('데이터를 불러올 수 없습니다.');
