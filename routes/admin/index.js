@@ -20,9 +20,9 @@ router.get('/post/manage', controller.managePost);
 router.get('/post/:postnum/update', controller.updatePost);
 
 // PATCH - /admin/post/:postnum/uprocess 공지 수정 처리 프로세스
-router.patch('/post/:postnum/uprocess', controller.updateProcess);
+router.post('/post/:postnum/uprocess', controller.updateProcess);
 
 // DELETE - /admin/post/:postnum/dprocess 공지 삭제 처리 프로세스
-router.delete('/post/:postnum/dprocess', controller.deleteProcess);
+router.post('/post/:postnum/dprocess', controller.deleteProcess);
 
 module.exports = router;

@@ -41,7 +41,8 @@ exports.createProcess = (req, res) => {
         .then(data => {
             console.log(data.dataValues);
             console.log('공지를 생성하였습니다.');
-            res.json(util.successTrue(data.dataValues));
+            res.redirect(`/admin/post/manage`);
+            //res.json(util.successTrue(data.dataValues));
         })
         .catch(err => {
             console.log('공지를 생성할 수 없습니다.');
@@ -62,10 +63,10 @@ exports.managePost = (req, res) => {
         raw: true
     })
     .then(data => {
-        //res.writeHead(200);
-        //res.end(template.m_board(template.m_noticeList(result)));
         console.log(data);
-        res.json(util.successTrue(data));
+        //res.writeHead(200);
+        res.end(template.m_board(template.m_noticeList(data)));
+        //res.json(util.successTrue(data));
     })
     .catch(err=>{
         console.log('데이터를 불러올 수 없습니다.');
@@ -85,14 +86,14 @@ exports.updatePost = (req, res) => {
       raw : true
   })
   .then(data=>{
-    //   var _id = data[0].id;
-    //   var _title = data[0].title;
-    //   var _contents = data[0].contents;
-
-    //   res.writeHead(200);
-    //   res.end(template.m_edit(_id, _title, _contents));
-    console.log(data);
-    res.json(util.successTrue(data));
+      console.log(data);
+      var id = data[0].id;
+      var title = data[0].title;
+      var contents = data[0].contents;
+      
+      //res.writeHead(200);
+      res.send(template.m_edit(id, title, contents));
+      //res.json(util.successTrue(data));
       
   })
   .catch(err=>{
@@ -120,9 +121,9 @@ exports.updateProcess = (req, res) => {
         }, { where: { id: _id } })
             .then(data => {
                 console.log('공지를 수정하였습니다.');
-                res.json(util.successTrue(message.updateMsg()));
-                // res.writeHead(302, { Location: `/board/${_id}` });
-                // res.end('success');
+                res.writeHead(302, { Location: `/admin/post/manage` });
+                res.end('success');
+                //res.json(util.successTrue(message.updateMsg()));
             })
             .catch(err => {
                 console.log('공지를 수정할 수 없습니다.');
@@ -151,9 +152,9 @@ exports.deleteProcess = (req, res) => {
         })
         .then(data => {
             console.log('공지를 삭제하였습니다.');
-            res.json(util.successTrue(message.deleteMsg()));
-            // res.writeHead(302, { Location: '/manage/post' });
-            // res.end('success')
+            //res.json(util.successTrue(message.deleteMsg()));
+            res.writeHead(302, { Location: '/admin/post/manage' });
+            res.end('success')
         })
         .catch(err=>{
             console.log('공지를 삭제할 수 없습니다.');
