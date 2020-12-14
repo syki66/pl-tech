@@ -4,6 +4,7 @@ const template = require('../../lib/template');
 const error = require('../../lib/error');
 const message = require('../../lib/message');
 
+
 // GET - /admin 관리자 페이지
 exports.admin = (req, res) => {
     // 관리자 페이지 UI
@@ -14,8 +15,9 @@ exports.admin = (req, res) => {
 // GET - /admin/post 공지 생성 페이지
 exports.createPost = (req, res) => {
     // 공지 생성 UI
-    console.log('called createPost')
+    console.log('called createPost');
     res.render('../views/writing.html');
+
 }
 
 // POST - /admin/post/cprocess 공지 생성 처리 프로세스 (권한 검사)
@@ -29,10 +31,12 @@ exports.createProcess = (req, res) => {
         var body = req.body;
         var _title = body.title;
         var _contents = body.contents;
+        var _cdate = util.currentDate();
 
         models.Notice.create({
             title: _title,
-            contents: _contents
+            contents: _contents,
+            cdate:_cdate
         })
         .then(data => {
             console.log(data.dataValues);
@@ -108,9 +112,11 @@ exports.updateProcess = (req, res) => {
     if (isAdminStatus) {
         var _id = req.params.postnum;
         var _contents = req.body.contents;
+        var _cdate = util.currentDate();
 
         models.Notice.update({
-            contents: _contents
+            contents: _contents,
+            cdate : _cdate
         }, { where: { id: _id } })
             .then(data => {
                 console.log('공지를 수정하였습니다.');
