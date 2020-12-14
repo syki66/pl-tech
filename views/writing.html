@@ -1,24 +1,112 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 설정 페이지 - 공지 작성</title>
+    <link rel="stylesheet" type="text/css" href="/views/src/styles/page.css" />
+    <link rel="stylesheet" href="/views/src/styles/adminPages.css">
+    <script src="/views/src/scripts/fetchJson.js"></script>
 
-    <body>
-
-        <form action="/admin/post/cprocess" method="post">
+    <style>
+        p{
+            margin: 0vw;
+        }
+        
+        :root{
+            --width: 1920px;
+        }
+        .container{
+            background-image: url('/views/src/images/admin.png');
+        }
+        .inner__container{
+            position: relative;
+            left: calc(var(--width) / 100 * 21.1);
+        }
+        h2{
+            position: absolute;
+            top: calc(var(--width) / 100 * 8.7);
+            font-size: calc(var(--width) / 100 * 2.3);
+            font-weight: 600;
+        }
+        .input__1, .input__2{
+            position: absolute;
+            background-color: #222222;
             
-            <h2>공지글 작성</h2>
-            <p>
-                제목 : <input type="text" name="title">
-            </p>
-            <p>
-                <textarea name="contents" placeholder="Write notice..."></textarea>
-            </p>
-            <p>
-                <input type="submit">
-            </p>
-            <p>
-                <a href="/manage">돌아가기</a>
-            </p>
-        </form>
-    </body>
+            width: calc(var(--width) / 100 * 55.7);
+            
+            border-radius: calc(var(--width) / 100 * 0.7);
 
+            color: white;
+
+            font-size: calc(var(--width) / 100 * 1.8);
+            font-weight: 600;
+
+            padding: 0vw calc(var(--width) / 100 * 1);
+        }
+        .input__1{
+            top: calc(var(--width) / 100 * 14.8);
+            height: calc(var(--width) / 100 * 3.5);
+        }
+        .input__2{
+            top: calc(var(--width) / 100 * 20.1);
+            height: calc(var(--width) / 100 * 19.5);
+            padding: calc(var(--width) / 100 * 1);
+        }
+        
+        .input__3{
+            position: absolute;
+            top: calc(var(--width) / 100 * 43);
+            left: calc(var(--width) / 100 * 51.5);
+            width: calc(var(--width) / 100 * 6.3);
+            height: calc(var(--width) / 100 * 3.2);
+            border-radius: calc(var(--width) / 100 * 0.7);;
+            font-size: calc(var(--width) / 100 * 1.3);
+            background-color: #D8D8D8;
+            opacity: 1;
+            font-weight: 600;
+            transition: 0.1s;
+            cursor: pointer;
+        }
+        .input__3:hover{
+            background-color: #A4A4A4;
+        }
+        .link__1{
+            position: absolute;
+            font-size: calc(var(--width) / 100 * 1.4);
+
+            color: black;
+            font-weight: 600;
+            opacity: 0.8;
+            transition: 0.1s;
+
+            top: calc(var(--width) / 100 * 43.7);
+        }
+        .link__1:hover{
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="clock__container"></div>
+
+        <div class="title__container">
+            <span class="title"></span>
+        </div>
+
+        <div class="inner__container">
+            <h2>관리자 설정 페이지 - 공지 작성</h2>
+            <form action="/admin/post/cprocess" method="post">
+                <p><input class="input__1" type="text" name="title" placeholder="제목을 입력하세요"></p>
+                <p><textarea class="input__2" name="contents" placeholder="내용을 입력하세요"></textarea></p>
+                <p><input class="input__3" type="submit" value="작성완료"></p>
+                <p><a class="link__1" href="/manage">돌아가기</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script src="/views/src/scripts/clock.js"></script>
+    <script src="/views/src/scripts/index.js"></script>
+</body>
 </html>
