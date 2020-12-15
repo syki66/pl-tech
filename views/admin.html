@@ -11,9 +11,8 @@
     <p>관리자 설정 페이지 입니다.</p>
     <p><a href="admin/post">글 작성</a></p>
     <p><a href="admin/post/manage">글 관리</a></p>
-    <form action="auth/loutprocess" method="delete">
-        
-        <p><input type="submit" value="로그아웃"></p>
+    <form method="POST" action="auth/loutprocess?_method=DELETE">
+        <p><button type="submit">로그아웃</button></p>
     </form>
 
 </body>
