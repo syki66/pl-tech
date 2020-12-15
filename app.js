@@ -66,6 +66,4 @@ server.listen(app.get("port"), ip, function () {
   console.log("server is running");
 });
 
-server.on("connection", function (socket) {
-  console.log("클라이언트가 접속했습니다.");
-});
+server.on("connection", function (socket) {});
