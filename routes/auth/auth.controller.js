@@ -41,8 +41,8 @@ exports.loginProcess = (req, res) => {
                         req.session.admin_id = in_id;
                         req.session.save(function () {
                             console.log(`관리자 ${admin_id} 로그인 했습니다.`);
-                            //res.redirect('/admin');
-                            res.json(util.successTrue(message.loginMsg()));
+                            res.redirect('/admin');
+                            //res.json(util.successTrue(message.loginMsg()));
                         })
                     } else {
                         console.log('비밀번호가 일치하지 않습니다.');
@@ -65,9 +65,9 @@ exports.loginProcess = (req, res) => {
 // DELET - /auth/loutprocess 로그아웃 처리 프로세스
 exports.logoutProcess = (req, res) => {
     req.session.destroy(function(err){
-        //res.redirect('/board');
+        res.redirect('/board');
         console.log('로그아웃 했습니다.');
-        res.json(util.successTrue(message.logoutMsg()));
+        //res.json(util.successTrue(message.logoutMsg()));
     })
 }
 

@@ -17,20 +17,21 @@
             --width: 1920px;
         }
         .container{
-            background-image: url('/views/src/images/login.png');
+            background-image: url('/views/src/images/admin.png');
         }
-
+        .inner__container{
+            position: relative;
+            left: calc(var(--width) / 100 * 21.1);
+        }
         h2{
             position: absolute;
             top: calc(var(--width) / 100 * 8.7);
-            left: calc(var(--width) / 100 * 6.4);
             font-size: calc(var(--width) / 100 * 2.3);
             font-weight: 600;
         }
         .input__1, .input__2{
             position: absolute;
             background-color: #222222;
-            left: calc(var(--width) / 100 * 6.4);
             
             width: calc(var(--width) / 100 * 22.1);
             height: calc(var(--width) / 100 * 3.5);
@@ -52,7 +53,6 @@
         
         .input__3{
             position: absolute;
-            left: calc(var(--width) / 100 * 6.4);
             top: calc(var(--width) / 100 * 25.5);
             width: calc(var(--width) / 100 * 6.3);
             height: calc(var(--width) / 100 * 3.2);
@@ -77,11 +77,10 @@
             transition: 0.1s;
         }
         .link__1{
-            left: calc(var(--width) / 100 * 21.3);
+            left: calc(var(--width) / 100 * 14.9);
             top: calc(var(--width) / 100 * 26.2);
         }
         .link__2{
-            left: calc(var(--width) / 100 * 6.4);
             top: calc(var(--width) / 100 * 44.2);
         }
         .link__1:hover, .link__2:hover{
@@ -97,7 +96,7 @@
             <span class="title"></span>
         </div>
 
-        <div class="login__container">
+        <div class="inner__container">
             <h2>관리자 페이지 로그인</h2>
             <form action="/auth/linprocess" method="post">
                 <p><input class="input__1" type="text" name="id" placeholder="아이디"></p>
@@ -105,7 +104,7 @@
                 <p><input class="input__3" type="submit" value="로그인"></p>
                 <a class="link__1" href="/auth/register">새 관리자 등록</a>
             </form>
-            <a class="link__2" href="/home">돌아가기</a>
+            <a class="link__2" href="/board">돌아가기</a>
         </div>
     </div>
 

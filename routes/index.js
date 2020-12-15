@@ -10,21 +10,18 @@ const auth = require("./auth");
 const home = require("./home");
 
 // 세션 생성
-router.use(
-  "/",
-  session({
-    secret: "pl-tech key",
+router.use('/',session({
+    secret: 'pltech key',
     resave: false,
     saveUninitialized: true,
-    store: new MySQLStore({
-      host: "localhost",
-      port: 3306,
-      user: "root",
-      password: "1028",
-      database: "pltech",
-    }),
-  })
-);
+    store:new MySQLStore({
+        host: 'localhost',
+        port: 3306,
+        user: 'root',
+        password: 'rkawk35088',
+        database: 'pltech'
+    })
+  }));
 
 router.use("/board", board);
 router.use("/admin", admin);
