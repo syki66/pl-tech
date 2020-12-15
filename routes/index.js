@@ -18,7 +18,7 @@ router.use('/',session({
         host: 'localhost',
         port: 3306,
         user: 'root',
-        password: '00000000',
+        password: 'rkawk35088',
         database: 'pltech'
     })
   }));
