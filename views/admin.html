@@ -17,7 +17,7 @@
             --width: 1920px;
         }
         .container{
-            background-image: url('/views/src/images/admin.png');
+            background-image: url('/views/src/images/background.png');
         }
         .inner__container{
             position: relative;
@@ -82,22 +82,20 @@
     <div class="container">
         <div class="clock__container"></div>
 
-    <p>관리자 설정 페이지 입니다.</p>
-    <p><a href="admin/post">글 작성</a></p>
-    <p><a href="admin/post/manage">글 관리</a></p>
-    <form method="POST" action="auth/loutprocess?_method=DELETE">
-        <p><button type="submit">로그아웃</button></p>
-    </form>
+        <div class="title__container">
+            <span class="title"></span>
+        </div>
 
         <div class="inner__container">
             <h2>관리자 설정 페이지</h2>
 
             <p><a class="link__1" href="admin/post"><span>- 공지 작성</span></a></p>
             <p><a class="link__2" href="admin/post/manage"><span>- 공지 관리</span></a></p>
-            <p><a class="link__3" href=""><span>- 환영문구 작성</span></a></p>
+            <p><a class="link__3" href="admin/welcome"><span>- 환영문구 작성</span></a></p>
             <p><a class="link__4" href=""><span>- 슬라이드 관리</span></a></p>
-            <form method="POST" action="auth/loutprocess?_method=DELETE">
-                <p><input class="input__1" type="submit" value="로그아웃"></p>
+            <form method="post" action="auth/loutprocess">
+                <input type="hidden" name="_method" value="delete" />
+                <button class="input__1" type="submit">로그아웃</button>
             </form>
         </div>
     </div>

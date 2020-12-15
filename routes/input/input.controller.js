@@ -1,9 +1,12 @@
 const fs = require("fs");
 const Iconv = require("iconv").Iconv;
 const values = require("../../value/values");
+const adminController = require("../admin/admin.controller");
 const DCSPath = "DCS_val.csv";
 
-function parsingValues(path, callback) {
+let parsing = null;
+
+const parsingValues = (path, callback) => {
   let encode = new Iconv("euc-kr", "utf-8"); // csv 파일을 그냥 읽어오면 한글이 깨지기 때문에 인코딩 필요
 
   fs.readFile(path, async (err, data) => {
@@ -17,7 +20,7 @@ function parsingValues(path, callback) {
       let content = encode.convert(data); // euc-kr => utf-8로 컨버팅
       data = content.toString("utf-8"); // 컨버팅 데이터 utf-8 문자열로 변환
 
-      let parsing = data.split("\r\n"); // 행으로 나누어줌
+      parsing = data.split("\r\n"); // 행으로 나누어줌
 
       for (let i = 0; i < parsing.length; ++i) {
         if (parsing[i][0] === "*") {
@@ -47,12 +50,16 @@ function parsingValues(path, callback) {
         console.log(parsing[i]);
       }
 
-      let result = values.valuesToJson(parsing);
+      let result = values.valuesToJson(parsing, adminController.welcomeObj);
 
       callback(null, result);
     }
   });
-}
+};
+
+exports.updateWelcome = () => {
+  exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj);
+};
 
 const removeLetters = (str) => {
   return new Promise((resolve, reject) => {
@@ -121,3 +128,5 @@ parsingValues(DCSPath, (err, data) => {
     });
   });
 })();
+
+// module.exports = parsingValues;
