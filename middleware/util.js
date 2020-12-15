@@ -1,3 +1,7 @@
+const moment = require('moment');
+
+
+
 var util = {};
 
 util.successTrue = function (data) {
@@ -50,6 +54,40 @@ util.isAdminStatus = function(req, res){
     }else{
         return false;
     }
-}
+};
 
+util.currentDate = function(){
+    // 서울 시간 기준
+    require('moment-timezone');
+    moment.tz.setDefault("Asia/Seoul");
+    
+    // 날짜
+    var date = moment().format('YYYY-MM-DD');
+    // 요일
+    var weeks = ['일','월','화','수','목','금','토'];
+    var week = weeks[new Date(date).getDay()];
+    // 시간
+    var time = moment().format('HH:mm');
+
+    var cdate = `${date}/${week}/${time}`;
+    
+    return cdate;
+};
+
+util.cdateParser = function(data){
+    // 서울 시간 기준
+    var date = data[0].cdate.split('-');
+    var month = date[1];
+    var day = date[2].split('/')[0];
+    var week = date[2].split('/')[1];
+
+    console.log(month);
+    console.log(day);
+    console.log(week);
+
+    return {
+        date : `${month}/${day}`,
+        week : week
+    }
+}
 module.exports = util;
