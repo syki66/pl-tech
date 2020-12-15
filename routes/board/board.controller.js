@@ -43,7 +43,7 @@ exports.postContents = (req, res)=>{
       console.log(data);
       var title = data[0].title;
       var contents = data[0].contents;
-      var cdate = data[0].cdate;
+      var cdate = util.noticeCdate(data[0].cdate);
       res.send(template.notice(title, contents, cdate));
       //res.json(util.successTrue(data));
   })
