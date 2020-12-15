@@ -11,7 +11,7 @@ function paintPage(num){
     }
     title.innerText = json.data[num].itemname;
     category.forEach((e,i)=>{
-        e.innerText = json.data[num].category[i%3];
+        e.innerText = (num==4) ? json.data[num].category[i%3] : json.data[num].category[i];
     })
     rowArray.forEach((row, rowIndex) => {
         row.forEach((e, i) => {
