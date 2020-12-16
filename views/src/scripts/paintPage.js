@@ -5,17 +5,19 @@ const category = document.querySelectorAll(".category");
 
 function paintPage(num) {
   const json = JSON.parse(localStorage.getItem("json"));
-  console.log(num);
-  console.log(json.data[num]);
   let rowArray = [];
   for (i = 0; i < rowCount; i++) {
     rowArray.push(document.querySelectorAll(`.row__${i}`));
   }
-  title.innerText = json.data[num].itemname;
-  category.forEach((e, i) => {
-    e.innerText =
-      num == 4 ? json.data[num].category[i % 3] : json.data[num].category[i];
-  });
+  if (title){
+    title.innerText = json.data[num].itemname;
+  }
+  if (category){
+    category.forEach((e, i) => {
+      e.innerText =
+        num == 4 ? json.data[num].category[i % 3] : json.data[num].category[i];
+    });
+  }
   rowArray.forEach((row, rowIndex) => {
     row.forEach((e, i) => {
       e.innerText = json.data[num][`row${rowIndex}`][i];
@@ -24,7 +26,6 @@ function paintPage(num) {
 }
 
 paintPage(pageNum - 1);
-
 setInterval(() => {
   paintPage(pageNum - 1);
 }, 1000);
