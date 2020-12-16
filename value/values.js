@@ -72,8 +72,7 @@ exports.valuesToJson = (parsed, welcomeObj) => {
 
   let item_6 = new Object();
 
-  item_6.visitor = welcomeObj[0];
-  item_6.sentence = welcomeObj[1];
+  item_6.row0 = [welcomeObj[0], welcomeObj[1]];
 
   values.push(item_6);
 

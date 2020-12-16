@@ -192,6 +192,7 @@ exports.inputWelcome = (req, res) => {
   } else {
     exports.welcomeObj = [req.body.visitor, req.body.sentence];
     inputController.updateWelcome();
+    // res.json(util.successTrue(this.welcome, '환영문구가 성공적으로 반영되었습니다.'));
     res.redirect("/alert");
   }
 };
