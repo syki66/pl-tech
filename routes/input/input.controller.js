@@ -59,6 +59,7 @@ const parsingValues = (path, callback) => {
 
 exports.updateWelcome = () => {
   exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj);
+  console.log(this.parsed);
 };
 
 const removeLetters = (str) => {
