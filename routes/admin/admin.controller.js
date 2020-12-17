@@ -190,7 +190,7 @@ exports.inputWelcome = (req, res) => {
   if (req.body === null || req.body === undefined) {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
-    exports.welcomeObj = [req.body.visitor, req.body.sentence];
+    exports.welcomeObj = [req.body.visitor + "님", req.body.sentence];
     inputController.updateWelcome();
     // res.json(util.successTrue(this.welcome, '환영문구가 성공적으로 반영되었습니다.'));
     res.redirect("/alert");
