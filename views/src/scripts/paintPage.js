@@ -11,16 +11,6 @@ function paintPage(num) {
   }
   if (title){
     title.innerText = json.data[num].itemname;
-<<<<<<< HEAD
-    category.forEach((e,i)=>{
-        e.innerText = (num==4) ? json.data[num].category[i%3] : json.data[num].category[i];
-    })
-    rowArray.forEach((row, rowIndex) => {
-        row.forEach((e, i) => {
-            e.innerText = json.data[num][`row${rowIndex}`][i];
-            })
-    })
-=======
   }
   if (category){
     category.forEach((e, i) => {
@@ -33,7 +23,6 @@ function paintPage(num) {
       e.innerText = json.data[num][`row${rowIndex}`][i];
     });
   });
->>>>>>> d30af68b84eaf900d85a4b48cbade95bb80ea9ec
 }
 
 paintPage(pageNum - 1);
