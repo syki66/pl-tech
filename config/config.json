@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "rkawk35088",
+    "password": "1028",
     "database": "pltech",
     "host": "127.0.0.1",
     "dialect": "mysql"

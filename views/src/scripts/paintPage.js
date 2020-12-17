@@ -1,15 +1,17 @@
 const rowCount = 12; // 페이지 중에서 최대 row 개수 이상 적으면 됨
 
-const title = document.querySelector('.title');
-const category = document.querySelectorAll('.category');
+const title = document.querySelector(".title");
+const category = document.querySelectorAll(".category");
 
-function paintPage(num){
-    const json = JSON.parse(localStorage.getItem('json'));
-    let rowArray = [];
-    for (i = 0; i < rowCount; i++) {
-        rowArray.push(document.querySelectorAll(`.row__${i}`));
-    }
+function paintPage(num) {
+  const json = JSON.parse(localStorage.getItem("json"));
+  let rowArray = [];
+  for (i = 0; i < rowCount; i++) {
+    rowArray.push(document.querySelectorAll(`.row__${i}`));
+  }
+  if (title){
     title.innerText = json.data[num].itemname;
+<<<<<<< HEAD
     category.forEach((e,i)=>{
         e.innerText = (num==4) ? json.data[num].category[i%3] : json.data[num].category[i];
     })
@@ -18,11 +20,23 @@ function paintPage(num){
             e.innerText = json.data[num][`row${rowIndex}`][i];
             })
     })
+=======
+  }
+  if (category){
+    category.forEach((e, i) => {
+      e.innerText =
+        num == 4 ? json.data[num].category[i % 3] : json.data[num].category[i];
+    });
+  }
+  rowArray.forEach((row, rowIndex) => {
+    row.forEach((e, i) => {
+      e.innerText = json.data[num][`row${rowIndex}`][i];
+    });
+  });
+>>>>>>> d30af68b84eaf900d85a4b48cbade95bb80ea9ec
 }
 
-paintPage(pageNum-1);
-
-setInterval(()=>{
-    paintPage(pageNum-1);
-}, 60000)
-
+paintPage(pageNum - 1);
+setInterval(() => {
+  paintPage(pageNum - 1);
+}, 1000);
