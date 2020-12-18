@@ -41,7 +41,7 @@ exports.loginProcess = (req, res) => {
                         req.session.admin_id = in_id;
                         req.session.save(function () {
                             console.log(`관리자 ${admin_id} 로그인 했습니다.`);
-                            res.redirect('/admin');
+                            res.redirect('/alert/login');
                             //res.json(util.successTrue(message.loginMsg()));
                         })
                     } else {
@@ -65,7 +65,7 @@ exports.loginProcess = (req, res) => {
 // DELET - /auth/loutprocess 로그아웃 처리 프로세스
 exports.logoutProcess = (req, res) => {
     req.session.destroy(function(err){
-        res.redirect('/board');
+        res.redirect('/alert/logout');
         console.log('로그아웃 했습니다.');
         //res.json(util.successTrue(message.logoutMsg()));
     })
@@ -93,9 +93,9 @@ exports.registerProcess = (req, res) => {
             })
                 .then(data => {
                     console.log('새 관리자가 등록되었습니다.');
-                    res.json(util.successTrue(message.registerMsg()));
-                    // res.writeHead(302, { Location: '/auth/login' });
-                    // res.end('success')
+                    res.redirect("/alert/register");
+                    //res.json(util.successTrue(message.registerMsg()));
+                    
                 })
                 .catch(err => {
                     console.log('관리자 등록에 실패했습니다.');
