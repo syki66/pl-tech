@@ -1,2 +1,4 @@
 node_modules
 figures/*
+config/config.json
+session.js

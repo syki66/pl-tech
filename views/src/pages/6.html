@@ -1,20 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>carousel 6</title>
+    <title>환영문구</title>
     <link rel="stylesheet" type="text/css" href="/views/src/styles/page.css" />
     <style>
-        body{
+        body {
             margin: 0vw;
             background-image: url('/views/src/images/6.png');
             background-size: 100%;
-            background-repeat:no-repeat;
+            background-repeat: no-repeat;
         }
+
+        .title__container {
+            position: absolute;
+            font-weight: 900;
+            color: white;
+            font-size: var(--titleFontSize);
+            top: var(--titleTop);
+            left: var(--titleLeft);
+            font-family: 'sans-serif';
+            text-shadow: var(--titleTextShadow) var(--titleTextShadow) var(--titleTextShadow) black;
+        }
+
+        .visitor, .sentence{
+            
+        }
+
     </style>
 </head>
-<body>
 
+<body>
+    <div class="welcome__container">
+        <div class="visitor__container">
+            <h1 class="row__0">-</h1>
+            <h1 class="row__0">-</h1>
+        </div>
+
+    </div>
+
+    <script>const pageNum = 6;</script>
+    <script src="/views/src/scripts/paintPage.js"></script>
 </body>
+
 </html>
