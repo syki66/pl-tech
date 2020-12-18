@@ -2,6 +2,10 @@ const session = require("express-session");
 const MySQLStore = require("express-mysql-session")(session);
 
 // 세션 생성
+
+// maxAge - 세션 만료 시간 ex) 초*1000
+// chearExpired - 만료된 세션 삭제
+// checkExpirationInterval - 만료된 세션 삭제 주기 ex) 초*1000
 exports.sess = {
   secret: "pltech key",
   cookie:{maxAge : 5*1000},
@@ -18,3 +22,5 @@ exports.sess = {
   }),
   rolling : true
 };
+
+

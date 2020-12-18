@@ -92,4 +92,14 @@ util.noticeCdate = function(cdate){
     sdate = cdate.split('/');
     return `${sdate[0]} (${sdate[1]}) ${sdate[2]}`;
 }
+
+util.pictureParser = function(pictures){
+    var list = [];
+    pictures.forEach(picture=>{
+        list.push(picture.split('.')[0])
+    
+    })
+    return list;
+}
+
 module.exports = util;
