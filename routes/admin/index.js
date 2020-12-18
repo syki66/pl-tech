@@ -30,4 +30,9 @@ router.get("/welcome", controller.welcome);
 // POST - /welcome 환영 페이지 입력
 router.post("/welcome", controller.inputWelcome);
 
+// GET - /wbmanage 근무자 현황 관리
+router.get("/wmanage", controller.workerManage);
+
+// POST - /wbProcess 금일 근무자 적용 프로세스
+router.post("/wmanage", controller.inputWorker);
 module.exports = router;

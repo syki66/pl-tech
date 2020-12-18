@@ -4,6 +4,7 @@ const template = require("../../lib/template");
 const error = require("../../lib/error");
 const message = require("../../lib/message");
 const errorHandler = require("errorhandler");
+const fs = require("fs");
 
 // GET - /admin 관리자 페이지
 exports.admin = (req, res) => {
@@ -192,6 +193,34 @@ exports.inputWelcome = (req, res) => {
   } else {
     exports.welcomeObj = [req.body.visitor, req.body.sentence];
     inputController.updateWelcome();
+    // res.json(util.successTrue(this.welcome, '환영문구가 성공적으로 반영되었습니다.'));
+    res.redirect("/alert");
+  }
+};
+
+
+exports.workerManage = (req, res) => {
+  console.log("called wboardManage");
+
+  fs.readdir('./worker', function(error, filelist){
+    var list = util.pictureParser(filelist);
+    res.send(template.m_wboardManage(
+      template.m_workerList('leader',list),
+      template.m_workerList('staff1',list),
+      template.m_workerList('staff2',list),
+      template.m_workerList('staff3',list)));
+  })
+};
+
+
+exports.workerObj = [null, null, null, null];
+exports.inputWorker = (req, res) => {
+  console.log("called wboardManage");
+  if (req.body === null || req.body === undefined) {
+    res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
+  } else {
+    exports.workerObj = [req.body.leader, req.body.staff1, req.body.staff2, req.body.staff3];
+    inputController.updateWorker();
     // res.json(util.successTrue(this.welcome, '환영문구가 성공적으로 반영되었습니다.'));
     res.redirect("/alert");
   }
