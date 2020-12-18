@@ -1,5 +1,5 @@
 // 우선 하드코딩
-exports.valuesToJson = (parsed, welcomeObj) => {
+exports.valuesToJson = (parsed, welcomeObj, workerObj=null) => {
   let values = [];
 
   let item_1 = new Object();
@@ -75,6 +75,15 @@ exports.valuesToJson = (parsed, welcomeObj) => {
   item_6.row0 = [welcomeObj[0], welcomeObj[1]];
 
   values.push(item_6);
+
+  if(workerObj!==null){
+
+    let item_7 = new Object();
+    
+    item_7.row0 = [workerObj[0], workerObj[1], workerObj[2], workerObj[3]];
+    
+    values.push(item_7);
+  }
 
   return JSON.parse(JSON.stringify(values));
 };
