@@ -57,14 +57,8 @@ const parsingValues = (path, callback) => {
   });
 };
 
-exports.updateWelcome = () => {
+exports.updateInputData = () => {
   exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj);
-  console.log(this.parsed);
-};
-
-exports.updateWorker = () => {
-  exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj);
-  console.log(adminController.workerObj);
   console.log(this.parsed);
 };
 
