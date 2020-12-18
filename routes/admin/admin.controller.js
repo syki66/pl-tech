@@ -192,7 +192,7 @@ exports.inputWelcome = (req, res) => {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
     exports.welcomeObj = [req.body.visitor, req.body.sentence];
-    inputController.updateWelcome();
+    inputController.updateInputData();
     // res.json(util.successTrue(this.welcome, '환영문구가 성공적으로 반영되었습니다.'));
     res.redirect("/alert");
   }
@@ -220,8 +220,7 @@ exports.inputWorker = (req, res) => {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
     exports.workerObj = [req.body.leader, req.body.staff1, req.body.staff2, req.body.staff3];
-    inputController.updateWorker();
-    // res.json(util.successTrue(this.welcome, '환영문구가 성공적으로 반영되었습니다.'));
+    inputController.updateInputData();
     res.redirect("/alert");
   }
 };
