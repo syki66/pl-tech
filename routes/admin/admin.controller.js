@@ -82,6 +82,8 @@ exports.managePost = (req, res) => {
 exports.updatePost = (req, res) => {
   console.log("called updatePost");
 
+  const _id = req.params.postnum;
+  
   models.Notice.findAll({
     where: { id: _id },
     attributes: ["id", "title", "contents"],
