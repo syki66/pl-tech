@@ -74,20 +74,22 @@ util.currentDate = function(){
     return cdate;
 };
 
-util.cdateParser = function(data){
+util.cdateParser = function(cdate){
     // 서울 시간 기준
-    var date = data[0].cdate.split('-');
-    var month = date[1];
-    var day = date[2].split('/')[0];
-    var week = date[2].split('/')[1];
-
-    console.log(month);
-    console.log(day);
-    console.log(week);
+    var sdate = cdate.split('-');
+    var month = sdate[1];
+    var day = sdate[2].split('/')[0];
+    var week = sdate[2].split('/')[1];
 
     return {
         date : `${month}/${day}`,
         week : week
     }
+}
+
+util.noticeCdate = function(cdate){
+    console.log(cdate);
+    sdate = cdate.split('/');
+    return `${sdate[0]} (${sdate[1]}) ${sdate[2]}`;
 }
 module.exports = util;
