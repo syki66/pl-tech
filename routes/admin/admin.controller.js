@@ -1,3 +1,4 @@
+const inputController = require("../input/input.controller");
 const util = require("../../middleware/util");
 const models = require("../../models");
 const template = require("../../lib/template");
@@ -185,7 +186,7 @@ exports.welcome = (req, res) => {
   res.render("../views/welcome.html");
 };
 
-const inputController = require("../input/input.controller");
+
 exports.welcomeObj = [null, null];
 
 exports.inputWelcome = (req, res) => {
@@ -223,6 +224,25 @@ exports.inputWorker = (req, res) => {
   } else {
     exports.workerObj = [req.body.leader, req.body.staff1, req.body.staff2, req.body.staff3];
     inputController.updateInputData();
+    res.redirect("/alert");
+  }
+};
+
+exports.hazardObj = [null, null, null, null];
+
+exports.inputHazard = (req, res) => {
+  console.log("called inputHazard");
+  if (req.body === null || req.body === undefined) {
+    res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
+  } else {
+    exports.welcomeObj = [
+      req.body.value_1,
+      req.body.value_2,
+      req.body.value_3,
+      req.body.value_4
+    ];
+    inputController.updateInputData();
+    // res.json(util.successTrue(this.welcome, '환영문구가 성공적으로 반영되었습니다.'));
     res.redirect("/alert");
   }
 };
