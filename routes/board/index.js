@@ -8,4 +8,7 @@ router.get("/", controller.postList);
 // GET /board/:page - 해당 페이지 글 내용 출력
 router.get("/:postnum", controller.postContents);
 
+// GET /board/more/:page - 공지사항 더보기
+router.get("/more/:pagenum", controller.noticeMore);
+
 module.exports = router;

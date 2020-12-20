@@ -13,7 +13,7 @@ router.get("/post", controller.createPost);
 router.post("/post/cprocess", controller.createProcess);
 
 // GET - /admin/post/manage 공지 관리 페이지
-router.get("/post/manage", controller.managePost);
+router.get("/post/manage/:pagenum", controller.managePost);
 
 // GET - /admin/post/:postnum/update 공지 수정 페이지
 router.get("/post/:postnum/update", controller.updatePost);

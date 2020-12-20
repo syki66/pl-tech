@@ -41,12 +41,12 @@ exports.createProcess = (req, res) => {
       .then((data) => {
         console.log(data.dataValues);
         console.log("공지를 생성하였습니다.");
-        res.redirect(`/admin/post/manage`);
+        res.redirect(`/admin/post/manage/1`);
         //res.json(util.successTrue(data.dataValues));
       })
       .catch((err) => {
         console.log("공지를 생성할 수 없습니다.");
-        res.json(util.successFalse(error.createErr()));
+        res.json(util.successFalse(err));
       });
   } else {
     console.log("로그인이 필요합니다.");
@@ -58,24 +58,40 @@ exports.createProcess = (req, res) => {
 exports.managePost = (req, res) => {
   console.log("called managePost");
 
-  models.Notice.findAll({
-    attributes: ["id", "title"],
-    raw: true,
+  const pagenum = req.params.pagenum
+  // 페이지당 3개씩
+  const psize = 6;
+  // 시작 페이지
+  const bnum = (pagenum - 1) * psize;
+  
+models.Notice.findAll({
+  attributes: ["id", "title"],
+  raw: true,
+  order: [["id", "DESC"]],
+  // bnum 부터 psize 만큼 데이터 조회
+  limit : [bnum, psize]
+})
+  .then((data) => {
+    console.log(data);
+    const list = template.m_noticeList(data, pagenum, true);
+
+    models.Notice.findAll({
+      attributes: [[models.sequelize.fn("count", "*"), "count"]],
+      raw: true
+    })
+    .then((data)=>{
+        const pages = data[0].count / psize;  
+        const ptemplate = template.ptmpl(pages);
+        res.send(template.m_board(list,ptemplate,true));
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
   })
-    .then((data) => {
-      console.log(data);
-      //res.writeHead(200);
-      res.end(template.m_board(template.m_noticeList(data)));
-      //res.json(util.successTrue(data));
-    })
-    .catch((err) => {
-      console.log("데이터를 불러올 수 없습니다.");
-      res.json(util.successFalse(error.loadErr()));
-    })
-    .catch((err) => {
-      console.log("데이터를 불러올 수 없습니다.");
-      res.json(util.successFalse(error.loadErr()));
-    });
+  .catch((err) => {
+    console.log(err);
+    res.json(util.successFalse(error));
+  })
 };
 
 // GET - /admin/post/:postnum/update 공지 수정 페이지
@@ -83,7 +99,9 @@ exports.updatePost = (req, res) => {
   console.log("called updatePost");
 
   const _id = req.params.postnum;
-  
+
+  const page = req.query.pagenum;
+
   models.Notice.findAll({
     where: { id: _id },
     attributes: ["id", "title", "contents"],
@@ -91,23 +109,10 @@ exports.updatePost = (req, res) => {
   })
     .then((data) => {
       console.log(data);
-      var id = data[0].id;
-      var title = data[0].title;
-      var contents = data[0].contents;
-
-      //res.writeHead(200);
-      res.send(template.m_edit(id, title, contents));
-      //res.json(util.successTrue(data));
-    })
-    .then((data) => {
-      //   var _id = data[0].id;
-      //   var _title = data[0].title;
-      //   var _contents = data[0].contents;
-
-      //   res.writeHead(200);
-      //   res.end(template.m_edit(_id, _title, _contents));
-      console.log(data);
-      res.json(util.successTrue(data));
+      const id = data[0].id;
+      const title = data[0].title;
+      const contents = data[0].contents;
+      res.send(template.m_edit(id, title, contents, page));
     })
     .catch((err) => {
       console.log("데이터를 불러올 수 없습니다.");
@@ -122,12 +127,15 @@ exports.updateProcess = (req, res) => {
   var isAdminStatus = util.isAdminStatus(req, res);
   // 로그인 시
   if (isAdminStatus) {
-    var _id = req.params.postnum;
-    var _contents = req.body.contents;
-    var _cdate = util.currentDate();
+    const _id = req.params.postnum;
+    const _title = req.body.title;
+    const _contents = req.body.contents;
+    const _cdate = util.currentDate();
+    const page = req.body.page;
 
     models.Notice.update(
       {
+        title: _title,
         contents: _contents,
         cdate: _cdate,
       },
@@ -135,9 +143,8 @@ exports.updateProcess = (req, res) => {
     )
       .then((data) => {
         console.log("공지를 수정하였습니다.");
-        res.writeHead(302, { Location: `/admin/post/manage` });
+        res.writeHead(302, { Location: `/admin/post/manage/${page}` });
         res.end("success");
-        //res.json(util.successTrue(message.updateMsg()));
       })
       .catch((err) => {
         console.log("공지를 수정할 수 없습니다.");
@@ -152,8 +159,8 @@ exports.updateProcess = (req, res) => {
 // DELETE - /admin/post/:postnum/dprocess 공지 삭제 처리 프로세스 (권한 검사)
 exports.deleteProcess = (req, res) => {
   console.log("called deleteProcess");
-
-  //console.log(req.session);
+  const pagenum = req.body.pagenum;
+  console.log(pagenum);
   // 로그인 검사
   var isAdminStatus = util.isAdminStatus(req, res);
   // 로그인 시
@@ -166,7 +173,7 @@ exports.deleteProcess = (req, res) => {
       .then((data) => {
         console.log("공지를 삭제하였습니다.");
         //res.json(util.successTrue(message.deleteMsg()));
-        res.writeHead(302, { Location: "/admin/post/manage" });
+        res.writeHead(302, { Location: `/admin/post/manage/${pagenum}` });
         res.end("success");
       })
       .catch((err) => {
@@ -184,7 +191,6 @@ exports.welcome = (req, res) => {
 
   res.render("../views/welcome.html");
 };
-
 const inputController = require("../input/input.controller");
 exports.welcomeObj = [null, null];
 
