@@ -8,7 +8,7 @@ const MySQLStore = require("express-mysql-session")(session);
 // checkExpirationInterval - 만료된 세션 삭제 주기 ex) 초*1000
 exports.sess = {
   secret: "pltech key",
-  cookie:{maxAge : 5*1000},
+  cookie:{maxAge : 1*60*60*1000},
   resave: false,
   saveUninitialized: true,
   store: new MySQLStore({
@@ -18,7 +18,7 @@ exports.sess = {
     password: "rkawk35088",
     database: "pltech",
     clearExpired: true,
-    checkExpirationInterval: 30*1000
+    checkExpirationInterval: 2*60*60*1000
   }),
   rolling : true
 };
