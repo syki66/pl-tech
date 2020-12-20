@@ -1,20 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>carousel 8</title>
     <link rel="stylesheet" type="text/css" href="/views/src/styles/page.css" />
     <style>
-        body{
+        body {
             margin: 0vw;
             background-image: url('/views/src/images/8.png');
             background-size: 100%;
-            background-repeat:no-repeat;
+            background-repeat: no-repeat;
+        }
+
+        .entire__container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hazard__container {
+            position: absolute;
+            /* justify-content: center;
+            align-items: center; */
+            top: 10.6vw;
+            left: 10.4vw;
+            width: 79vw;
+            height: 37.2vw;
+        }
+
+        .value__0 {
+            position: absolute;
+            float: left;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 세로에서 가운데에 요소를 배치하겠다 */
+            width: 40vw;
+            height: 15vw;
+        }
+
+        .value__0>img {
+            position: relative;
+            float: left;
+            right: 1vw;
+            width: 16vw;
+        }
+
+        .value__0>div {
+            position: relative;
+            float: left;
+            left: 1vw;
+            font-size: 6vw;
+            font-weight: 800;
+            text-shadow: 2px 2px 10px #000;
+            color: #34e363
+        }
+
+        .value__1 {
+            display: flex;
+            justify-content: center;
+            /* align-items: center; */
+            height: 15vw;
+            margin-left: 42vw;
+        }
+
+        .value__1>div:nth-child(1) {
+            position: relative;
+            float: left;
+            font-size: 12vw;
+            top: -1.4vw;
+            font-weight: 800;
+            text-shadow: 2px 2px 10px #000;
+            color: #ffb700;
+        }
+
+        .value__1>div:nth-child(2) {
+            position: relative;
+            top: 4.4vw;
+            font-size: 6vw;
+            text-shadow: 2px 2px 10px #000;
+            color: #fff421;
+        }
+
+        .value__2 {
+            display: flex;
+            align-items: center;
+            height: 5.8vw;
+        }
+
+        .tence__1, .tence__2, .tence__3{
+            position: relative;
+            float: left;
+            font-size: 2vw;
+            text-shadow: 1px 1px 2px #000;
+            color: white;
+        }
+
+        .tence__1 {
+            /* 현재 */
+            left: 4.5vw;
+            bottom: 0.2vw;
+        }
+
+        .tence__2 {
+            /* 시작 */
+            left: 4.5vw;
+            top: 0.2vw;
+        }
+
+        .tence__3 {
+            /* 목표 */
+            left: 14.5vw;
+            top: 0.2vw;
+        }
+
+        #date__0, #date__1, #date__2 {
+            position: relative;
+            font-size: 3vw;
+            font-weight: 700;
+            text-shadow: 2px 2px 2px #000;
+        }
+
+        #date__0{
+            left: 8vw;
+            bottom: 0.2vw;
+            color: blue;
+        }
+
+        #date__1{
+            left: 8vw;
+            color: white;
+        }
+
+        #date__2 {
+            left: 18vw;
+            color: #ffb700;
+        }
+
+        .value__3 {
+            display: flex;
+            justify-content: center;
+            /* align-items: center; */
+            height: 9.5vw;
+        }   
+
+        .value__3>div:nth-child(1) {
+            float: left;
+            width: 38.3vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .value__3>div:nth-child(1)>div:nth-child(1) {
+            /* 무재해 */
+            float: left;
+            font-size: 4vw;
+            font-weight: 800;
+            text-shadow: 2px 2px 10px #000;
+            color: white;
+        }
+
+        .value__3>div:nth-child(1)>div:nth-child(2) {
+            /* 10 */
+            float: left;
+            height: 100%;
+            margin-left: 7vw;
+            margin-bottom: 1vw;
+            font-size: 7vw;
+            font-weight: 800;
+            text-shadow: 2px 2px 10px #000;
+            color: white;
+        }
+
+        .value__3>div:nth-child(1)>div:nth-child(3) {
+            /* 배 */
+            margin-left: 0.5vw;
+            font-size: 4vw;
+            font-weight: 800;
+            text-shadow: 2px 2px 10px #000;
+            color: white;
+        }
+
+        .value__3>div:nth-child(2) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 38vw;
+            color: #fff421;
+        }
+
+        .value__3>div:nth-child(2)>div:nth-child(1) {
+            /* 목표일 */
+            float: left;
+            /* top: 4.4vw; */
+            font-size: 4vw;
+            font-weight: 800;
+            text-shadow: 2px 2px 10px #000;
+            color: #fff421;
+        }
+
+        .value__3>div:nth-child(2)>div:nth-child(2) {
+            /* 4899 */
+            position: relative;
+            float: left;
+            margin-left: 1.5vw;
+            margin-bottom: 1vw;
+            font-size: 7vw;
+            font-weight: 800;
+            text-shadow: 2px 2px 10px #000;
+            color: #ffb700;
+        }
+
+        .value__3>div:nth-child(2)>div:nth-child(3) {
+            /* 일 */
+            float: left;
+            margin-left: 0.5vw;
+            font-size: 4vw;
+            font-weight: 800;
+            text-shadow: 2px 2px 10px #000;
+            color: #fff421;
+        }
+
+        .value__4 {
+            display: flex;
+            /* justify-content: center; */
+            align-items: center;
+            height: 7.5vw;
         }
     </style>
 </head>
-<body>
 
+<body>
+    <div class="clock__container"></div>
+
+    <div class="title__container">
+        <span class="title">무재해 기록판</span>
+    </div>
+
+    <div class="entire__container">
+        <div class="hazard__container">
+            <div class="value__0">
+                <img src="/views/src/images/zero_hazard.png" alt="마크">
+                <div>무재해</div>
+            </div>
+            <div class="value__1">
+                <div class="row__0">2538</div>
+                <div>일</div>
+            </div>
+            <div class="value__2">
+                <div class="tence__1">현재</div>
+                <div id="date__0" class="row__1">
+                    2013년 06년 30일
+                </div>
+            </div>
+            <div class="value__3">
+                <div>
+                    <div>무재해</div>
+                    <div class="row__2">10</div>
+                    <div>배</div>
+                </div>
+                <div>
+                    <div>목표일</div>
+                    <div class="row__2">4899</div>
+                    <div>일</div>
+                </div>
+            </div>
+            <div class="value__4">
+                <div class="tence__2">시작</div>
+                <div id="date__1" class="row__3">2002년 04년 15일</div>
+                <div class="tence__3">목표</div>
+                <div id="date__2" class="row__3">2013년 10년 13일</div>
+            </div>
+        </div>
+    </div>
+
+    <script>const pageNum = 8;</script>
+    <!-- <script src="/views/src/scripts/paintPage.js"></script> -->
+    <script src="/views/src/scripts/clock.js"></script>
 </body>
+
 </html>
