@@ -4,8 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>carousel 8</title>
+    <title>safety</title>
     <link rel="stylesheet" type="text/css" href="/views/src/styles/page.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+    <script>
+        $(function () {
+            $("#start_date").datepicker({
+            });
+        });
+    </script>
+
     <style>
         @font-face {
             src : url("/views/src/styles/TickingTimebombBB_ital.ttf");
@@ -116,26 +126,16 @@
 
         .value__4>div:nth-child(1)>div:nth-child(1) {
             /* 무재해 */
-            float: left;
+            position: absolute;
+            left: 4vw;
             font-size: 4vw;
             color: white;
         }
 
         .value__4>div:nth-child(1)>div:nth-child(2) {
-            /* 10 */
-            float: left;
-            height: 100%;
-            margin-left: 7vw;
-            margin-top: 1vw;
-            font-size: 7vw;
-            /* font-weight: 800; */
-            text-shadow: 2px 2px 10px #000;
-            color: white;
-        }
-
-        .value__4>div:nth-child(1)>div:nth-child(3) {
             /* 배 */
-            margin-left: 1vw;
+            position: absolute;
+            left: 31vw;
             font-size: 4vw;
             color: white;
         }
@@ -179,6 +179,7 @@
             /* justify-content: center; */
             align-items: center;
             height: 7.5vw;
+            border: 1px solid blue;
         }
 
         .tence{
@@ -218,16 +219,40 @@
             color: blue;
         }
 
-        #date__2{
-            top : 32.1vw;
-            left: 12.5vw;
-            color: white; 
+        .input__1, .input__2, .input__3{
+            position: absolute;
+            background-color: #222222;
+
+            border-radius: 0.7vw;
+
+            color: white;
+
+            font-size: 1.8vw;
+            font-weight: 600;
+            padding: 0vw 1vw;
         }
 
-        #date__3 {
-            top : 32.1vw;
+        .input__1{
+            width: 6vw;
+            height: 8vw;
+            font-size: 4.5vw;
+            top : 21.5vw;
+            left: 21.5vw;
+        }
+
+        .input__2, .input__3{
+            width: 22.1vw;
+            height: 3.5vw;
+        }
+
+        .input__2{
+            top : 32.6vw;
+            left: 12.5vw;
+        }
+
+        .input__3 {
+            top : 32.6vw;
             left: 52vw;
-            color: #ffb700;
         }
     </style>
 </head>
@@ -258,7 +283,6 @@
             <div class="value__4">
                 <div>
                     <div class="text">무재해</div>
-                    <div class="row__2">10</div>
                     <div class="text">배</div>
                 </div>
                 <div>
@@ -270,18 +294,17 @@
             <div class="value__5">
                 <div>
                     <div id="tence__2" class="tence">시작</div>
-                    <div id="date__2" class="row__3">2002년 02월 15일</div>
-                </div>
-                <div>
+                    <form action="/admin/safety" method="post">
+                        <p><input class="input__1" type="text" name="zeroHazard" placeholder=""></p>
+                        <p><input class="input__2" type="date" name="startDate" placeholder="시작날짜"></p>
+                        <p><input class="input__3" type="date" name="targetDate" placeholder="목표날짜"></p>
+                    </form>
                     <div id="tence__3" class="tence">목표</div>
-                    <div id="date__3" class="row__3">2013년 10월 13일</div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <script>const pageNum = 8;</script>
-    <script src="/views/src/scripts/paintPage.js"></script>
+
     <script src="/views/src/scripts/clock.js"></script>
 </body>
 
