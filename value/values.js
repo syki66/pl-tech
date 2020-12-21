@@ -1,5 +1,5 @@
 // 우선 하드코딩
-exports.valuesToJson = (parsed, welcomeObj, workerObj=null, hazardObj) => {
+exports.valuesToJson = (parsed, welcomeObj, workerObj, hazardObj) => {
   let values = [];
 
   let item_1 = new Object();
@@ -76,23 +76,19 @@ exports.valuesToJson = (parsed, welcomeObj, workerObj=null, hazardObj) => {
 
   values.push(item_6);
 
-  if(workerObj!==null){
+  let item_7 = new Object();
 
-    let item_7 = new Object();
-    
-    item_7.row0 = [workerObj[0], workerObj[1], workerObj[2], workerObj[3]];
-    
-    values.push(item_7);
+  item_7.row0 = [workerObj[0], workerObj[1], workerObj[2], workerObj[3]];
 
-    let item_8 = new Object();
+  values.push(item_7);
 
-    item_8.row0 = [hazardObj[0]];
-    item_8.row1 = [hazardObj[1]];
-    item_8.row2 = [hazardObj[2][0], hazardObj[2][1]];
-    item_8.row3 = [hazardObj[3][0], hazardObj[3][1]];
+  let item_8 = new Object();
+  item_8.row0 = [hazardObj[0]];
+  item_8.row1 = [hazardObj[1]];
+  item_8.row2 = [hazardObj[2][0], hazardObj[2][1]];
+  item_8.row3 = [hazardObj[3][0], hazardObj[3][1]];
 
-    values.push(item_8);
-  }
+  values.push(item_8);
 
   return JSON.parse(JSON.stringify(values));
 };

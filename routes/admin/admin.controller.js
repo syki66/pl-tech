@@ -228,21 +228,25 @@ exports.inputWorker = (req, res) => {
   }
 };
 
-exports.hazardObj = [null, null, null, null];
+exports.hazardObj = [
+  null,
+  null,
+  [null, null],
+  [null, null]
+ ];
 
 exports.inputHazard = (req, res) => {
   console.log("called inputHazard");
   if (req.body === null || req.body === undefined) {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
-    exports.welcomeObj = [
+    exports.hazardObj = [
       req.body.value_1,
       req.body.value_2,
       req.body.value_3,
       req.body.value_4
     ];
     inputController.updateInputData();
-    // res.json(util.successTrue(this.welcome, '환영문구가 성공적으로 반영되었습니다.'));
     res.redirect("/alert");
   }
 };
