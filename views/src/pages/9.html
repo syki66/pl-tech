@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>carousel 9</title>
+    <title>크리티컬포인트 운영현황2</title>
     <link rel="stylesheet" type="text/css" href="/views/src/styles/page.css" />
     <style>
         body{
@@ -12,9 +12,29 @@
             background-size: 100%;
             background-repeat:no-repeat;
         }
+
+        .row__0, .row__1, .row__2, .row__3{
+            width: 10vw;
+            height: 10vw;
+            overflow: hidden;
+        }
+
     </style>
 </head>
 <body>
+    <div class="clock__container"></div>
 
+    <div class="title__container">
+        <span class="title">근무자 현황</span>
+    </div>
+
+    <div class="row__0"></div>
+    <div class="row__1"></div>
+    <div class="row__2"></div>
+    <div class="row__3"></div>
+
+    <script>const pageNum = 9;</script>
+    <script src="/views/src/scripts/paintPage.js"></script>
+    <script src="/views/src/scripts/clock.js"></script>
 </body>
 </html>

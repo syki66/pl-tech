@@ -20,7 +20,15 @@ function paintPage(num) {
   }
   rowArray.forEach((row, rowIndex) => {
     row.forEach((e, i) => {
-      e.innerText = json.data[num][`row${rowIndex}`][i];
+      if (num == 8 && json.data[num][`row${rowIndex}`][i]){
+        workerImg = `<img style="object-fit: cover; width:100%;" src="/worker/${json.data[num][`row${rowIndex}`][i]}">`;
+        if (e.innerHTML == workerImg){
+        } else{
+          e.innerHTML = workerImg;
+        }
+      } else{
+        e.innerText = json.data[num][`row${rowIndex}`][i];
+      }
     });
   });
 }
