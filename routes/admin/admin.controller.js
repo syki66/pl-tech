@@ -5,6 +5,7 @@ const error = require("../../lib/error");
 const message = require("../../lib/message");
 const errorHandler = require("errorhandler");
 const fs = require("fs");
+const inputController = require("../input/input.controller");
 
 // GET - /admin 관리자 페이지
 exports.admin = (req, res) => {
@@ -41,6 +42,7 @@ exports.createProcess = (req, res) => {
       .then((data) => {
         console.log(data.dataValues);
         console.log("공지를 생성하였습니다.");
+        inputController.updateNoticeObj();
         res.redirect(`/admin/post/manage/1`);
         //res.json(util.successTrue(data.dataValues));
       })
@@ -143,6 +145,7 @@ exports.updateProcess = (req, res) => {
     )
       .then((data) => {
         console.log("공지를 수정하였습니다.");
+        inputController.updateNoticeObj();
         res.writeHead(302, { Location: `/admin/post/manage/${page}` });
         res.end("success");
       })
@@ -172,7 +175,7 @@ exports.deleteProcess = (req, res) => {
     })
       .then((data) => {
         console.log("공지를 삭제하였습니다.");
-        //res.json(util.successTrue(message.deleteMsg()));
+        inputController.updateNoticeObj();
         res.writeHead(302, { Location: `/admin/post/manage/${pagenum}` });
         res.end("success");
       })
@@ -191,7 +194,7 @@ exports.welcome = (req, res) => {
 
   res.render("../views/welcome.html");
 };
-const inputController = require("../input/input.controller");
+
 exports.welcomeObj = [null, null];
 
 exports.inputWelcome = (req, res) => {

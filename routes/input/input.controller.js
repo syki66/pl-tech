@@ -3,8 +3,10 @@ const Iconv = require("iconv").Iconv;
 const values = require("../../value/values");
 const adminController = require("../admin/admin.controller");
 const DCSPath = "DCS_val.csv";
+const models = require('../../models');
 
 let parsing = null;
+exports.noticeObj = [null, null, null, null, null];
 
 const parsingValues = (path, callback) => {
   let encode = new Iconv("euc-kr", "utf-8"); // csv 파일을 그냥 읽어오면 한글이 깨지기 때문에 인코딩 필요
@@ -49,16 +51,61 @@ const parsingValues = (path, callback) => {
         console.log("parsed " + i);
         console.log(parsing[i]);
       }
+      
+      let result;
+      models.Notice.findAll({
+        attributes: ['id', 'title', 'cdate'],
+        raw: true,
+        order: [['id', 'DESC']],
+        limit: 5
+      })
+        .then(data => {
+          console.log(data);
+          for(let i = 0 ; i < data.length ; i++){
+            const row = [data[i].id, data[i].title, data[i].cdate];
+            this.noticeObj[i] = row;
+          }
+          result = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, this.noticeObj);
+          callback(null, result);
+        })
+        .catch(err => {
+          console.log(err);
+          res.json(util.successFalse(err));
+        })
 
-      let result = values.valuesToJson(parsing, adminController.welcomeObj);
-
-      callback(null, result);
     }
   });
 };
 
+// 글 생성 및 삭제시 업데이트
+exports.updateNoticeObj = () => {
+  models.Notice.findAll({
+    attributes: ['id', 'title', 'cdate'],
+    raw: true,
+    order: [['id', 'DESC']],
+    limit: 5
+  })
+    .then(data => {
+      console.log(data);
+      let row;
+      for(let i = 0 ; i < this.noticeObj.length ; i++){
+        if(data[i]){
+          row = [data[i].id, data[i].title, data[i].cdate];
+        }else{
+          row = null;
+        }
+        this.noticeObj[i] = row;
+        exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, this.noticeObj);
+      }  
+    })
+    .catch(err => {
+      console.log(err);
+      res.json(util.successFalse(err));
+    })
+}
+
 exports.updateInputData = () => {
-  exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj);
+  exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, this.noticeObj);
   console.log(this.parsed);
 };
 
