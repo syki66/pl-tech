@@ -1,5 +1,5 @@
 // 우선 하드코딩
-exports.valuesToJson = (parsed, welcomeObj, workerObj=null) => {
+exports.valuesToJson = (parsed, welcomeObj, workerObj=null, nlist=null) => {
   let values = [];
 
   let item_1 = new Object();
@@ -76,22 +76,30 @@ exports.valuesToJson = (parsed, welcomeObj, workerObj=null) => {
 
   values.push(item_6);
 
-  let item_7 = new Object();
-  values.push(item_7);
+  if(nlist !== null){
+    let item_7 = new Object();
+    item_7.itemname = ["*7 게시판 주요 업무"]
+    item_7.row0 = nlist[0];
+    item_7.row1 = nlist[1];
+    item_7.row2 = nlist[2];
+    item_7.row3 = nlist[3];
+    item_7.row4 = nlist[4];
+    values.push(item_7);
+  }
+  
   let item_8 = new Object();
   values.push(item_8);
 
   if(workerObj!==null){
-
     let item_9 = new Object();
-    
-    item_9.row0 = [workerObj[0]];
-    item_9.row1 = [workerObj[1]];
-    item_9.row2 = [workerObj[2]];
-    item_9.row3 = [workerObj[3]];
-    
+    item_9.itemname = ["*9 근무자 현황"]
+    item_9.row0 = [workerObj[0]+".jpg"];
+    item_9.row1 = [workerObj[1]+".jpg"];
+    item_9.row2 = [workerObj[2]+".jpg"];
+    item_9.row3 = [workerObj[3]+".jpg"];
     values.push(item_9);
   }
+  
 
   return JSON.parse(JSON.stringify(values));
 };
