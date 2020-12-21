@@ -14,4 +14,7 @@ router.get("/login", controller.login);
 // GET - /alert/logout 로그아웃 완료 알람
 router.get("/logout", controller.logout);
 
+// GET - /alert/wmanage 로그아웃 완료 알람
+router.get("/wmanage", controller.wmanage);
+
 module.exports = router;

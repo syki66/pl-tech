@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       contents: {
           field: 'contents',
-        type: DataTypes.STRING,
+          type: DataTypes.TEXT(),
         allowNull: false
       },
       cdate: {

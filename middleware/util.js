@@ -89,7 +89,7 @@ util.cdateParser = function(cdate){
 
 util.noticeCdate = function(cdate){
     console.log(cdate);
-    sdate = cdate.split('/');
+    var sdate = cdate.split('/');
     return `${sdate[0]} (${sdate[1]}) ${sdate[2]}`;
 }
 
