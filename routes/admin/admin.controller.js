@@ -229,6 +229,6 @@ exports.inputWorker = (req, res) => {
   } else {
     exports.workerObj = [req.body.leader, req.body.staff1, req.body.staff2, req.body.staff3];
     inputController.updateInputData();
-    res.redirect("/alert");
+    res.redirect("/alert/wmanage");
   }
 };
