@@ -76,13 +76,21 @@ exports.valuesToJson = (parsed, welcomeObj, workerObj=null) => {
 
   values.push(item_6);
 
+  let item_7 = new Object();
+  values.push(item_7);
+  let item_8 = new Object();
+  values.push(item_8);
+
   if(workerObj!==null){
 
-    let item_7 = new Object();
+    let item_9 = new Object();
     
-    item_7.row0 = [workerObj[0], workerObj[1], workerObj[2], workerObj[3]];
+    item_9.row0 = [workerObj[0]];
+    item_9.row1 = [workerObj[1]];
+    item_9.row2 = [workerObj[2]];
+    item_9.row3 = [workerObj[3]];
     
-    values.push(item_7);
+    values.push(item_9);
   }
 
   return JSON.parse(JSON.stringify(values));

@@ -11,11 +11,13 @@ exports.sess = {
   cookie:{maxAge : 1*60*60*1000},
   resave: false,
   saveUninitialized: true,
+  httpOnly: true,
+  secure: true,
   store: new MySQLStore({
     host: "localhost",
     port: 3306,
     user: "root",
-    password: "00000000",
+    password: "rkawk35088",
     database: "pltech",
     clearExpired: true,
     checkExpirationInterval: 2*60*60*1000
