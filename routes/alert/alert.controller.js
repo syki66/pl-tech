@@ -27,6 +27,6 @@ exports.logout = (req, res) => {
 // GET - /alert/wmanage 로그아웃 완료 알람
 exports.wmanage = (req, res) => {
   res.status(201);
-  res.send(template.alert("근무자 등록을 완료했습니다.", "/auth/wmanage"));
+  res.send(template.alert("근무자 등록을 완료했습니다.", "/admin"));
 };
 
