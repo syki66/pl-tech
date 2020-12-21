@@ -50,7 +50,7 @@ const parsingValues = (path, callback) => {
         console.log(parsing[i]);
       }
 
-      let result = values.valuesToJson(parsing, adminController.welcomeObj);
+      let result = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, adminController.hazardObj);
 
       callback(null, result);
     }
@@ -58,8 +58,8 @@ const parsingValues = (path, callback) => {
 };
 
 exports.updateInputData = () => {
-  exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj);
-  console.log(this.parsed);
+  exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, adminController.hazardObj);
+  console.log(exports.parsed);
 };
 
 const removeLetters = (str) => {
