@@ -50,7 +50,7 @@ const parsingValues = (path, callback) => {
         console.log(parsing[i]);
       }
 
-      let result = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, adminController.hazardObj);
+      let result = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, adminController.safetyObj);
 
       callback(null, result);
     }
@@ -58,7 +58,7 @@ const parsingValues = (path, callback) => {
 };
 
 exports.updateInputData = () => {
-  exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, adminController.hazardObj);
+  exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, adminController.safetyObj);
   console.log(exports.parsed);
 };
 

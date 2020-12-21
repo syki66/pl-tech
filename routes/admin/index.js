@@ -36,6 +36,9 @@ router.get("/wmanage", controller.workerManage);
 // POST - /wbProcess 금일 근무자 적용 프로세스
 router.post("/wmanage", controller.inputWorker);
 
+// POST - /hazard 무재해 페이지 입력 렌더링
+router.get("/safety", controller.safety);
+
 // POST - /hazard 무재해 페이지 입력
-router.post("/hazard", controller.inputHazard);
+router.post("/safety", controller.inputSafety);
 module.exports = router;

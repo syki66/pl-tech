@@ -228,23 +228,64 @@ exports.inputWorker = (req, res) => {
   }
 };
 
-exports.hazardObj = [
+exports.safety = (req, res) => {
+  console.log("called safety");
+
+  res.render("../views/safety.html");
+};
+
+exports.safetyObj = [
   null,
   null,
-  [null, null],
-  [null, null]
+  null
  ];
 
-exports.inputHazard = (req, res) => {
-  console.log("called inputHazard");
+function calcNow() {
+  let today = new Date();   
+  let year = today.getFullYear(); // 년도
+  let month = today.getMonth() + 1;  // 월
+  let date = today.getDate();  // 날짜
+
+  if(month < 10){
+    month = "0" + month;
+  }
+  
+  if(date < 10){
+    date = "0" + date;
+  }
+
+  return year + '년 ' + month + '월 ' + date + '일';
+}
+
+
+function calcSafety(startDate, targetDate) {
+
+  var Dday = new Date(2017, 7, 30);    // D-day(2017년 8월 30일)를 셋팅한다.
+  var now = new Date();                    // 현재(오늘) 날짜를 받아온다.
+
+var gap = now.getTime() - Dday.getTime();    // 현재 날짜에서 D-day의 차이를 구한다.
+var result = Math.floor(gap / (1000 * 60 * 60 * 24)) * -1;    // gap을 일(밀리초 * 초 * 분 * 시간)로 나눈다. 이 때 -1 을 곱해야 날짜차이가 맞게 나온다.
+  
+
+  let ymdNow = 
+
+  exports.safetyObj = [
+    ymdNow,
+    req.body.value_1,
+    req.body.value_2,
+    req.body.value_3
+  ];
+}
+
+exports.inputSafety = (req, res) => {
+  console.log("called inputSafety");
   if (req.body === null || req.body === undefined) {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
-    exports.hazardObj = [
+    exports.safetyObj = [
       req.body.value_1,
       req.body.value_2,
-      req.body.value_3,
-      req.body.value_4
+      req.body.value_3
     ];
     inputController.updateInputData();
     res.redirect("/alert");
