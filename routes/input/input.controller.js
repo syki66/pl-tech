@@ -65,14 +65,13 @@ const parsingValues = (path, callback) => {
             const row = [data[i].id, data[i].title, data[i].cdate];
             this.noticeObj[i] = row;
           }
-          result = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, this.noticeObj);
+          result = values.valuesToJson(parsing, adminController.welcomeObj, this.noticeObj, adminController.safetyObj, adminController.workerObj);
           callback(null, result);
         })
         .catch(err => {
           console.log(err);
           res.json(util.successFalse(err));
         })
-
     }
   });
 };
@@ -95,7 +94,7 @@ exports.updateNoticeObj = () => {
           row = null;
         }
         this.noticeObj[i] = row;
-        exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, this.noticeObj, adminController.slideObj);
+        exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, this.noticeObj, adminController.safetyObj, adminController.workerObj, adminController.slideObj);
       }  
     })
     .catch(err => {
@@ -105,7 +104,7 @@ exports.updateNoticeObj = () => {
 }
 
 exports.updateInputData = () => {
-  exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, this.noticeObj, adminController.slideObj);
+  exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, this.noticeObj, adminController.safetyObj, adminController.workerObj, adminController.slideObj);
   console.log(this.parsed);
 };
 
