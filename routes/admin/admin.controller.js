@@ -237,57 +237,123 @@ exports.safety = (req, res) => {
 exports.safetyObj = [
   null,
   null,
+  null,
+  null,
+  null,
   null
- ];
+ ]; 
 
-function calcNow() {
-  let today = new Date();   
-  let year = today.getFullYear(); // 년도
-  let month = today.getMonth() + 1;  // 월
-  let date = today.getDate();  // 날짜
+// function calcNow() {
+//   let today = new Date();   
+//   let year = today.getFullYear(); // 년도
+//   let monthNow = today.getMonth() + 1;  // 월
+//   let date = today.getDate();  // 날짜
 
-  if(month < 10){
-    month = "0" + month;
-  }
+//   if(monthNow < 10){
+//     monthNow = "0" + monthNow;
+//   }
   
-  if(date < 10){
-    date = "0" + date;
-  }
+//   if(date < 10){
+//     date = "0" + date;
+//   }
 
-  return year + '년 ' + month + '월 ' + date + '일';
+//   return year + '년 ' + monthNow + '월 ' + date + '일';
+// }
+
+
+function calcSafety(zhVal, startDate, targetDate) {
+
+  if (startDate === null || targetDate === null) {
+    exports.safetyObj = [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+     ];
+     inputController.updateInputData();
+  } else {
+    
+    let yyStart = startDate.substring(0, 4);
+    let yyTarget = targetDate.substring(0, 4);
+    let mmStart;
+    let mmTarget;
+    let ddStart;
+    let ddTarget;
+
+    if(startDate.substring(6, 7) === '0'){
+      mmStart = startDate.substring(7, 8);
+    } else {
+      mmStart = startDate.substring(6, 8);
+    }
+
+    if(targetDate.substring(6, 7) === '0'){
+      mmTarget = targetDate.substring(7, 8);
+    } else {
+      mmTarget = targetDate.substring(6, 8);
+    }
+
+    if(startDate.substring(10, 11) === '0'){
+      ddStart = startDate.substring(11, 12);
+    } else {
+      ddStart = startDate.substring(10, 12);
+    }
+
+    if(targetDate.substring(10, 11) === '0'){
+      ddTarget = targetDate.substring(11, 12);
+    } else {
+      ddTarget = targetDate.substring(10, 12);
+    }
+
+    let start = new Date(yyStart, mmStart, ddStart);
+    
+    let target = new Date(yyTarget, mmTarget, ddTarget);    // D-day(2017년 8월 30일)를 셋팅한다.
+    let now = new Date();                    // 현재(오늘) 날짜를 받아온다.
+
+    let yyNow = now.getFullYear(); // 년도
+    let mmNow = now.getMonth() + 1;  // 월
+    let ddNow = now.getDate();  // 날짜
+
+    if (mmNow < 10) {
+      mmNow = "0" + mmNow;
+    }
+
+    if (ddNow < 10) {
+      ddNow = "0" + ddNow;
+    }
+
+    let ymdNow = yyNow + '년 ' + mmNow + '월 ' + ddNow + '일';
+
+    let stGap = start.getTime() - target.getTime();    // 현재 날짜에서 D-day의 차이를 구한다.
+    let stResult = Math.floor(stGap / (1000 * 60 * 60 * 24)) * -1;    // gap을 일(밀리초 * 초 * 분 * 시간)로 나눈다. 이 때 -1 을 곱해야 날짜차이가 맞게 나온다.
+
+    let snGap = start - now.getTime();
+    let snResult = Math.floor(snGap / (1000 * 60 * 60 * 24)) * -1;
+
+    exports.safetyObj = [
+      snResult,
+      ymdNow,
+      zhVal,
+      stResult,
+      startDate,
+      targetDate
+     ];
+     inputController.updateInputData();
+  }
 }
 
-
-function calcSafety(startDate, targetDate) {
-
-  var Dday = new Date(2017, 7, 30);    // D-day(2017년 8월 30일)를 셋팅한다.
-  var now = new Date();                    // 현재(오늘) 날짜를 받아온다.
-
-var gap = now.getTime() - Dday.getTime();    // 현재 날짜에서 D-day의 차이를 구한다.
-var result = Math.floor(gap / (1000 * 60 * 60 * 24)) * -1;    // gap을 일(밀리초 * 초 * 분 * 시간)로 나눈다. 이 때 -1 을 곱해야 날짜차이가 맞게 나온다.
-  
-
-  let ymdNow = 
-
-  exports.safetyObj = [
-    ymdNow,
-    req.body.value_1,
-    req.body.value_2,
-    req.body.value_3
-  ];
-}
+setInterval(()=>{
+  calcSafety(this.safetyObj[2], this.safetyObj[4], this.safetyObj[5])
+}, 10000)
 
 exports.inputSafety = (req, res) => {
   console.log("called inputSafety");
   if (req.body === null || req.body === undefined) {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
-    exports.safetyObj = [
-      req.body.value_1,
-      req.body.value_2,
-      req.body.value_3
-    ];
-    inputController.updateInputData();
+    console.log(req.body);
+    calcSafety(req.body.zeroHazard, req.body.startDate, req.body.targetDate);
     res.redirect("/alert");
   }
 };
