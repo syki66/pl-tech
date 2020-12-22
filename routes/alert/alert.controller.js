@@ -30,3 +30,8 @@ exports.wmanage = (req, res) => {
   res.send(template.alert("근무자 등록을 완료했습니다.", "/admin"));
 };
 
+// GET - /alert/slide 슬라이드 적용 완료 알람
+exports.slide = (req, res) => {
+  res.status(201);
+  res.send(template.alert("슬라이드 순서를 적용했습니다.", "/admin"));
+};

@@ -17,4 +17,7 @@ router.get("/logout", controller.logout);
 // GET - /alert/wmanage 로그아웃 완료 알람
 router.get("/wmanage", controller.wmanage);
 
+// GET - /alert/slide 슬라이드 적용 완료 알람
+router.get("/slide", controller.slide);
+
 module.exports = router;

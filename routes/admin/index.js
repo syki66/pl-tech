@@ -30,6 +30,12 @@ router.get("/welcome", controller.welcome);
 // POST - /welcome 환영 페이지 입력
 router.post("/welcome", controller.inputWelcome);
 
+// GET - /slide 슬라이드 관리
+router.get("/slide", controller.slide)
+
+// POST - /slide 슬라이드 적용
+router.post("/slide", controller.inputSlide)
+
 // GET - /wbmanage 근무자 현황 관리
 router.get("/wmanage", controller.workerManage);
 

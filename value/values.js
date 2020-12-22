@@ -1,6 +1,9 @@
 // 우선 하드코딩
-exports.valuesToJson = (parsed, welcomeObj, workerObj=null, nlist=null) => {
+exports.valuesToJson = (parsed, welcomeObj, workerObj=null, noticeObj=null, slideObj=null) => {
+
   let values = [];
+
+  let values_1 = [];
 
   let item_1 = new Object();
 
@@ -14,7 +17,7 @@ exports.valuesToJson = (parsed, welcomeObj, workerObj=null, nlist=null) => {
   item_1.row5 = parsed[7];
   item_1.row6 = parsed[8];
 
-  values.push(item_1);
+  values_1.push(item_1);
 
   let item_2 = new Object();
 
@@ -32,7 +35,7 @@ exports.valuesToJson = (parsed, welcomeObj, workerObj=null, nlist=null) => {
   item_2.row10 = parsed[20];
   item_2.row11 = parsed[21]; // 판교 연계
 
-  values.push(item_2);
+  values_1.push(item_2);
 
   let item_3 = new Object();
 
@@ -42,7 +45,7 @@ exports.valuesToJson = (parsed, welcomeObj, workerObj=null, nlist=null) => {
   item_3.row1 = parsed[25];
   item_3.row2 = parsed[26];
 
-  values.push(item_3);
+  values_1.push(item_3);
 
   let item_4 = new Object();
 
@@ -55,7 +58,7 @@ exports.valuesToJson = (parsed, welcomeObj, workerObj=null, nlist=null) => {
   item_4.row4 = parsed[33];
   item_4.row5 = parsed[34];
 
-  values.push(item_4);
+  values_1.push(item_4);
 
   let item_5 = new Object();
 
@@ -68,27 +71,27 @@ exports.valuesToJson = (parsed, welcomeObj, workerObj=null, nlist=null) => {
   item_5.row4 = parsed[41];
   item_5.row5 = parsed[42];
 
-  values.push(item_5);
+  values_1.push(item_5);
 
   let item_6 = new Object();
 
   item_6.row0 = [welcomeObj[0], welcomeObj[1]];
 
-  values.push(item_6);
+  values_1.push(item_6);
 
-  if(nlist !== null){
+  if(noticeObj !== null){
     let item_7 = new Object();
     item_7.itemname = ["*7 게시판 주요 업무"]
-    item_7.row0 = nlist[0];
-    item_7.row1 = nlist[1];
-    item_7.row2 = nlist[2];
-    item_7.row3 = nlist[3];
-    item_7.row4 = nlist[4];
-    values.push(item_7);
+    item_7.row0 = noticeObj[0];
+    item_7.row1 = noticeObj[1];
+    item_7.row2 = noticeObj[2];
+    item_7.row3 = noticeObj[3];
+    item_7.row4 = noticeObj[4];
+    values_1.push(item_7);
   }
   
   let item_8 = new Object();
-  values.push(item_8);
+  values_1.push(item_8);
 
   if(workerObj!==null){
     let item_9 = new Object();
@@ -97,9 +100,16 @@ exports.valuesToJson = (parsed, welcomeObj, workerObj=null, nlist=null) => {
     item_9.row1 = [workerObj[1]+".jpg"];
     item_9.row2 = [workerObj[2]+".jpg"];
     item_9.row3 = [workerObj[3]+".jpg"];
-    values.push(item_9);
+    values_1.push(item_9);
   }
   
+  values.push(values_1);
+
+  if(slideObj !== null){
+    let values_2 = [];
+    values_2.push(slideObj);
+    values.push(values_2);
+  }
 
   return JSON.parse(JSON.stringify(values));
 };
