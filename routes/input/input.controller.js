@@ -95,7 +95,7 @@ exports.updateNoticeObj = () => {
           row = null;
         }
         this.noticeObj[i] = row;
-        exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, this.noticeObj);
+        exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, this.noticeObj, adminController.slideObj);
       }  
     })
     .catch(err => {
@@ -105,7 +105,7 @@ exports.updateNoticeObj = () => {
 }
 
 exports.updateInputData = () => {
-  exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, this.noticeObj);
+  exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, adminController.workerObj, this.noticeObj, adminController.slideObj);
   console.log(this.parsed);
 };
 

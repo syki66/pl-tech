@@ -93,10 +93,10 @@ util.noticeCdate = function(cdate){
     return `${sdate[0]} (${sdate[1]}) ${sdate[2]}`;
 }
 
-util.pictureParser = function(pictures){
+util.rmExtention = function(data){
     var list = [];
-    pictures.forEach(picture=>{
-        list.push(picture.split('.')[0])
+    data.forEach(file=>{
+        list.push(file.split('.')[0])
     
     })
     return list;

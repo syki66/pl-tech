@@ -209,13 +209,36 @@ exports.inputWelcome = (req, res) => {
   }
 };
 
+exports.slide = (req, res) => {
+  console.log("called slide");
+
+  //res.render("../views/slide");
+  fs.readdir('./views/src/pages', function(error, filelist){
+    var list = util.rmExtention(filelist);
+    res.send(template.m_slide(template.m_checkList(list)));
+    //console.log(list);
+  })
+
+}
+
+exports.slideObj = [];
+exports.inputSlide = (req, res) => {
+  console.log("called slide");
+  checkList = req.body.checkResult.split(',');
+  this.slideObj = [];
+  for (let i = 0; i < checkList.length; i++) {
+    this.slideObj[i] = checkList[i];
+  }
+  inputController.updateInputData();
+  res.redirect("/alert/slide");
+}
 
 exports.workerManage = (req, res) => {
   console.log("called wboardManage");
 
   fs.readdir('./worker', function(error, filelist){
-    var list = util.pictureParser(filelist);
-    res.send(template.m_wboardManage(
+    var list = util.rmExtention(filelist);
+    res.send(template.m_workerManage(
       template.m_workerList('leader',list),
       template.m_workerList('staff1',list),
       template.m_workerList('staff2',list),
