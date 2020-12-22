@@ -87,6 +87,8 @@ exports.valuesToJson = (parsed, welcomeObj, workerObj, hazardObj) => {
   item_8.row1 = [hazardObj[1]];
   item_8.row2 = [hazardObj[2]];
   item_8.row3 = [hazardObj[3]];
+  item_8.row4 = [hazardObj[4]];
+  item_8.row5 = [hazardObj[5]];
 
   values.push(item_8);
 
