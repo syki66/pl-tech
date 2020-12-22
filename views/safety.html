@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>safety</title>
     <link rel="stylesheet" type="text/css" href="/views/src/styles/page.css" />
+    <link rel="stylesheet" href="/views/src/styles/adminPages.css">
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
@@ -57,11 +58,12 @@
             font-family: "digital-font";
         }
 
-        body {
-            margin: 0vw;
+        :root{
+            --width: 1920px;
+        }
+
+        .container {
             background-image: url('/views/src/images/8_nonews.png');
-            background-size: 100%;
-            background-repeat: no-repeat;
         }
 
         .entire__container {
@@ -77,10 +79,10 @@
             position: absolute;
             /* justify-content: center;
             align-items: center; */
-            top: 10.6vw;
-            left: 10.4vw;
-            width: 79vw;
-            height: 37.2vw;
+            top: calc(var(--width) / 100 * 10.6);
+            left: calc(var(--width) / 100 * 10.4);
+            width: calc(var(--width) / 100 * 79);
+            height: calc(var(--width) / 100 * 37.2);
 
             /* 폰트변경 */
             font-family: "digital-font";
@@ -98,63 +100,63 @@
             justify-content: center;
             align-items: center;
             /* 세로에서 가운데에 요소를 배치하겠다 */
-            width: 40vw;
-            height: 15vw;
+            width: calc(var(--width) / 100 * 40);
+            height: calc(var(--width) / 100 * 15);
         }
 
         .value__1>img {
             float: left;
-            right: 1vw;
-            width: 16vw;
+            right: calc(var(--width) / 100 * 1);
+            width: calc(var(--width) / 100 * 16);
         }
 
         .value__1>div {
             position: relative;
-            left: 2vw;
-            font-size: 6vw;
+            left: calc(var(--width) / 100 * 2);
+            font-size: calc(var(--width) / 100 * 6);
             color: #34e363
         }
 
         .value__2 {
             display: flex;
             justify-content: center;
-            height: 15vw;
-            margin-left: 42vw;
+            height: calc(var(--width) / 100 * 15);
+            margin-left: calc(var(--width) / 100 * 42);
         }
 
         .value__2>div:nth-child(1) {
             position: relative;
             float: left;
-            font-size: 12vw;
-            top: 2.6vw;
-            right: 1vw;
+            font-size: calc(var(--width) / 100 * 12);
+            top: calc(var(--width) / 100 * 2.6);
+            right: calc(var(--width) / 100 * 1);
             text-shadow: 2px 2px 10px #000;
             color: #ffb700;
         }
 
         .value__2>div:nth-child(2) {
             position: relative;
-            top: 4.4vw;
-            font-size: 6vw;
+            top: calc(var(--width) / 100 * 4.4);
+            font-size: calc(var(--width) / 100 * 6);
             color: #fff421;
         }
 
         .value__3 {
             display: flex;
             align-items: center;
-            height: 5.8vw;
+            height: calc(var(--width) / 100 * 5.8);
         }
 
         .value__4 {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 9.5vw;
+            height: calc(var(--width) / 100 * 9.5);
         }
 
         .value__4>div:nth-child(1) {
             float: left;
-            width: 38.3vw;
+            width: calc(var(--width) / 100 * 38.3);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -163,16 +165,16 @@
         .value__4>div:nth-child(1)>div:nth-child(1) {
             /* 무재해 */
             position: absolute;
-            left: 4vw;
-            font-size: 4vw;
+            left: calc(var(--width) / 100 * 4);
+            font-size: calc(var(--width) / 100 * 4);
             color: white;
         }
 
         .value__4>div:nth-child(1)>div:nth-child(2) {
             /* 배 */
             position: absolute;
-            left: 31vw;
-            font-size: 4vw;
+            left: calc(var(--width) / 100 * 31);
+            font-size: calc(var(--width) / 100 * 4);
             color: white;
         }
 
@@ -180,14 +182,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 38vw;
+            width: calc(var(--width) / 100 * 38);
             color: #fff421;
         }
 
         .value__4>div:nth-child(2)>div:nth-child(1) {
             /* 목표일 */
             float: left;
-            font-size: 4vw;
+            font-size: calc(var(--width) / 100 * 4);
             color: #fff421;
         }
 
@@ -195,9 +197,9 @@
             /* 4899 */
             position: relative;
             float: left;
-            margin-left: 1.5vw;
-            margin-top: 1vw;
-            font-size: 7vw;
+            margin-left: calc(var(--width) / 100 * 1.5);
+            margin-top: calc(var(--width) / 100 * 1);
+            font-size: calc(var(--width) / 100 * 7);
             text-shadow: 2px 2px 10px #000;
             color: #ffb700;
         }
@@ -205,8 +207,8 @@
         .value__4>div:nth-child(2)>div:nth-child(3) {
             /* 일 */
             float: left;
-            margin-left: 1vw;
-            font-size: 4vw;
+            margin-left: calc(var(--width) / 100 * 1);
+            font-size: calc(var(--width) / 100 * 4);
             color: #fff421;
         }
 
@@ -214,46 +216,46 @@
             display: flex;
             /* justify-content: center; */
             align-items: center;
-            height: 7.5vw;
+            height: calc(var(--width) / 100 * 7.5);
             /* border: 1px solid blue; */
         }
 
         .tence {
             position: absolute;
-            font-size: 2vw;
+            font-size: calc(var(--width) / 100 * 2);
             text-shadow: 1px 1px 2px #000;
             color: white;
         }
 
         #tence__1 {
             /* 현재 */
-            top: 16.5vw;
-            left: 4.5vw;
+            top: calc(var(--width) / 100 * 16.5);
+            left: calc(var(--width) / 100 * 4.5);
         }
 
         #tence__2 {
             /* 시작 */
-            top: 33vw;
-            left: 4.5vw;
+            top: calc(var(--width) / 100 * 33);
+            left: calc(var(--width) / 100 * 4.5);
         }
 
         #tence__3 {
             /* 목표 */
-            top: 33vw;
-            left: 43.5vw;
+            top: calc(var(--width) / 100 * 33);
+            left: calc(var(--width) / 100 * 43.5);
         }
 
         #date__1,
         #date__2,
         #date__3 {
             position: absolute;
-            font-size: 3vw;
+            font-size: calc(var(--width) / 100 * 3);
             text-shadow: 2px 2px 2px #000;
         }
 
         #date__1 {
-            top: 15.6vw;
-            left: 12.5vw;
+            top: calc(var(--width) / 100 * 15.6);
+            left: calc(var(--width) / 100 * 12.5);
             color: blue;
         }
 
@@ -263,47 +265,47 @@
             position: absolute;
             background-color: #222222;
 
-            border-radius: 0.7vw;
+            border-radius: calc(var(--width) / 100 * 0.7);
 
             color: white;
 
-            font-size: 1.8vw;
+            font-size: calc(var(--width) / 100 * 1.8);
             font-weight: 600;
-            padding: 0vw 1vw;
+            padding: 0vw calc(var(--width) / 100 * 1);
         }
 
         .input__1 {
-            width: 6vw;
-            height: 8vw;
-            font-size: 4.5vw;
-            top: 21.5vw;
-            left: 21.5vw;
+            width: calc(var(--width) / 100 * 6);
+            height: calc(var(--width) / 100 * 8);
+            font-size: calc(var(--width) / 100 * 4.5);
+            top: calc(var(--width) / 100 * 21.5);
+            left: calc(var(--width) / 100 * 21.5);
         }
 
         .input__2,
         .input__3 {
-            width: 22.1vw;
-            height: 3.5vw;
+            width: calc(var(--width) / 100 * 22.1);
+            height: calc(var(--width) / 100 * 3.5);
         }
 
         .input__2 {
-            top: 32.6vw;
-            left: 12.5vw;
+            top: calc(var(--width) / 100 * 32.6);
+            left: calc(var(--width) / 100 * 12.5);
         }
 
         .input__3 {
-            top: 32.6vw;
-            left: 52vw;
+            top: calc(var(--width) / 100 * 32.6);
+            left: calc(var(--width) / 100 * 52);
         }
 
         .input__4 {
             position: absolute;
-            top: 40vw;
-            left: 70vw;
-            width: 6.3vw;
-            height: 3.2vw;
-            border-radius: 0.7vw;
-            font-size: 1.3vw;
+            top: calc(var(--width) / 100 * 40);
+            left: calc(var(--width) / 100 * 70);
+            width: calc(var(--width) / 100 * 6.3);
+            height: calc(var(--width) / 100 * 3.2);
+            border-radius: calc(var(--width) / 100 * 0.7);
+            font-size: calc(var(--width) / 100 * 1.3);
             background-color: #D8D8D8;
             opacity: 1;
             font-weight: 600;
@@ -318,55 +320,59 @@
 </head>
 
 <body>
-    <div class="clock__container"></div>
+    <div class="container">
+        <div class="clock__container"></div>
 
-    <div class="title__container">
-        <span>무재해 기록판 입력 페이지</span>
-    </div>
+        <div class="title__container">
+            <span>무재해 기록판 입력 페이지</span>
+        </div>
 
-    <div class="entire__container">
-        <div class="safety__container">
-            <div class="value__1">
-                <img src="/views/src/images/zero_hazard.png" alt="마크">
-                <div class="text">무재해</div>
-            </div>
-            <div class="value__2">
-                <div class="row__0">-</div>
-                <div class="text">일</div>
-            </div>
-            <div class="value__3">
-                <div id="tence__1" class="tence">현재</div>
-                <div id="date__1" class="row__1">
-                    2013년 06년 30일
-                </div>
-            </div>
-            <div class="value__4">
-                <div>
+        <div class="entire__container">
+            <div class="safety__container">
+                <div class="value__1">
+                    <img src="/views/src/images/zero_hazard.png" alt="마크">
                     <div class="text">무재해</div>
-                    <div class="text">배</div>
                 </div>
-                <div>
-                    <div class="text">목표일</div>
-                    <div class="row__2">-</div>
+                <div class="value__2">
+                    <div class="row__0">-</div>
                     <div class="text">일</div>
                 </div>
-            </div>
-            <div class="value__5">
-                <div>
-                    <div id="tence__2" class="tence">시작</div>
-                    <form action="/admin/safety" method="post">
-                        <p><input class="input__1" type="text" name="zeroHazard" placeholder=""></p>
-                        <p><input class="input__2" name="startDate" placeholder="시작날짜"></p>
-                        <p><input class="input__3" name="targetDate" placeholder="목표날짜"></p>
-                        <p><input class="input__4" type="submit" value="작성완료"></p>
-                    </form>
-                    <div id="tence__3" class="tence">목표</div>
+                <div class="value__3">
+                    <div id="tence__1" class="tence">현재</div>
+                    <div id="date__1" class="row__1">
+                        2013년 06년 30일
+                    </div>
+                </div>
+                <div class="value__4">
+                    <div>
+                        <div class="text">무재해</div>
+                        <div class="text">배</div>
+                    </div>
+                    <div>
+                        <div class="text">목표일</div>
+                        <div class="row__2">-</div>
+                        <div class="text">일</div>
+                    </div>
+                </div>
+                <div class="value__5">
+                    <div>
+                        <div id="tence__2" class="tence">시작</div>
+                        <form action="/admin/safety" method="post">
+                            <p><input class="input__1" type="text" name="zeroHazard" placeholder=""></p>
+                            <p><input class="input__2" name="startDate" placeholder="시작날짜"></p>
+                            <p><input class="input__3" name="targetDate" placeholder="목표날짜"></p>
+                            <p><input class="input__4" type="submit" value="작성완료"></p>
+                        </form>
+                        <div id="tence__3" class="tence">목표</div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <script src="/views/src/scripts/clock.js"></script>
+    <script src="/views/src/scripts/index.js"></script>
 </body>
 
 </html>
