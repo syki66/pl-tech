@@ -10,24 +10,24 @@ function paintPage(num) {
     rowArray.push(document.querySelectorAll(`.row__${i}`));
   }
   if (title){
-    title.innerText = json.data[num].itemname;
+    title.innerText = json.data[0][num].itemname;
   }
   if (category){
     category.forEach((e, i) => {
       e.innerText =
-        num == 4 ? json.data[num].category[i % 3] : json.data[num].category[i];
+        num == 4 ? json.data[0][num].category[i % 3] : json.data[0][num].category[i];
     });
   }
   rowArray.forEach((row, rowIndex) => {
     row.forEach((e, i) => {
-      if (num == 8 && json.data[num][`row${rowIndex}`][i]){
+      if (num == 8 && json.data[0][num][`row${rowIndex}`][i]){
         workerImg = `<img style="object-fit: cover; width:100%;" src="/worker/${json.data[num][`row${rowIndex}`][i]}">`;
         if (e.innerHTML == workerImg){
         } else{
           e.innerHTML = workerImg;
         }
       } else{
-        e.innerText = json.data[num][`row${rowIndex}`][i];
+        e.innerText = json.data[0][num][`row${rowIndex}`][i];
       }
     });
   });
