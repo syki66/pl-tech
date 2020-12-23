@@ -1,9 +1,9 @@
 const v_container = document.querySelector('.vertical-carousel__container');
 const v_slides = document.querySelectorAll('.vertical-carousel__item');
-
+const v_margin = document.querySelectorAll('.link__container')[0].offsetTop;
 
 v_slideHeight = v_slides[0].getBoundingClientRect().height;
-// console.log(v_slides.length)
+v_slideHeight += v_margin;
 
 let newsPtr = 0;
 function v_slideNext(newsNum){

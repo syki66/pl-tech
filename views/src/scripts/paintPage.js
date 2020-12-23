@@ -11,8 +11,12 @@ function paintPage(num) {
   }
   if (num == "home"){
     rowArray.forEach((row, rowIndex) => {
+      const newsId = json.data[0][6][`row${rowIndex}`][0];
+      const newsDate = json.data[0][6][`row${rowIndex}`][2];
+      const newsContent = json.data[0][6][`row${rowIndex}`][1];
       row.forEach((e) => {
-          e.innerText = json.data[0][6][`row${rowIndex}`][1];
+          e.innerText = `(${newsDate}) ${newsContent}`;
+          e.href = `/board/${newsId}`;
       });
     });
   } else{
