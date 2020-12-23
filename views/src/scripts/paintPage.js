@@ -18,12 +18,16 @@ function paintPage(num) {
         num == 4 ? json.data[0][num].category[i % 3] : json.data[0][num].category[i];
     });
   }
+  
   rowArray.forEach((row, rowIndex) => {
     row.forEach((e, i) => {
+      
       if (num == 8 && json.data[0][num][`row${rowIndex}`][i]){
-        workerImg = `<img style="object-fit: cover; width:100%;" src="/worker/${json.data[num][`row${rowIndex}`][i]}">`;
+        workerImg = `<img class="image" src="/worker/${json.data[0][num][`row${rowIndex}`][i]}">`;
         if (e.innerHTML == workerImg){
+          console.log("true")
         } else{
+          console.log("false")
           e.innerHTML = workerImg;
         }
       } else{
