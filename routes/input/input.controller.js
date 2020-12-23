@@ -47,10 +47,10 @@ const parsingValues = (path, callback) => {
         }
       }
 
-      for (let i = 0; i < parsing.length; ++i) {
-        console.log("parsed " + i);
-        console.log(parsing[i]);
-      }
+      // for (let i = 0; i < parsing.length; ++i) {
+      //   console.log("parsed " + i);
+      //   console.log(parsing[i]);
+      // }
       
       let result;
       models.Notice.findAll({
@@ -60,7 +60,7 @@ const parsingValues = (path, callback) => {
         limit: 5
       })
         .then(data => {
-          console.log(data);
+          // console.log(data);
           for(let i = 0 ; i < data.length ; i++){
             const row = [data[i].id, data[i].title, data[i].cdate];
             this.noticeObj[i] = row;
@@ -105,7 +105,7 @@ exports.updateNoticeObj = () => {
 
 exports.updateInputData = () => {
   exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, this.noticeObj, adminController.safetyObj, adminController.workerObj, adminController.slideObj);
-  console.log(this.parsed);
+  // console.log(this.parsed);
 };
 
 const removeLetters = (str) => {

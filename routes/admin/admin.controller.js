@@ -202,7 +202,7 @@ exports.inputWelcome = (req, res) => {
   if (req.body === null || req.body === undefined) {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
-    exports.welcomeObj = [req.body.visitor, req.body.sentence];
+    exports.welcomeObj = [req.body.visitor + "님", req.body.sentence];
     inputController.updateInputData();
     // res.json(util.successTrue(this.welcome, '환영문구가 성공적으로 반영되었습니다.'));
     res.redirect("/alert/welcome");
@@ -273,23 +273,6 @@ exports.safetyObj = [
   null,
   null
  ]; 
-
-// function calcNow() {
-//   let today = new Date();   
-//   let year = today.getFullYear(); // 년도
-//   let monthNow = today.getMonth() + 1;  // 월
-//   let date = today.getDate();  // 날짜
-
-//   if(monthNow < 10){
-//     monthNow = "0" + monthNow;
-//   }
-  
-//   if(date < 10){
-//     date = "0" + date;
-//   }
-
-//   return year + '년 ' + monthNow + '월 ' + date + '일';
-// }
 
 
 function calcSafety(zhVal, startDate, targetDate) {
@@ -376,7 +359,7 @@ function calcSafety(zhVal, startDate, targetDate) {
 
 setInterval(()=>{
   calcSafety(this.safetyObj[2], this.safetyObj[4], this.safetyObj[5])
-}, 10000)
+}, 1000 * 60 * 60 * 6); // 6시간에 한번씩 세팅됨
 
 exports.inputSafety = (req, res) => {
   console.log("called inputSafety");
