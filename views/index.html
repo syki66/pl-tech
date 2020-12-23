@@ -7,6 +7,48 @@
     <link rel="stylesheet" href="/views/src/styles/carousel.css">
     <link rel="stylesheet" href="/views/src/styles/index.css">
     <script src="/views/src/scripts/fetchJson.js"></script>
+    <style>
+        :root{
+            --width: 1920px;
+            --newsHeight: calc(var(--width) / 100 * 4.7);
+        }
+        .news__container{
+            background-color: #831440;
+            margin: 0 auto;
+            /* opacity: 0.5; */
+            position: relative;
+            bottom: var(--newsHeight);
+            height: var(--newsHeight);
+            width: var(--width);
+
+            display: flex;
+            
+        }
+        .news__1{
+            flex: 1;
+            /* background-color: tomato; */
+            font-size: calc(var(--width) / 100 * 3);
+            font-weight: 900;
+            color: white;
+            text-shadow: calc(var(--width) / 100 * 0.11) calc(var(--width) / 100 * 0.11) calc(var(--width) / 100 * 0.11) black;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .news__2{
+            flex: 11;
+            background-color: #242424;
+            margin: calc(var(--width) / 100 * 0.39) calc(var(--width) / 100 * 1) calc(var(--width) / 100 * 0.39) calc(var(--width) / 100 * 0);
+            border-radius: calc(var(--width) / 100 * 3);
+            padding: 0vw calc(var(--width) / 100 * 1.5);
+            color: white;
+            font-size: calc(var(--width) / 100 * 2.2);
+
+            display: flex;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
     <div class="carousel">
@@ -26,6 +68,10 @@
         <div class="nextBtn carousel__button-next"><img src="/views/src/images/right-arrow.svg" class="arrow__right" /> </div>
 
         <div class="carousel__nav"></div>
+    </div>
+    <div class="news__container">
+        <div class="news__1">뉴스</div>
+        <div class="news__2">공지입니다.</div>
     </div>
 
     <script src="/views/src/scripts/index.js"></script>
