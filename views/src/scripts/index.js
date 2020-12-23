@@ -1,7 +1,14 @@
 // 외부 html 파일 div 내부로 임포트하기 // 여기서 슬라이드 순서 변경 가능
-document.querySelectorAll(".carousel__item").forEach((e, i) => {
-  e.innerHTML=`<object type="text/html" data="/views/src/pages/${i+1}.html" ></object>`;
-});
+function changeCarouselOrder(){
+  document.querySelectorAll(".carousel__item").forEach((e, i) => {
+    const json = JSON.parse(localStorage.getItem("json"));
+    console.log(json.data[1][0][i]);
+    e.innerHTML=`<object type="text/html" data="/views/src/pages/${json.data[1][0][i]}.html" ></object>`;
+  });
+}
+changeCarouselOrder();
+
+// .carousel__item 을 여기 파일에서 생성해야 슬라이드 삭제가능
 
 // 해상도 읽어오기
 let screenWidth = window.screen.width,
