@@ -16,7 +16,11 @@ function getTime() {
     const hours = date.getHours();
     const seconds = date.getSeconds();
     
-    clock.innerText = `${year}-${month}-${today}(${days[day]}) ${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
+
+    const theDate = `${year}-${month < 10 ? `0${month}` : month}-${today < 10 ? `0${today}` : today}(${days[day]})`;
+    const theClock = `${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}:${seconds < 10 ? `0${seconds}` : seconds}`; 
+
+    clock.innerText = `${theDate} ${theClock}`;
     
     if (YY){
         YY.innerText = `${year}년 `;
