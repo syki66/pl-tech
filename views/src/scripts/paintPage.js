@@ -1,7 +1,7 @@
 const rowCount = 12; // 페이지 중에서 최대 row 개수 이상 적으면 됨
 
-const title = document.querySelector(".title");
-const category = document.querySelectorAll(".category");
+const title = document.querySelector(".title"),
+      category = document.querySelectorAll(".category");
 
 function paintPage(num) {
   const json = JSON.parse(localStorage.getItem("json"));
@@ -11,12 +11,9 @@ function paintPage(num) {
   }
   if (num == "home"){
     rowArray.forEach((row, rowIndex) => {
-      const newsId = json.data[0][6][`row${rowIndex}`][0];
-      const newsDate = json.data[0][6][`row${rowIndex}`][2];
-      const newsContent = json.data[0][6][`row${rowIndex}`][1];
-      row.forEach((e) => {
-          e.innerText = `(${newsDate}) ${newsContent}`;
-          e.href = `/board/${newsId}`;
+      row.forEach((e, i) => {
+        e.innerText = json.data[0][6][`row${rowIndex}`][i];
+        e.parentNode.href = `/board/${json.data[0][6][`row${rowIndex}`][3]}`;
       });
     });
   } else{
@@ -33,13 +30,16 @@ function paintPage(num) {
     }
     rowArray.forEach((row, rowIndex) => {
       row.forEach((e, i) => {
-        if (num == 8 && json.data[0][num][`row${rowIndex}`][i]){
+        if (num == 8 && i == 1 && json.data[0][num][`row${rowIndex}`][i]){
           workerImg = `<img class="image" src="/worker/${json.data[0][num][`row${rowIndex}`][i]}">`;
           if (e.innerHTML == workerImg){
-            //pass
+            // pass
           } else{
             e.innerHTML = workerImg;
           }
+        } else if (num == 6 && i == 2) {
+            e.innerText = json.data[0][num][`row${rowIndex}`][i];
+            e.href = `/board/${json.data[0][num][`row${rowIndex}`][3]}`;
         } else{
           e.innerText = json.data[0][num][`row${rowIndex}`][i];
         }

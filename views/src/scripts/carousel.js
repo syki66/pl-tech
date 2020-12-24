@@ -63,7 +63,7 @@ carousel.addEventListener('click', ()=>{
 });
 
 // 커라젤 자동 슬라이드
-console.log(rotationTime()[0]);
-setInterval(() => {
-    nextBtn.click();
-}, rotationTime()[0]);
+// console.log(rotationTime()[0]);
+// setInterval(() => {
+//     nextBtn.click();
+// }, rotationTime()[0]);

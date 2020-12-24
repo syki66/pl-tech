@@ -28,7 +28,6 @@ function v_slideNext(newsNum){
 
 // 뉴스 자동 슬라이드
 v_slideNext(v_slides.length);
-console.log(rotationTime()[1]);
 setInterval(() => {
     v_slideNext(v_slides.length);
 }, rotationTime()[1]);
