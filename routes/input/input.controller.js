@@ -56,13 +56,15 @@ const parsingValues = (path, callback) => {
       models.Notice.findAll({
         attributes: ['id', 'title', 'cdate'],
         raw: true,
-        order: [['id', 'DESC']],
+        order: [['id', 'ASC']],
         limit: 5
       })
         .then(data => {
           // console.log(data);
           for(let i = 0 ; i < data.length ; i++){
-            const row = [data[i].id, data[i].title, data[i].cdate];
+            let cdate = data[i].cdate.substring(5,7) + '/' + data[i].cdate.substring(8,10);
+            let day = data[i].cdate.substring(11,12);
+            const row = [cdate, day, data[i].title];
             this.noticeObj[i] = row;
           }
           result = values.valuesToJson(parsing, adminController.welcomeObj, this.noticeObj, adminController.safetyObj, adminController.workerObj);

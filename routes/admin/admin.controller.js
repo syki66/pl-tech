@@ -195,7 +195,7 @@ exports.welcome = (req, res) => {
   res.render("../views/welcome.html");
 };
 
-exports.welcomeObj = [null, null];
+exports.welcomeObj = ['관리자님', ' 설정 페이지에서 환영문구를 작성해주세요!'];
 
 exports.inputWelcome = (req, res) => {
   console.log("called inputWelcome");
@@ -266,13 +266,13 @@ exports.safety = (req, res) => {
 };
 
 exports.safetyObj = [
-  null,
-  null,
-  null,
-  null,
-  null,
-  null
- ]; 
+  "-",
+  "관리자 페이지에서 설정 부탁드립니다.",
+  "-",
+  "-",
+  "-",
+  "-"
+]; 
 
 
 function calcSafety(zhVal, startDate, targetDate) {
@@ -368,6 +368,6 @@ exports.inputSafety = (req, res) => {
   } else {
     console.log(req.body);
     calcSafety(req.body.zeroHazard, req.body.startDate, req.body.targetDate);
-    res.redirect("/alert");
+    res.redirect("/alert/safety");
   }
 };
