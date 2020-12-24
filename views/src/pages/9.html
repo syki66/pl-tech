@@ -12,10 +12,134 @@
             background-size: 100%;
             background-repeat:no-repeat;
         }
+        .image{
+            object-fit: contain;
+            width: 100%;
+            height: 100%;
+            background-color:rgba(250, 250, 250, 0.3);
+        }
+
+        .worker__container{
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            /* border: 1px solid red; */
+        }
+
+        .exec__1, .empl__2, .empl__3, .empl__4{
+            position: absolute;
+        }
+
+        .exec__1 {
+            width: 29.2vw;
+            height: 40.6vw;
+            top: 9vw;
+            left: 5.4vw;
+        }
+
+        #exec_name {
+            width: 12.5vw;
+            height: 4vw;
+            right: 2.5vw;
+            top: 0.5vw;
+            font-size: 3vw;
+            text-align: center;
+            color: #ffd700;
+        }
+
+        #exec_image{
+            width: 24vw;
+            height: 24vw;
+            top: 7.3vw;
+            left: 2.5vw;
+            border-radius: 0.7vw;
+            object-fit: contain;
+        }
+
+        #exec_department{
+            width: 26.8vw;
+            height: 2.6vw;
+            top: 33.4vw;
+            left: 1.1vw;
+            font-size: 1.8vw;
+            font-weight: 600;
+            color: #e8be00;
+            text-align: center;
+        }
+
+        #exec_position{
+            width: 26.8vw;
+            height: 2.6vw;
+            top: 36.4vw;
+            left: 1.1vw;
+            font-size: 1.7vw;
+            font-weight: 600;
+            color: brown;
+            text-align: center;
+        }
+
+        .empl__2, .empl__3, .empl__4{
+            width: 18.2vw;
+            height: 30vw;
+            top: 15.2vw;
+        }
+
+        .empl__2{
+            left: 37.5vw;
+        }
+
+        .empl__3{
+            left: 56.4vw;
+        }
+
+        .empl__4{
+            left: 75.3vw;
+        }
+
+        #empl2_name, #empl3_name, #empl4_name{
+            width: 9vw;
+            height: 3vw;
+            top: 0.75vw;
+            right: 1.5vw;
+            font-size: 2.2vw;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        #empl2_image, #empl3_image, #empl4_image{
+            width: 15vw;
+            height: 15vw;
+            top: 6.4vw;
+            left: 1.5vw;
+            border-radius: 0.7vw;
+            object-fit: contain;
+        }
+
+        #empl2_department, #empl3_department, #empl4_department{
+            width: 100%;
+            height: 2.8vw;
+            top: 22.8vw;
+            padding-top: 0.4vw;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.8vw;
+        }
+
+        #empl2_position, #empl3_position, #empl4_position{
+            width: 100%;
+            height: 2.8vw;
+            top: 26.2vw;
+            padding-top: 0.4vw;
+            text-align: center;
+            color: black;
+            font-weight: bold;
+            font-size: 1.7vw;
+        }
 
         .row__0, .row__1, .row__2, .row__3{
-            width: 10vw;
-            height: 10vw;
+            position: absolute;
             overflow: hidden;
         }
 
@@ -25,13 +149,35 @@
     <div class="clock__container"></div>
 
     <div class="title__container">
-        <span class="title">근무자 현황</span>
+        <span class="title">*9 근무자 현황</span>
     </div>
 
-    <div class="row__0"></div>
-    <div class="row__1"></div>
-    <div class="row__2"></div>
-    <div class="row__3"></div>
+    <div class="worker__container">
+        <div class="exec__1">
+            <div id="exec_name" class="row__0">홍길동</div>
+            <div  id="exec_image" class="row__0" alt="과장이미지"></div>
+            <div id="exec_department" class="row__0">00과</div>
+            <div id="exec_position" class="row__0">과장</div>
+        </div>
+        <div class="empl__2">
+            <div id="empl2_name" class="row__1">장그래</div>
+            <div  id="empl2_image" class="row__1" alt="사원이미지"></div>
+            <div id="empl2_department" class="row__1">00과</div>
+            <div id="empl2_position" class="row__1">사원</div>
+        </div>
+        <div class="empl__3">
+            <div id="empl3_name" class="row__2">안영이</div>
+            <div  id="empl3_image" class="row__2" alt="사원이미지"></div>
+            <div id="empl3_department" class="row__2">00과</div>
+            <div id="empl3_position" class="row__2">사원</div>
+        </div>
+        <div class="empl__4">
+            <div id="empl4_name" class="row__3">장백기</div>
+            <div  id="empl4_image" class="row__3" alt="사원이미지"></div>
+            <div id="empl4_department" class="row__3">00과</div>
+            <div id="empl4_position" class="row__3">사원</div>
+        </div>
+    </div>
 
     <script>const pageNum = 9;</script>
     <script src="/views/src/scripts/paintPage.js"></script>

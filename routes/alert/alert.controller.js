@@ -40,6 +40,12 @@ exports.wmanage = (req, res) => {
   res.send(template.alert(contents, redirect))
 };
 
+// GET - /alert/safety 무재해 기록판 설정 완료 알람
+exports.safety = (req, res) => {
+  res.status(201);
+  res.send(template.alert("무재해 기록판 설정을 완료했습니다.", "/admin"));
+};
+
 // GET - /alert/slide 슬라이드 적용 완료 알람
 exports.slide = (req, res) => {
   let contents = "슬라이드 순서를 적용했습니다."

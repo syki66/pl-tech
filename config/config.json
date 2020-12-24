@@ -1,21 +1,33 @@
 {
   "development": {
     "username": "root",
+<<<<<<< HEAD
     "password": "rkawk35088",
+=======
+    "password": "1028",
+>>>>>>> 8da43aea129659480e845894d8a3c65ef40b36f7
     "database": "pltech",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
+<<<<<<< HEAD
     "password": "rkawk35088",
+=======
+    "password": "1028",
+>>>>>>> 8da43aea129659480e845894d8a3c65ef40b36f7
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
   "production": {
     "username": "root",
+<<<<<<< HEAD
     "password": "rkawk35088",
+=======
+    "password": "1028",
+>>>>>>> 8da43aea129659480e845894d8a3c65ef40b36f7
     "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql"
