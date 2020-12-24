@@ -46,6 +46,10 @@ object{
 }
 .link__container{
     margin: calc(var(--width) / 100 * 1) 0vw;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 
@@ -58,7 +62,7 @@ object{
 .vertical-carousel__item{
     color: white;
     font-weight: 900;
-    text-decoration: none;
+    text-decoration: none;    
 }
 .vertical-carousel__item:hover{
     text-decoration: underline;

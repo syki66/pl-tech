@@ -1,12 +1,16 @@
 // 외부 html 파일 div 내부로 임포트하기 // 여기서 슬라이드 순서 변경 가능
-function changeCarouselOrder(){
+(function placeCarousel(){
   document.querySelectorAll(".carousel__item").forEach((e, i) => {
+    // e.innerHTML=`<object type="text/html" data="/views/src/pages/${i+1}.html" ></object>`;
     const json = JSON.parse(localStorage.getItem("json"));
-    console.log(json.data[1][0][i]);
-    e.innerHTML=`<object type="text/html" data="/views/src/pages/${json.data[1][0][i]}.html" ></object>`;
+    // console.log(json.data[1][0]);
+    if (json.data[1][0] == null || !json.data[1][0][0]){
+      e.innerHTML=`<object type="text/html" data="/views/src/pages/${i+1}.html" ></object>`;
+    } else{
+      e.innerHTML=`<object type="text/html" data="/views/src/pages/${json.data[1][0][i]}.html" ></object>`;
+    }
   });
-}
-changeCarouselOrder();
+})();
 
 // .carousel__item 을 여기 파일에서 생성해야 슬라이드 삭제가능
 
