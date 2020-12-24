@@ -62,29 +62,8 @@ carousel.addEventListener('click', ()=>{
     indicatorArray[current].classList.add('current__carousel');
 });
 
-// 자동 슬라이드 기능
-//setInterval(() => nextBtn.click(), 10000);
-
-
-
-
-        // 동적으로 크기 바뀌게 하려면 이걸로
-        // function getSliderSize (){
-        //     const sliderWidth = sliderBox.offsetWidth;
-        //     const sliderHeight = sliderBox.offsetHeight;
-        //     console.log(sliderWidth);
-        //     console.log(sliderHeight);
-        // }
-
-        // // window.onresize = function () {
-        // //     getSliderSize();
-        // // }
-
-        // const sliderWidth = sliderBox.offsetWidth;
-        
-        
-
-        // 방향 버튼 적당한 svg 아이콘찾기
-        // 아래쪽 스크롤 숨기기
-        // hover 시 돌아가는거 멈추게 할지 말지
-        // 전체화면으로 이용하는 거라면 가로세로 스크롤 모두 삭제하기
+// 커라젤 자동 슬라이드
+console.log(rotationTime()[0]);
+setInterval(() => {
+    nextBtn.click();
+}, rotationTime()[0]);
