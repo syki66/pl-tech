@@ -105,7 +105,6 @@ exports.valuesToJson = (parsed, welcomeObj, noticeObj, hazardObj, workerObj, sli
   if(workerObj!==null){
     let item_9 = new Object();
     item_9.itemname = ["*9 근무자 현황"]
-    console.log(workerObj[0]);
     item_9.row0 = workerObj[0];
     item_9.row1 = workerObj[1];
     item_9.row2 = workerObj[2];

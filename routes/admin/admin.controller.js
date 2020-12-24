@@ -186,14 +186,14 @@ exports.welcome = (req, res) => {
   res.render("../views/welcome.html");
 };
 
-exports.welcomeObj = [null, null];
+exports.welcomeObj = ['관리자님', ' 설정 페이지에서 환영문구를 작성해주세요!'];
 
 exports.inputWelcome = (req, res) => {
   console.log("called inputWelcome");
   if (req.body === null || req.body === undefined) {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
-    exports.welcomeObj = [req.body.visitor, req.body.sentence];
+    exports.welcomeObj = [req.body.visitor + "님", req.body.sentence];
     inputController.updateInputData();
     let location = "/alert/welcome"
     res.writeHead(302, { Location: location});
@@ -282,30 +282,13 @@ exports.safety = (req, res) => {
 };
 
 exports.safetyObj = [
-  null,
-  null,
-  null,
-  null,
-  null,
-  null
- ]; 
-
-// function calcNow() {
-//   let today = new Date();   
-//   let year = today.getFullYear(); // 년도
-//   let monthNow = today.getMonth() + 1;  // 월
-//   let date = today.getDate();  // 날짜
-
-//   if(monthNow < 10){
-//     monthNow = "0" + monthNow;
-//   }
-  
-//   if(date < 10){
-//     date = "0" + date;
-//   }
-
-//   return year + '년 ' + monthNow + '월 ' + date + '일';
-// }
+  "-",
+  "관리자 페이지에서 설정 부탁드립니다.",
+  "-",
+  "-",
+  "-",
+  "-"
+]; 
 
 
 function calcSafety(zhVal, startDate, targetDate) {
@@ -392,7 +375,7 @@ function calcSafety(zhVal, startDate, targetDate) {
 
 setInterval(()=>{
   calcSafety(this.safetyObj[2], this.safetyObj[4], this.safetyObj[5])
-}, 10000)
+}, 1000 * 60 * 60 * 6); // 6시간에 한번씩 세팅됨
 
 exports.inputSafety = (req, res) => {
   console.log("called inputSafety");
@@ -401,6 +384,6 @@ exports.inputSafety = (req, res) => {
   } else {
     console.log(req.body);
     calcSafety(req.body.zeroHazard, req.body.startDate, req.body.targetDate);
-    res.redirect("/alert");
+    res.redirect("/alert/safety");
   }
 };

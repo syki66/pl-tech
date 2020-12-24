@@ -47,7 +47,7 @@
         .input__1:hover{
             background-color: #B40202;
         }
-        .link__1, .link__2, .link__3, .link__4, .link__5{
+        .link__1, .link__2, .link__3, .link__4, .link__5, .link__6{
             position: absolute;
             font-size: calc(var(--width) / 100 * 1.8);
             text-decoration: none;
@@ -60,7 +60,7 @@
 
             top: calc(var(--width) / 100 * 14);
         }
-        .link__6{
+        .link__7{
             position: absolute;
             font-size: calc(var(--width) / 100 * 1.4);
 
@@ -86,7 +86,10 @@
         .link__5{
             top: calc(var(--width) / 100 * 29.5);
         }
-        .link__1:hover, .link__2:hover, .link__3:hover, .link__4:hover, .link__5:hover, .link__6{
+        .link__6{
+            top: calc(var(--width) / 100 * 33);
+        }
+        .link__1:hover, .link__2:hover, .link__3:hover, .link__4:hover, .link__5:hover, .link__6:hover, .link__7{
             opacity: 1;
             text-decoration: underline;
         }
@@ -97,7 +100,7 @@
         <div class="clock__container"></div>
 
         <div class="title__container">
-            <span class="title"></span>
+            <span class="title">*9 무재해 기록판</span>
         </div>
 
         <div class="inner__container">
@@ -106,13 +109,14 @@
             <p><a class="link__1" href="admin/post"><span>- 공지 작성</span></a></p>
             <p><a class="link__2" href="admin/post/manage/1"><span>- 공지 관리</span></a></p>
             <p><a class="link__3" href="admin/welcome"><span>- 환영문구 작성</span></a></p>
-            <p><a class="link__4" href="admin/slide"><span>- 슬라이드 관리</span></a></p>
+            <p><a class="link__4" href="admin/safety"><span>- 무재해 기록판 설정</span></a></p>
             <p><a class="link__5" href="admin/wmanage"><span>- 근무자 현황 관리</span></a></p>
+            <p><a class="link__6" href="admin/slide"><span>- 슬라이드 관리</span></a></p>
             <form method="post" action="auth/loutprocess">
                 <input type="hidden" name="_method" value="delete" />
                 <button class="input__1" type="submit">로그아웃</button>
             </form>
-            <a class="link__6" href="/board">돌아가기</a>
+            <a class="link__7" href="/board">돌아가기</a>
         </div>
     </div>
 
