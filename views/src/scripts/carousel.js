@@ -62,5 +62,8 @@ carousel.addEventListener('click', ()=>{
     indicatorArray[current].classList.add('current__carousel');
 });
 
-// 자동 슬라이드 기능
-//setInterval(() => nextBtn.click(), 10000);
+// 커라젤 자동 슬라이드
+console.log(rotationTime()[0]);
+setInterval(() => {
+    nextBtn.click();
+}, rotationTime()[0]);
