@@ -3,33 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>test</title>
+    <title>pl-tech</title>
     <link rel="stylesheet" href="/views/src/styles/carousel.css">
     <link rel="stylesheet" href="/views/src/styles/index.css">
     <script src="/views/src/scripts/fetchJson.js"></script>
+    <style>
+
+    </style>
 </head>
 <body>
     <div class="carousel">
-        <div class="carousel__container">
-            <div class="carousel__item">1</div>
-            <div class="carousel__item">2</div>
-            <div class="carousel__item">3</div>
-            <div class="carousel__item">4</div>
-            <div class="carousel__item">5</div>
-            <div class="carousel__item">6</div>
-            <div class="carousel__item">7</div>
-            <div class="carousel__item">8</div>
-            <div class="carousel__item">9</div>
-        </div>
+        <div class="carousel__container"></div>
         
         <div class="prevBtn carousel__button-prev"><img src="/views/src/images/left-arrow.svg" class="arrow__left" /></div>
         <div class="nextBtn carousel__button-next"><img src="/views/src/images/right-arrow.svg" class="arrow__right" /> </div>
 
         <div class="carousel__nav"></div>
     </div>
+    <div class="news__container">
+        <div class="news__title">뉴스</div>
+        <div class="news__items">
+            <div class="vertical-carousel__container">
+                <div class="link__container"><a class="vertical-carousel__item row__0"></a></div>
+                <div class="link__container"><a class="vertical-carousel__item row__1"></a></div>
+                <div class="link__container"><a class="vertical-carousel__item row__2"></a></div>
+                <div class="link__container"><a class="vertical-carousel__item row__3"></a></div>
+                <div class="link__container"><a class="vertical-carousel__item row__4"></a></div>
+            </div>
+        </div>
+    </div>
 
+    <script>const pageNum = "home";</script>
+    <script src="/views/src/scripts/paintPage.js"></script>
     <script src="/views/src/scripts/index.js"></script>
+    <script src="/views/src/scripts/carouselSettings.js"></script>
     <script src="/views/src/scripts/carousel.js"></script>
+    <script src="/views/src/scripts/vertical-carousel.js"></script>
 
 </body>
 </html>

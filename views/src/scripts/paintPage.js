@@ -9,35 +9,46 @@ function paintPage(num) {
   for (i = 0; i < rowCount; i++) {
     rowArray.push(document.querySelectorAll(`.row__${i}`));
   }
-  if (title){
-    title.innerText = json.data[0][num].itemname;
-  }
-  if (category){
-    category.forEach((e, i) => {
-      e.innerText =
-        num == 4 ? json.data[0][num].category[i % 3] : json.data[0][num].category[i];
+  if (num == "home"){
+    rowArray.forEach((row, rowIndex) => {
+      const newsId = json.data[0][6][`row${rowIndex}`][0];
+      const newsDate = json.data[0][6][`row${rowIndex}`][2];
+      const newsContent = json.data[0][6][`row${rowIndex}`][1];
+      row.forEach((e) => {
+          e.innerText = `(${newsDate}) ${newsContent}`;
+          e.href = `/board/${newsId}`;
+      });
     });
-  }
-  
-  rowArray.forEach((row, rowIndex) => {
-    row.forEach((e, i) => {
-      
-      if (num == 8 && json.data[0][num][`row${rowIndex}`][i]){
-        workerImg = `<img class="image" src="/worker/${json.data[0][num][`row${rowIndex}`][i]}">`;
-        if (e.innerHTML == workerImg){
-          console.log("true")
+  } else{
+    num -= 1;
+
+    if (title){
+      title.innerText = json.data[0][num].itemname;
+    }
+    if (category){
+      category.forEach((e, i) => {
+        e.innerText =
+          num == 4 ? json.data[0][num].category[i % 3] : json.data[0][num].category[i];
+      });
+    }
+    rowArray.forEach((row, rowIndex) => {
+      row.forEach((e, i) => {
+        if (num == 8 && json.data[0][num][`row${rowIndex}`][i]){
+          workerImg = `<img class="image" src="/worker/${json.data[0][num][`row${rowIndex}`][i]}">`;
+          if (e.innerHTML == workerImg){
+            //pass
+          } else{
+            e.innerHTML = workerImg;
+          }
         } else{
-          console.log("false")
-          e.innerHTML = workerImg;
+          e.innerText = json.data[0][num][`row${rowIndex}`][i];
         }
-      } else{
-        e.innerText = json.data[0][num][`row${rowIndex}`][i];
-      }
+      });
     });
-  });
+  }
 }
 
-paintPage(pageNum - 1);
+paintPage(pageNum);
 setInterval(() => {
-  paintPage(pageNum - 1);
+  paintPage(pageNum);
 }, 1000);
