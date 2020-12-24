@@ -12,9 +12,129 @@
             background-size: 100%;
             background-repeat:no-repeat;
         }
+
+        .post__container{
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+        .post__1, .post__2, .post__3, .post__4, .post__5{
+            position: absolute; 
+            width: 53.2vw;
+            height: 6.8vw;
+            left: 42vw;
+            /* border: 1px solid red; */
+        }
+        .post__1{
+            top: 9.7vw;
+        }
+        .post__2{
+            top: 17.45vw;
+        }
+        .post__3{
+            top: 25.2vw;
+        }
+        .post__4{
+            top: 32.95vw;
+        }
+        .post__5{
+            top: 40.7vw;
+        }
+
+        #post1_date, #post2_date, #post3_date, #post4_date, #post5_date{
+            left: 1.6vw;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.8vw;
+            font-weight: 600;
+            color: #006b60;
+        }
+
+        #post1_day, #post2_day, #post3_day, #post4_day, #post5_day{
+            left: 10vw;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 4vw;
+            font-weight: 700;
+            color: #013445;
+        }
+
+        #post1_title, #post2_title, #post3_title, #post4_title, #post5_title{
+            position: absolute;
+            width: 34.8vw;
+            height: 6vw;
+            top: 0.3vw;
+            left: 17.4vw;
+            /* border: 1px solid blue; */
+        }
+
+        #post1_title>a, #post2_title>a, #post3_title>a, #post4_title>a, #post5_title>a{
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            text-decoration: none;
+            font-size: 2vw;
+            font-weight: bold;
+            color:white;
+        }
+
+        #post1_title>a:hover, #post2_title>a:hover, #post3_title>a:hover, #post4_title>a:hover, #post5_title>a:hover{
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .row__0, .row__1, .row__2, .row__3, .row__4{
+            position: absolute;
+        }
     </style>
 </head>
 <body>
+    <div class="clock__container"></div>
 
+    <div class="post__container">
+        <div class="post__1">
+            <div id="post1_date" class="row__0">12/24</div>
+            <div id="post1_day" class="row__0">월</div>
+            <div id="post1_title">
+                <a class="row__0" href="#"><span>수요일 공지입니다.이잉앗살람말라이꿈</span></a>
+            </div>
+        </div>
+        <div class="post__2">
+            <div id="post2_date" class="row__1">12/24</div>
+            <div id="post2_day" class="row__1">화</div>
+            <div id="post2_title">
+                <a class="row__1" href="#"><span>공지 타이틀2</span></a>
+            </div>
+        </div>
+        <div class="post__3">
+            <div id="post3_date" class="row__2">12/24</div>
+            <div id="post3_day" class="row__2">수</div>
+            <div id="post3_title">
+                <a class="row__2" href="#"><span>공지 타이틀3</span></a>
+            </div>
+        </div>
+        <div class="post__4">
+            <div id="post4_date" class="row__3">12/24</div>
+            <div id="post4_day" class="row__3">목</div>
+            <div id="post4_title">
+                <a class="row__3" href="#"><span>공지 타이틀4</span></a>
+            </div>
+        </div>
+        <div class="post__5">
+            <div id="post5_date" class="row__4">12/24</div>
+            <div id="post5_day" class="row__4">금</div>
+            <div id="post5_title">
+                <a class="row__4" href="#"><span>공지 타이틀5</span></a>
+            </div>
+        </div> 
+    </div>
+
+    <script>const pageNum = 7;</script>
+    
+    <script src="/views/src/scripts/paintPage.js"></script>
+    <script src="/views/src/scripts/clock.js"></script>
 </body>
 </html>
