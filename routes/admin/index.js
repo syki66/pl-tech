@@ -2,6 +2,19 @@ const util = require("../../middleware/util");
 const express = require("express");
 const controller = require("./admin.controller");
 const router = express.Router();
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        const dest = "./worker";
+        cb(null, dest);
+    },
+    filename : function(req, file, cb){
+        const filename = `${req.body.dep}-${req.body.rank}-${req.body.name}.${file.originalname.split('.')[1]}`;
+        cb(null, filename);
+    } 
+})
+
+const upload = multer({storage: storage});
 
 // GET - /admin 관리자 페이지
 router.get("/", controller.admin);
@@ -39,8 +52,11 @@ router.post("/slide", controller.inputSlide)
 // GET - /wbmanage 근무자 현황 관리
 router.get("/wmanage", controller.workerManage);
 
-// POST - /wbProcess 금일 근무자 적용 프로세스
+// POST - /wmanage 금일 근무자 적용 프로세스
 router.post("/wmanage", controller.inputWorker);
+
+// POST - /wmanage/upload 금일 근무자 적용 프로세스
+router.post("/wmanage/upload", upload.single("userfile"), controller.upload);
 
 // POST - /hazard 무재해 페이지 입력 렌더링
 router.get("/safety", controller.safety);
