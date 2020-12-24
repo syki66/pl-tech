@@ -86,7 +86,7 @@ exports.noticeMore = (req, res) =>{
       })
       .then((data)=>{
           const pages = data[0].count / psize;  
-          const ptemplate = template.ptmpl(pages);
+          const ptemplate = template.pageBar(pages);
           res.send(template.m_board(list,ptemplate,false));
       })
       .catch((err)=>{
