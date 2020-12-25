@@ -64,7 +64,7 @@ const parsingValues = (path, callback) => {
           for(let i = 0 ; i < data.length ; i++){
             let cdate = data[i].cdate.substring(5,7) + '/' + data[i].cdate.substring(8,10);
             let day = data[i].cdate.substring(11,12);
-            const row = [cdate, day, data[i].title];
+            const row = [cdate, day, data[i].title, String(data[i].id)];
             this.noticeObj[i] = row;
           }
           result = values.valuesToJson(parsing, adminController.welcomeObj, this.noticeObj, adminController.safetyObj, adminController.workerObj);
@@ -93,7 +93,7 @@ exports.updateNoticeObj = () => {
         if(data[i]){
           let cdate = data[i].cdate.substring(5,7) + '/' + data[i].cdate.substring(8,10);
           let day = data[i].cdate.substring(11,12);
-          row = [data[i].id, cdate, day, data[i].title];
+          row = [cdate, day, data[i].title, String(data[i].id)];
         }else{
           row = null;
         }
