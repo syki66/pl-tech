@@ -1,7 +1,7 @@
 const { worker } = require("cluster");
 
 // 우선 하드코딩
-exports.valuesToJson = (parsed, welcomeObj, noticeObj, hazardObj, workerObj, slideObj) => {
+exports.valuesToJson = (parsed, welcomeObj, noticeObj, safetyObj, workerObj, slideObj) => {
 
   let values = [];
 
@@ -93,12 +93,12 @@ exports.valuesToJson = (parsed, welcomeObj, noticeObj, hazardObj, workerObj, sli
   }
   
   let item_8 = new Object();
-  item_8.row0 = [hazardObj[0]];
-  item_8.row1 = [hazardObj[1]];
-  item_8.row2 = [hazardObj[2]];
-  item_8.row3 = [hazardObj[3]];
-  item_8.row4 = [hazardObj[4]];
-  item_8.row5 = [hazardObj[5]];
+  item_8.row0 = [safetyObj[0]];
+  item_8.row1 = [safetyObj[1]];
+  item_8.row2 = [safetyObj[2]];
+  item_8.row3 = [safetyObj[3]];
+  item_8.row4 = [safetyObj[4]];
+  item_8.row5 = [safetyObj[5]];
 
   values_1.push(item_8);
 
