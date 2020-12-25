@@ -17,6 +17,9 @@ router.get("/logout", controller.logout);
 // GET - /alert/wmanage 근무자 등록 완료 알람
 router.get("/wmanage", controller.wmanage);
 
+// GET - /alert/wmanage 근무자 등록 완료 알람
+router.get("/wmanage/warn", controller.wmanageWarn);
+
 // GET - /alert/safety 무재해 기록판 설정 완료 알람
 router.get("/safety", controller.safety);
 

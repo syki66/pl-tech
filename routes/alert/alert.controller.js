@@ -32,10 +32,18 @@ exports.logout = (req, res) => {
   res.send(template.alert(contents, redirect))
 };
 
-// GET - /alert/wmanage 로그아웃 완료 알람
+// GET - /alert/wmanage 근무자 등록 완료 알람
 exports.wmanage = (req, res) => {
   let contents = "근무자 등록을 완료했습니다."
   let redirect = "/admin"
+  res.status(201);
+  res.send(template.alert(contents, redirect))
+};
+
+// GET - /alert/wmanage 근무자 등록 오류 알람
+exports.wmanageWarn = (req, res) => {
+  let contents = "근무자 4명을 선택해야 합니다."
+  let redirect = "/admin/wmanage"
   res.status(201);
   res.send(template.alert(contents, redirect))
 };
