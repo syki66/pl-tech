@@ -56,7 +56,7 @@ const parsingValues = (path, callback) => {
       models.Notice.findAll({
         attributes: ['id', 'title', 'cdate'],
         raw: true,
-        order: [['id', 'ASC']],
+        order: [['id', 'DESC']],
         limit: 5
       })
         .then(data => {
@@ -91,7 +91,9 @@ exports.updateNoticeObj = () => {
       let row;
       for(let i = 0 ; i < this.noticeObj.length ; i++){
         if(data[i]){
-          row = [data[i].id, data[i].title, data[i].cdate];
+          let cdate = data[i].cdate.substring(5,7) + '/' + data[i].cdate.substring(8,10);
+          let day = data[i].cdate.substring(11,12);
+          row = [data[i].id, cdate, day, data[i].title];
         }else{
           row = null;
         }

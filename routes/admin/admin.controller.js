@@ -253,8 +253,14 @@ exports.inputWorker = (req, res) => {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
     console.log(req.body);
+
     var i = 0;
     for (var j in req.body) {
+      // 근무자 4명 선택 안할 시
+      if(req.body[j] === ""){
+        res.redirect("/alert/wmanage/warn");
+        return false;
+      }
       const image = req.body[j];
       const element = image.split('-');
       const dep = element[0];

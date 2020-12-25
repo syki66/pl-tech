@@ -17,11 +17,7 @@ exports.sess = {
     host: "localhost",
     port: 3306,
     user: "root",
-<<<<<<< HEAD
     password: "rkawk35088",
-=======
-    password: "1028",
->>>>>>> 8da43aea129659480e845894d8a3c65ef40b36f7
     database: "pltech",
     clearExpired: true,
     checkExpirationInterval: 2*60*60*1000
