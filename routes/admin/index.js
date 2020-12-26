@@ -3,6 +3,8 @@ const express = require("express");
 const controller = require("./admin.controller");
 const router = express.Router();
 const multer = require('multer');
+
+// /wmanage/upload 파일 저장 위치 및 이름 변경
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
         const dest = "./worker";
@@ -15,6 +17,9 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({storage: storage});
+
+// /admin 페이지 접근 권한 검사 - 세션 만료시 페이지 로드 불가
+router.use("/", controller.authCheck);
 
 // GET - /admin 관리자 페이지
 router.get("/", controller.admin);
@@ -55,7 +60,7 @@ router.get("/wmanage", controller.workerManage);
 // POST - /wmanage 금일 근무자 적용 프로세스
 router.post("/wmanage", controller.inputWorker);
 
-// POST - /wmanage/upload 금일 근무자 적용 프로세스
+// POST - /wmanage/upload 직원 사진 업로드
 router.post("/wmanage/upload", upload.single("userfile"), controller.upload);
 
 // POST - /hazard 무재해 페이지 입력 렌더링

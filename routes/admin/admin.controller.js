@@ -6,7 +6,17 @@ const error = require("../../lib/error");
 const message = require("../../lib/message");
 const errorHandler = require("errorhandler");
 const fs = require("fs");
+const { nextTick } = require("process");
 
+exports.authCheck = (req, res, next) => {
+  console.log("called authCheck");
+  var isAdminStatus = util.isAdminStatus(req, res);
+  if(isAdminStatus){
+    next();
+  }else{
+    res.redirect("/alert/auth");
+  }
+}
 // GET - /admin 관리자 페이지
 exports.admin = (req, res) => {
   // 관리자 페이지 UI
@@ -25,38 +35,29 @@ exports.createPost = (req, res) => {
 exports.createProcess = (req, res) => {
   console.log("called createProcess");
 
-  // 로그인 검사
-  var isAdminStatus = util.isAdminStatus(req, res);
-
-  if (isAdminStatus) {
-    
-    models.Notice.create({
-      title: req.body.title,
-      contents: req.body.contents,
-      cdate: util.currentDate(),
+  models.Notice.create({
+    title: req.body.title,
+    contents: req.body.contents,
+    cdate: util.currentDate(),
+  })
+    .then((data) => {
+      console.log(data.dataValues);
+      console.log("공지를 생성하였습니다.");
+      inputController.updateNoticeObj();
+      res.writeHead(302, { Location: "/admin/post/manage/1" });
+      res.end("success");
     })
-      .then((data) => {
-        console.log(data.dataValues);
-        console.log("공지를 생성하였습니다.");
-        inputController.updateNoticeObj();
-        let location = "/admin/post/manage/1";
-        res.writeHead(302, { Location: location });
-        res.end("success");
-      })
-      .catch((err) => {
-        console.log("공지를 생성할 수 없습니다.");
-        res.json(util.successFalse(err));
-      });
-  } else {
-    console.log("로그인이 필요합니다.");
-    res.json(util.successFalse(error.authErr()));
-  }
+    .catch((err) => {
+      console.log("공지를 생성할 수 없습니다.");
+      res.json(util.successFalse(err));
+    });
+  
 };
 
 // GET - /admin/post/manage 공지 관리 페이지
 exports.managePost = (req, res) => {
   console.log("called managePost");
-
+  
   const pagenum = req.params.pagenum
   // 페이지당 6개씩
   const psize = 6;
@@ -118,36 +119,27 @@ exports.updatePost = (req, res) => {
 // PATCH - /admin/post/:postnum/uprocess 공지 수정 처리 프로세스 (권한 검사)
 exports.updateProcess = (req, res) => {
   console.log("called updateProcess");
-  // 로그인 검사
-  var isAdminStatus = util.isAdminStatus(req, res);
-  // 로그인 시
-  if (isAdminStatus) {
 
-    const pagenum = req.body.pagenum;
+  const pagenum = req.body.pagenum;
 
-    models.Notice.update(
-      {
-        title: req.body.title,
-        contents: req.body.contents,
-        cdate: util.currentDate(),
-      },
-      { where: { id: req.params.postnum } }
-    )
-      .then((data) => {
-        console.log("공지를 수정하였습니다.");
-        inputController.updateNoticeObj();
-        let location = `/admin/post/manage/${pagenum}`;
-        res.writeHead(302, { Location: location });
-        res.end("success");
-      })
-      .catch((err) => {
-        console.log("공지를 수정할 수 없습니다.");
-        res.json(util.successFalse(err));
-      });
-  } else {
-    console.log("로그인이 필요합니다.");
-    res.json(util.successFalse(err));
-  }
+  models.Notice.update(
+    {
+      title: req.body.title,
+      contents: req.body.contents,
+      cdate: util.currentDate(),
+    },
+    { where: { id: req.params.postnum } }
+  )
+    .then((data) => {
+      console.log("공지를 수정하였습니다.");
+      inputController.updateNoticeObj();
+      res.writeHead(302, { Location: `/admin/post/manage/${pagenum}` });
+      res.end("success");
+    })
+    .catch((err) => {
+      console.log("공지를 수정할 수 없습니다.");
+      res.json(util.successFalse(err));
+    });
 };
 
 // DELETE - /admin/post/:postnum/dprocess 공지 삭제 처리 프로세스 (권한 검사)
@@ -157,28 +149,20 @@ exports.deleteProcess = (req, res) => {
   const pagenum = req.body.pagenum;
 
   console.log(pagenum);
-  // 로그인 검사
-  var isAdminStatus = util.isAdminStatus(req, res);
-  // 로그인 시
-  if (isAdminStatus) {
-    models.Notice.destroy({
-      where: { id: req.params.postnum },
+
+  models.Notice.destroy({
+    where: { id: req.params.postnum },
+  })
+    .then((data) => {
+      console.log("공지를 삭제하였습니다.");
+      inputController.updateNoticeObj();
+      res.writeHead(302, { Location: `/admin/post/manage/${pagenum}` });
+      res.end("success");
     })
-      .then((data) => {
-        console.log("공지를 삭제하였습니다.");
-        inputController.updateNoticeObj();
-        let location = `/admin/post/manage/${pagenum}`
-        res.writeHead(302, { Location: location});
-        res.end("success");
-      })
-      .catch((err) => {
-        console.log("공지를 삭제할 수 없습니다.");
-        res.json(util.successFalse(err));
-      });
-  } else {
-    console.log("로그인이 필요합니다.");
-    res.json(util.successFalse(err));
-  }
+    .catch((err) => {
+      console.log("공지를 삭제할 수 없습니다.");
+      res.json(util.successFalse(err));
+    });
 };
 
 exports.welcome = (req, res) => {
@@ -186,29 +170,25 @@ exports.welcome = (req, res) => {
   res.render("../views/welcome.html");
 };
 
-exports.welcomeObj = ['관리자님', ' 설정 페이지에서 환영문구를 작성해주세요!'];
+exports.welcomeObj = [null, null];
 
 exports.inputWelcome = (req, res) => {
   console.log("called inputWelcome");
   if (req.body === null || req.body === undefined) {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
-    exports.welcomeObj = [req.body.visitor + "님", req.body.sentence];
+    exports.welcomeObj = [req.body.visitor, req.body.sentence];
     inputController.updateInputData();
-    let location = "/alert/welcome"
-    res.writeHead(302, { Location: location});
+    res.writeHead(302, { Location: "/alert/welcome"});
     res.end("success");
   }
 };
 
 exports.slide = (req, res) => {
   console.log("called slide");
-
-  //res.render("../views/slide");
-  fs.readdir('./views/src/pages', function(error, filelist){
+  fs.readdir("./views/src/pages", function(error, filelist){
     var list = util.rmExtention(filelist);
     res.send(template.m_slide(template.m_checkList(list)));
-    //console.log(list);
   })
 
 }
@@ -224,15 +204,13 @@ exports.inputSlide = (req, res) => {
     this.slideObj[i] = checkList[i];
   }
   inputController.updateInputData();
-  let location = "/alert/slide"
-  res.writeHead(302, { Location: location});
+  res.writeHead(302, { Location: "/alert/slide"});
   res.end("success");
 }
 
 exports.workerManage = (req, res) => {
   console.log("called workerManage");
-  const dir = "./worker"
-  fs.readdir( dir, function(error, filelist){
+  fs.readdir("./worker", function(error, filelist){
     const leader = "leader";
     const staff1 = "staff1";
     const staff2 = "staff2";
@@ -253,14 +231,8 @@ exports.inputWorker = (req, res) => {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
     console.log(req.body);
-
     var i = 0;
     for (var j in req.body) {
-      // 근무자 4명 선택 안할 시
-      if(req.body[j] === ""){
-        res.redirect("/alert/wmanage/warn");
-        return false;
-      }
       const image = req.body[j];
       const element = image.split('-');
       const dep = element[0];
@@ -277,24 +249,40 @@ exports.inputWorker = (req, res) => {
 
 exports.upload = (req, res) => {
   console.log("called upload");
-  console.log(req.file);
+  console.log(req.file); 
   res.redirect("/admin/wmanage");
 }
 
 exports.safety = (req, res) => {
   console.log("called safety");
-
   res.render("../views/safety.html");
 };
 
 exports.safetyObj = [
-  "-",
-  "관리자 페이지에서 설정 부탁드립니다.",
-  "-",
-  "-",
-  "-",
-  "-"
-]; 
+  null,
+  null,
+  null,
+  null,
+  null,
+  null
+ ]; 
+
+// function calcNow() {
+//   let today = new Date();   
+//   let year = today.getFullYear(); // 년도
+//   let monthNow = today.getMonth() + 1;  // 월
+//   let date = today.getDate();  // 날짜
+
+//   if(monthNow < 10){
+//     monthNow = "0" + monthNow;
+//   }
+  
+//   if(date < 10){
+//     date = "0" + date;
+//   }
+
+//   return year + '년 ' + monthNow + '월 ' + date + '일';
+// }
 
 
 function calcSafety(zhVal, startDate, targetDate) {
@@ -381,7 +369,7 @@ function calcSafety(zhVal, startDate, targetDate) {
 
 setInterval(()=>{
   calcSafety(this.safetyObj[2], this.safetyObj[4], this.safetyObj[5])
-}, 1000 * 60 * 60 * 6); // 6시간에 한번씩 세팅됨
+}, 10000)
 
 exports.inputSafety = (req, res) => {
   console.log("called inputSafety");
@@ -390,6 +378,6 @@ exports.inputSafety = (req, res) => {
   } else {
     console.log(req.body);
     calcSafety(req.body.zeroHazard, req.body.startDate, req.body.targetDate);
-    res.redirect("/alert/safety");
+    res.redirect("/alert");
   }
 };
