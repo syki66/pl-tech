@@ -7,8 +7,6 @@ const { concatSeries } = require('async');
 // GET /board 공지 목록 출력
 exports.postList = (req, res) =>{
     console.log('called postList');
-    //res.render('../views/notice.html');
-
     models.Notice.findAll({
         attributes: ['id','title', 'cdate'],
         raw : true,
@@ -17,14 +15,12 @@ exports.postList = (req, res) =>{
     })
     .then(data=>{
         console.log(data);
-        var list = template.noticeList(data);
+        const list = template.noticeList(data);
         res.send(template.board(list));
-        //res.json(util.successTrue(data));
     })
     .catch(err=>{
         console.log('데이터를 불러올 수 없습니다.');
-        console.log(err);
-        res.json(util.successFalse(error.loadErr()));
+        res.json(util.successFalse(err));
     })
 
 }
@@ -32,30 +28,26 @@ exports.postList = (req, res) =>{
 // GET /board/:postnum 해당 공지 내용 출력
 exports.postContents = (req, res)=>{
     console.log('called postContents');
-
-    const _id = req.params.postnum;
+    
     var page ="";
     if(req.query.pagenum){
         page = "/more/" + req.query.pagenum;
     }
-    //console.log(_id);
     models.Notice.findAll({
-      where : {id: _id},
+      where : {id: req.params.postnum},
       attributes: ['title', 'contents', 'cdate'],
       raw : true
   })
   .then(data=>{
-
       console.log(data);
       var title = data[0].title;
       var contents = data[0].contents;
       var cdate = util.noticeCdate(data[0].cdate);
       res.send(template.notice(title, contents, cdate, page));
-      //res.json(util.successTrue(data));
   })
   .catch(err=>{
       console.log('데이터를 불러올 수 없습니다.');
-      res.json(util.successFalse(error.loadErr()));
+      res.json(util.successFalse(err));
   })
 }
 
@@ -91,11 +83,12 @@ exports.noticeMore = (req, res) =>{
       })
       .catch((err)=>{
           console.log(err);
+          res.json(util.successFalse(err));
       })
     })
     .catch((err) => {
       console.log(err);
-      res.json(util.successFalse(error));
+      res.json(util.successFalse(err));
     })
 }
 
