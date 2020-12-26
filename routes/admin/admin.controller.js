@@ -232,7 +232,7 @@ exports.inputSlide = (req, res) => {
 exports.workerManage = (req, res) => {
   console.log("called workerManage");
   const dir = "./worker"
-  fs.readdir( dir, function(error, filelist){
+  fs.readdir(dir, function(error, filelist){
     const leader = "leader";
     const staff1 = "staff1";
     const staff2 = "staff2";
