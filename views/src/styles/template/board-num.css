@@ -35,6 +35,7 @@ h2{
     color: white;
 
     overflow: auto;
+    word-break: break-all;
 }
 
 .cdate{
