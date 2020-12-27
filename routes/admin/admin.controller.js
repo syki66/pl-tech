@@ -8,30 +8,30 @@ const errorHandler = require("errorhandler");
 const fs = require("fs");
 const { nextTick } = require("process");
 
+// /admin 접근 권한 검사 - 세션 만료시 경고 메세지
 exports.authCheck = (req, res, next) => {
   console.log("called authCheck");
-  var isAdminStatus = util.isAdminStatus(req, res);
+  const isAdminStatus = util.isAdminStatus(req, res);
   if(isAdminStatus){
     next();
   }else{
     res.redirect("/alert/auth");
   }
 }
+
 // GET - /admin 관리자 페이지
 exports.admin = (req, res) => {
-  // 관리자 페이지 UI
   console.log("called admin");
   res.render("../views/admin.html");
 };
 
-// GET - /admin/post 공지 생성 페이지
-exports.createPost = (req, res) => {
-  // 공지 생성 UI
-  console.log("called createPost");
+// GET - /admin/notice 공지 생성 페이지
+exports.createNotice = (req, res) => {
+  console.log("called createNotice");
   res.render("../views/writing.html");
 };
 
-// POST - /admin/post/cprocess 공지 생성 처리 프로세스 (권한 검사)
+// POST - /admin/notice/cprocess 공지 생성 처리 프로세스 
 exports.createProcess = (req, res) => {
   console.log("called createProcess");
 
@@ -44,28 +44,28 @@ exports.createProcess = (req, res) => {
       console.log(data.dataValues);
       console.log("공지를 생성하였습니다.");
       inputController.updateNoticeObj();
-      res.writeHead(302, { Location: "/admin/post/manage/1" });
+      res.writeHead(302, { Location: "/alert/create" });
       res.end("success");
     })
     .catch((err) => {
-      console.log("공지를 생성할 수 없습니다.");
+      console.log(err);
       res.json(util.successFalse(err));
     });
   
 };
 
-// GET - /admin/post/manage 공지 관리 페이지
-exports.managePost = (req, res) => {
-  console.log("called managePost");
+// GET - /admin/notice/manage 공지 관리 페이지
+exports.manageNotice = (req, res) => {
+  console.log("called manageNotice");
   
-  const pagenum = req.params.pagenum
+  const pnum = req.params.pageNum
   // 페이지당 6개씩
   const psize = 6;
   // 시작 페이지
-  const begin = (pagenum - 1) * psize;
+  const begin = (pnum - 1) * psize;
 
   models.Notice.findAll({
-    attributes: ["id", "title"],
+    attributes: ["id", "title", "cdate"],
     raw: true,
     order: [["id", "DESC"]],
     // begin 부터 psize 만큼 데이터 조회
@@ -73,16 +73,16 @@ exports.managePost = (req, res) => {
   })
     .then((data) => {
       console.log(data);
-      const list = template.m_noticeList(data, pagenum, true);
+      const list = template.c_noticeList(data, pnum, true);
 
       models.Notice.findAll({
         attributes: [[models.sequelize.fn("count", "*"), "count"]],
         raw: true
       })
         .then((data) => {
-          const pages = data[0].count / psize;
-          const pagebar = template.pageBar(pages);
-          res.send(template.m_board(list, pagebar, true));
+          const pages = Math.ceil(data[0].count / psize);
+          const pageBar = template.c_pageBar(pnum, pages);
+          res.send(template.c_board(list, pageBar, true));
         })
         .catch((err) => {
           console.log(err);
@@ -95,20 +95,20 @@ exports.managePost = (req, res) => {
     })
 };
 
-// GET - /admin/post/:postnum/update 공지 수정 페이지
-exports.updatePost = (req, res) => {
-  console.log("called updatePost");
+// GET - /admin/notice/:noticeNum/update 공지 수정 페이지
+exports.updateNotice = (req, res) => {
+  console.log("called updateNotice");
 
-  const page = req.query.pagenum;
+  const pnum = req.query.pageNum;
 
   models.Notice.findAll({
-    where: { id: req.params.postnum },
+    where: { id: req.params.noticeNum },
     attributes: ["id", "title", "contents"],
     raw: true,
   })
     .then((data) => {
       console.log(data);
-      res.send(template.m_edit(data[0].id, data[0].title, data[0].contents, page));
+      res.send(template.a_edit(data[0].id, data[0].title, data[0].contents, pnum));
     })
     .catch((err) => {
       console.log("데이터를 불러올 수 없습니다.");
@@ -116,11 +116,11 @@ exports.updatePost = (req, res) => {
     });
 };
 
-// PATCH - /admin/post/:postnum/uprocess 공지 수정 처리 프로세스 (권한 검사)
+// PATCH - /admin/notice/:noticeNum/uprocess 공지 수정 처리 프로세스 
 exports.updateProcess = (req, res) => {
   console.log("called updateProcess");
 
-  const pagenum = req.body.pagenum;
+  const pnum = req.body.pageNum;
 
   models.Notice.update(
     {
@@ -128,12 +128,12 @@ exports.updateProcess = (req, res) => {
       contents: req.body.contents,
       cdate: util.currentDate(),
     },
-    { where: { id: req.params.postnum } }
+    { where: { id: req.params.noticeNum } }
   )
     .then((data) => {
       console.log("공지를 수정하였습니다.");
       inputController.updateNoticeObj();
-      res.writeHead(302, { Location: `/admin/post/manage/${pagenum}` });
+      res.writeHead(302, { Location: "/alert/update" });
       res.end("success");
     })
     .catch((err) => {
@@ -142,21 +142,19 @@ exports.updateProcess = (req, res) => {
     });
 };
 
-// DELETE - /admin/post/:postnum/dprocess 공지 삭제 처리 프로세스 (권한 검사)
+// DELETE - /admin/notice/:noticeNum/dprocess 공지 삭제 처리 프로세스
 exports.deleteProcess = (req, res) => {
   console.log("called deleteProcess");
 
-  const pagenum = req.body.pagenum;
-
-  console.log(pagenum);
+  const pnum = req.body.pageNum;
 
   models.Notice.destroy({
-    where: { id: req.params.postnum },
+    where: { id: req.params.noticeNum },
   })
     .then((data) => {
       console.log("공지를 삭제하였습니다.");
       inputController.updateNoticeObj();
-      res.writeHead(302, { Location: `/admin/post/manage/${pagenum}` });
+      res.writeHead(302, { Location: "/alert/delete" });
       res.end("success");
     })
     .catch((err) => {
@@ -188,7 +186,7 @@ exports.slide = (req, res) => {
   console.log("called slide");
   fs.readdir("./views/src/pages", function(error, filelist){
     var list = util.rmExtention(filelist);
-    res.send(template.m_slide(template.m_checkList(list)));
+    res.send(template.a_slide(template.a_checkList(list)));
   })
 
 }
@@ -208,25 +206,25 @@ exports.inputSlide = (req, res) => {
   res.end("success");
 }
 
-exports.workerManage = (req, res) => {
-  console.log("called workerManage");
+exports.worker = (req, res) => {
+  console.log("called worker");
   fs.readdir("./worker", function(error, filelist){
     const leader = "leader";
     const staff1 = "staff1";
     const staff2 = "staff2";
     const staff3 = "staff3";
-    res.send(template.m_workerManage(
-      template.m_workerList(leader, filelist),
-      template.m_workerList(staff1, filelist),
-      template.m_workerList(staff2, filelist),
-      template.m_workerList(staff3, filelist)));
+    res.send(template.a_worker(
+      template.a_workerList(leader, filelist),
+      template.a_workerList(staff1, filelist),
+      template.a_workerList(staff2, filelist),
+      template.a_workerList(staff3, filelist)));
   })
 };
 
 
 exports.workerObj = [null, null, null, null];
 exports.inputWorker = (req, res) => {
-  console.log("called wboardManage");
+  console.log("called inputWorker");
   if (req.body === null || req.body === undefined) {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
@@ -243,14 +241,14 @@ exports.inputWorker = (req, res) => {
       i = i + 1;
     }
     inputController.updateInputData();
-    res.redirect("/alert/wmanage");
+    res.redirect("/alert/worker");
   }
 };
 
 exports.upload = (req, res) => {
   console.log("called upload");
   console.log(req.file); 
-  res.redirect("/admin/wmanage");
+  res.redirect("/admin/worker");
 }
 
 exports.safety = (req, res) => {
