@@ -41,14 +41,27 @@ li{
     white-space: nowrap;
     overflow: hidden;
     margin: 0vw calc(var(--width) / 100 * 1.4);
+    
 }
 .board__link{
     color: white;
     text-decoration:none;
     opacity: 1;
+    display: flex;
 }
-.board__link:hover{
+a.board__link:hover{
     opacity: 0.8;
+}
+.date{
+    flex: 2;
+    margin-right: calc(var(--width) / 100 * 3);
+}
+.title{
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    flex: 10.8;
 }
 
 .del__container{
