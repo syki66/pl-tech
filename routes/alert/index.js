@@ -5,6 +5,15 @@ const controller = require("./alert.controller");
 // GET - /alert/auth 접근 권한 오류 알람
 router.get("/auth", controller.auth);
 
+// GET - /alert/create 공지 생성 완료 알람
+router.get("/create", controller.create);
+
+// GET - /alert/update 공지 수정 완료 알람
+router.get("/update", controller.update);
+
+// GET - /alert/delete 공지 삭제 완료 알람
+router.get("/delete", controller.delete);
+
 // GET - /alert/welcome 환영문구 작성 완료 알람
 router.get("/welcome", controller.welcome);
 
@@ -24,10 +33,10 @@ router.get("/login", controller.login);
 router.get("/logout", controller.logout);
 
 // GET - /alert/wmanage 근무자 등록 완료 알람
-router.get("/wmanage", controller.wmanage);
+router.get("/worker", controller.worker);
 
 // GET - /alert/wmanage/warn 근무자 등록 오류 알람
-router.get("/wmanage/warn", controller.wmanageWarn);
+router.get("/worker/warn", controller.workerWarn);
 
 // GET - /alert/safety 무재해 기록판 설정 완료 알람
 router.get("/safety", controller.safety);

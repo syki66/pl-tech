@@ -1,8 +1,6 @@
 const util = require('../../middleware/util');
 const models = require('../../models');
 const bcrypt = require('bcrypt');
-const error = require('../../lib/error');
-const message = require('../../lib/message');
 
 
 // GET - /auth/login 로그인 페이지
