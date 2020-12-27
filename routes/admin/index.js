@@ -56,7 +56,10 @@ router.get("/wmanage", controller.workerManage);
 router.post("/wmanage", controller.inputWorker);
 
 // POST - /wmanage/upload 금일 근무자 적용 프로세스
-router.post("/wmanage/upload", upload.single("userfile"), controller.upload);
+router.post("/wmanage/upload", upload.single("userfile"), controller.uploadWorker);
+
+// DELETE - /wmanage/delete 금일 근무자 적용 프로세스
+router.delete("/wmanage/delete", controller.deleteWorker);
 
 // POST - /hazard 무재해 페이지 입력 렌더링
 router.get("/safety", controller.safety);

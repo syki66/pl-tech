@@ -237,7 +237,9 @@ exports.workerManage = (req, res) => {
     const staff1 = "staff1";
     const staff2 = "staff2";
     const staff3 = "staff3";
+    const dStaff = "dStaff";
     res.send(template.m_workerManage(
+      template.m_workerList(dStaff, filelist),
       template.m_workerList(leader, filelist),
       template.m_workerList(staff1, filelist),
       template.m_workerList(staff2, filelist),
@@ -275,10 +277,30 @@ exports.inputWorker = (req, res) => {
   }
 };
 
-exports.upload = (req, res) => {
-  console.log("called upload");
+exports.uploadWorker = (req, res) => {
+  console.log("called uploadWorker");
   console.log(req.file);
   res.redirect("/admin/wmanage");
+}
+
+exports.deleteWorker = (req, res) => {
+  console.log("called deleteWorker");
+  const dir = "./worker/"
+  fs.unlink(dir + req.body.dStaff, (err) => {
+    if(err) {
+      res.redirect("/alert/wmanage/warn");
+      return false;
+    } else {
+      for(let i = 0; i < this.workerObj.length; i++){
+        if(this.workerObj[i] === req.body.dStaff){
+          this.workerObj[i] = null;
+          break;
+        }
+      }
+      inputController.updateInputData();
+      res.redirect("/alert/wmanage");
+    }
+  });
 }
 
 exports.safety = (req, res) => {
