@@ -67,7 +67,7 @@ exports.manageNotice = (req, res) => {
   models.Notice.findAll({
     attributes: ["id", "title", "cdate"],
     raw: true,
-    order: [["id", "DESC"]],
+    order: [["id", "DESC"]], 
     // begin 부터 psize 만큼 데이터 조회
     limit: [begin, psize]
   })
