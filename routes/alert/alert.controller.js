@@ -60,6 +60,18 @@ exports.logout = (req, res) => {
   res.send(template.c_alert("로그아웃 했습니다.", "/auth/login"));
 };
 
+// GET - /alert/worker/upload 근무자 사진 등록 완료 알람
+exports.wupload = (req, res) => {
+  res.status(201);
+  res.send(template.c_alert("근무자 사진을 등록했습니다.", "/admin/worker"));
+};
+
+// GET - /alert/worker/delete 근무자 사진 삭제 완료 알람
+exports.wdelete = (req, res) => {
+  res.status(201);
+  res.send(template.c_alert("근무자 사진을 삭제했습니다.", "/admin/worker"));
+};
+
 // GET - /alert/worker 근무자 등록 완료 알람
 exports.worker = (req, res) => {
   res.status(201);

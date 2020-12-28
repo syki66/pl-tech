@@ -32,8 +32,14 @@ router.get("/login", controller.login);
 // GET - /alert/logout 로그아웃 완료 알람
 router.get("/logout", controller.logout);
 
-// GET - /alert/wmanage 근무자 등록 완료 알람
+// GET - /alert/worker 근무자 등록 완료 알람
 router.get("/worker", controller.worker);
+
+// GET - /alert/worker/upload 근무자 등록 완료 알람
+router.get("/worker/upload", controller.wupload);
+
+// GET - /alert/worker/delete 근무자 등록 완료 알람
+router.get("/worker/delete", controller.wdelete);
 
 // GET - /alert/wmanage/warn 근무자 등록 오류 알람
 router.get("/worker/warn", controller.workerWarn);

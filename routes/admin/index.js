@@ -59,8 +59,11 @@ router.get("/worker", controller.worker);
 // POST - /worker 금일 근무자 적용 프로세스
 router.post("/worker", controller.inputWorker);
 
-// POST - /worker/upload 직원 사진 업로드
-router.post("/worker/upload", upload.single("userfile"), controller.upload);
+// POST - /wmanage/upload 금일 근무자 적용 프로세스
+router.post("/worker/upload", upload.single("userfile"), controller.uploadWorker);
+
+// DELETE - /wmanage/delete 금일 근무자 적용 프로세스
+router.delete("/worker/delete", controller.deleteWorker);
 
 // POST - /hazard 무재해 페이지 입력 렌더링
 router.get("/safety", controller.safety);
