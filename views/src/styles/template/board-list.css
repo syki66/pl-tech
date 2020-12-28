@@ -121,7 +121,7 @@ li:nth-child(1){
     z-index: 0;
 }
 .nav{
-    color: black;
+    color: gray;
     font-size: calc(var(--width) / 100 * 1.4);
     margin: calc(var(--width) / 100 * 0.5);
     text-decoration:none;
@@ -133,4 +133,14 @@ li:nth-child(1){
 .nav:hover{
     opacity: 1;
     text-decoration: underline;
+}
+.sel{
+    color: black;
+    font-size: calc(var(--width) / 100 * 1.4);
+    margin: calc(var(--width) / 100 * 0.5);
+    text-decoration:none;
+    font-weight: 900;
+    opacity: 1;
+    
+    transition: 0.1s;
 }
