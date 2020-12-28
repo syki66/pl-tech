@@ -213,7 +213,9 @@ exports.worker = (req, res) => {
     const staff1 = "staff1";
     const staff2 = "staff2";
     const staff3 = "staff3";
-    res.send(template.a_worker(
+    const dStaff = "dStaff";
+    res.send(template.a_workerManage(
+      template.a_workerList(dStaff, filelist),
       template.a_workerList(leader, filelist),
       template.a_workerList(staff1, filelist),
       template.a_workerList(staff2, filelist),
@@ -245,10 +247,30 @@ exports.inputWorker = (req, res) => {
   }
 };
 
-exports.upload = (req, res) => {
-  console.log("called upload");
-  console.log(req.file); 
-  res.redirect("/admin/worker");
+exports.uploadWorker = (req, res) => {
+  console.log("called uploadWorker");
+  console.log(req.file);
+  res.redirect("/alert/worker/upload");
+}
+
+exports.deleteWorker = (req, res) => {
+  console.log("called deleteWorker");
+  const dir = "./worker/"
+  fs.unlink(dir + req.body.dStaff, (err) => {
+    if(err) {
+      res.redirect("/alert/worker/warn");
+      return false;
+    } else {
+      for(let i = 0; i < this.workerObj.length; i++){
+        if(this.workerObj[i] === req.body.dStaff){
+          this.workerObj[i] = null;
+          break;
+        }
+      }
+      inputController.updateInputData();
+      res.redirect("/alert/worker/delete");
+    }
+  });
 }
 
 exports.safety = (req, res) => {
