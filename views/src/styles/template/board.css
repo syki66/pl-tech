@@ -1,0 +1,89 @@
+:root{
+    --width: 1920px;
+}
+.container{
+    background-image: url('/views/src/images/background_nonews.png');
+}
+.inner__container{
+    position: relative;
+    left: calc(var(--width) / 100 * 21.1);
+}
+h2{
+    position: absolute;
+    top: calc(var(--width) / 100 * 8.7);
+    font-size: calc(var(--width) / 100 * 2.3);
+    font-weight: 600;
+}
+
+ul{
+    position: absolute;
+    margin: 0vw;
+    width: calc(var(--width) / 100 * 55.65);
+    height: calc(var(--width) / 100 * 26.7);
+    top: calc(var(--width) / 100 * 14.80);
+
+    padding: 0 calc(var(--width) / 100 * 1) 0 calc(var(--width) / 100 * 1);
+
+    display:flex;
+    flex-direction:column;
+
+    background-color: #222222;
+    border: calc(var(--width) / 100 * 0.12) solid #767676;
+    border-radius: calc(var(--width) / 100 * 0.7);
+    font-size: calc(var(--width) / 100 * 1.8);
+    color: white;
+}
+li{
+    display: flex;
+    padding: calc(var(--width) / 100 * 0.65) 0vw;
+    border-top: calc(var(--width) / 100 * 0.05) solid rgba(118, 118, 118, 0.5);
+    
+}
+
+.link__container{
+    flex: 8;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: calc(var(--width) / 100 * 2);
+}
+.board__link{
+    color: white;
+    text-decoration:none;
+    flex: 10;
+    opacity: 1;
+}
+.board__link:hover{
+    opacity: 0.8;
+}
+
+.date__container{
+    flex: 2;
+    text-align: center;
+}
+
+li:nth-child(1){
+    text-align:center;
+    font-weight: 600;
+    border-top: none;
+    opacity: 1;
+}
+.link__1, .link__2{
+    position: absolute;
+    font-size: calc(var(--width) / 100 * 1.4);
+
+    color: black;
+    font-weight: 600;
+    opacity: 0.8;
+    transition: 0.1s;
+    text-decoration: none;
+
+    top: calc(var(--width) / 100 * 43.7);
+}
+.link__2{
+    left: calc(var(--width) / 100 * 47.5);
+}
+.link__1:hover, .link__2:hover{
+    opacity: 1;
+    text-decoration: underline;
+}
