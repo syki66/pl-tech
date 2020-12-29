@@ -2,8 +2,6 @@ const inputController = require("../input/input.controller");
 const util = require("../../middleware/util");
 const models = require("../../models");
 const template = require("../../lib/template");
-const error = require("../../lib/error");
-const message = require("../../lib/message");
 const errorHandler = require("errorhandler");
 const fs = require("fs");
 const { nextTick } = require("process");
@@ -12,9 +10,9 @@ const { nextTick } = require("process");
 exports.authCheck = (req, res, next) => {
   console.log("called authCheck");
   const isAdminStatus = util.isAdminStatus(req, res);
-  if(isAdminStatus){
-    next();
-  }else{
+  if (isAdminStatus) {
+    next()
+  } else {
     res.redirect("/alert/auth");
   }
 }
@@ -146,8 +144,6 @@ exports.updateProcess = (req, res) => {
 exports.deleteProcess = (req, res) => {
   console.log("called deleteProcess");
 
-  const pnum = req.body.pageNum;
-
   models.Notice.destroy({
     where: { id: req.params.noticeNum },
   })
@@ -175,10 +171,19 @@ exports.inputWelcome = (req, res) => {
   if (req.body === null || req.body === undefined) {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
-    exports.welcomeObj = [req.body.visitor, req.body.sentence];
-    inputController.updateInputData();
-    res.writeHead(302, { Location: "/alert/welcome"});
-    res.end("success");
+     // 방문자명 글자 수 9자 제한
+    if(req.body.visitor.length>9){
+      res.redirect('/alert/welcome/visitor');
+    }
+    // 환영문구 글자 수 36자 제한
+    else if(req.body.sentence.length>36){
+      res.redirect('/alert/welcome/sentence');
+    }else{
+      exports.welcomeObj = [req.body.visitor, req.body.sentence];
+      inputController.updateInputData();
+      res.writeHead(302, { Location: "/alert/welcome"});
+      res.end("success");
+    }
   }
 };
 
@@ -188,7 +193,6 @@ exports.slide = (req, res) => {
     var list = util.rmExtention(filelist);
     res.send(template.a_slide(template.a_checkList(list)));
   })
-
 }
 
 exports.slideObj = [];
@@ -247,10 +251,24 @@ exports.inputWorker = (req, res) => {
   }
 };
 
-exports.uploadWorker = (req, res) => {
+exports.uploadError = (err, req, res, next) => {
+  console.log("called uploadError");
+  if(err ==="dep error"){
+    res.redirect("/alert/worker/dep");
+  }else if(err ==="rank error"){
+    res.redirect("/alert/worker/rank");
+  }else if(err ==="name error"){
+    res.redirect("/alert/worker/name");
+  }
+}
+
+exports.uploadWorker = (req, res, next) => {
   console.log("called uploadWorker");
-  console.log(req.file);
-  res.redirect("/alert/worker/upload");
+  if(req.file === undefined){
+      res.redirect("/alert/worker/uploadErr");
+  }else{
+    res.redirect("/alert/worker/upload");
+  }
 }
 
 exports.deleteWorker = (req, res) => {
@@ -318,7 +336,7 @@ function calcSafety(zhVal, startDate, targetDate) {
      ];
      inputController.updateInputData();
   } else {
-    
+
     let yyStart = startDate.substring(0, 4);
     let yyTarget = targetDate.substring(0, 4);
     let mmStart;
@@ -384,6 +402,8 @@ function calcSafety(zhVal, startDate, targetDate) {
       targetDate
      ];
      inputController.updateInputData();
+
+     return '';
   }
 }
 
@@ -396,8 +416,28 @@ exports.inputSafety = (req, res) => {
   if (req.body === null || req.body === undefined) {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
-    console.log(req.body);
-    calcSafety(req.body.zeroHazard, req.body.startDate, req.body.targetDate);
-    res.redirect("/alert");
+
+    const moment = require('moment');
+    require('moment-timezone');
+    moment.tz.setDefault("Asia/Seoul");
+    
+    // 현재 날짜
+    var date = moment().format('YYYY년 MM월 DD일')
+
+    // 배수 3자리 초과
+    if (req.body.zeroHazard.length > 3){
+      res.redirect("/alert/safety/hazard");
+    }
+    // 시작 날짜 > 현재 날짜
+    if (req.body.startDate > date) {
+      res.redirect("/alert/safety/start");
+    }// 목표날짜 < 현재 날짜
+    else if (req.body.targetDate < date) {
+      res.redirect("/alert/safety/target");
+    } else {
+      console.log(req.body);
+      calcSafety(req.body.zeroHazard, req.body.startDate, req.body.targetDate)
+      res.redirect("/alert/safety");
+    }
   }
 };
