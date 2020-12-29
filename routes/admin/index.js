@@ -3,16 +3,29 @@ const express = require("express");
 const controller = require("./admin.controller");
 const router = express.Router();
 const multer = require('multer');
+const { c_noticeList } = require("../../lib/template");
 
-// /wmanage/upload 파일 저장 위치 및 이름 변경
+// /worker/upload 파일 저장 위치 및 이름 변경
 const storage = multer.diskStorage({
     destination: function(req, file, cb){
-        const dest = "./worker";
-        cb(null, dest);
+        cb(null, "./worker");
     },
     filename : function(req, file, cb){
-        const filename = `${req.body.dep}-${req.body.rank}-${req.body.name}.${file.originalname.split('.')[1]}`;
-        cb(null, filename);
+        // 부서명 1~8자
+        if(req.body.dep === "" || req.body.dep.length > 8){
+            cb("dep error");
+        }
+        // 직급 1~8자
+        else if(req.body.rank === "" || req.body.rank.length > 8){
+            cb("rank error");
+        }
+        // 이름 1~8자
+        else if(req.body.name === "" || req.body.name.length > 8){
+            cb("name error")
+        }else{
+            const filename = `${req.body.dep}-${req.body.rank}-${req.body.name}.${file.originalname.split('.')[1]}`;
+            cb(null, filename);
+        }
     } 
 })
 const upload = multer({storage: storage});
@@ -59,16 +72,16 @@ router.get("/worker", controller.worker);
 // POST - /worker 금일 근무자 적용 프로세스
 router.post("/worker", controller.inputWorker);
 
-// POST - /wmanage/upload 금일 근무자 적용 프로세스
-router.post("/worker/upload", upload.single("userfile"), controller.uploadWorker);
+// POST - /worker/upload 금일 근무자 적용 프로세스
+router.post("/worker/upload", upload.single("userfile"), controller.uploadError, controller.uploadWorker);
 
-// DELETE - /wmanage/delete 금일 근무자 적용 프로세스
+// DELETE - /worker/delete 금일 근무자 적용 프로세스
 router.delete("/worker/delete", controller.deleteWorker);
 
-// POST - /hazard 무재해 페이지 입력 렌더링
+// POST - /safety 무재해 페이지 입력 렌더링
 router.get("/safety", controller.safety);
 
-// POST - /hazard 무재해 페이지 입력
+// POST - /safety 무재해 페이지 입력
 router.post("/safety", controller.inputSafety);
 
 module.exports = router;
