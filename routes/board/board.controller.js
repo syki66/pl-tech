@@ -1,6 +1,5 @@
 const util = require("../../middleware/util");
 const models = require("../../models");
-const error = require("../../lib/error");
 const template = require("../../lib/template");
 const { concatSeries } = require("async");
 
@@ -24,7 +23,7 @@ exports.noticeList = (req, res) =>{
 
 }
 
-// GET /board/:noticenum 해당 공지 내용 출력
+// GET /board/:noticeNum 해당 공지 내용 출력
 exports.noticeContents = (req, res)=>{
     console.log("called noticeContents");
     

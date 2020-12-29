@@ -1,7 +1,4 @@
 const moment = require('moment');
-
-
-
 var util = {};
 
 util.successTrue = function (data) {
@@ -58,6 +55,7 @@ util.isAdminStatus = function(req, res){
 
 util.currentDate = function(){
     // 서울 시간 기준
+
     require('moment-timezone');
     moment.tz.setDefault("Asia/Seoul");
     
