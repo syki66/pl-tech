@@ -1,12 +1,10 @@
 const fs = require("fs");
 const Iconv = require("iconv").Iconv;
-const values = require("../../value/values");
+const values = require("../../values/slide");
+const objects = require("../../values/objects");
 const adminController = require("../admin/admin.controller");
 const DCSPath = "DCS_val.csv";
-const models = require('../../models');
-
-let parsing = null;
-exports.noticeObj = [null, null, null, null, null];
+const models = require("../../models");
 
 const parsingValues = (path, callback) => {
   let encode = new Iconv("euc-kr", "utf-8"); // csv 파일을 그냥 읽어오면 한글이 깨지기 때문에 인코딩 필요
@@ -22,58 +20,62 @@ const parsingValues = (path, callback) => {
       let content = encode.convert(data); // euc-kr => utf-8로 컨버팅
       data = content.toString("utf-8"); // 컨버팅 데이터 utf-8 문자열로 변환
 
-      parsing = data.split("\r\n"); // 행으로 나누어줌
+      objects.parsedObj = data.split("\r\n"); // 행으로 나누어줌
 
-      for (let i = 0; i < parsing.length; ++i) {
-        if (parsing[i][0] === "*") {
-          parsing[i] = await removeSpecial(parsing[i]);
+      for (let i = 0; i < objects.parsedObj.length; ++i) {
+        if (objects.parsedObj[i][0] === "*") {
+          objects.parsedObj[i] = await removeSpecial(objects.parsedObj[i]);
         } else {
-          parsing[i] = await removeSpecial(parsing[i]);
+          objects.parsedObj[i] = await removeSpecial(objects.parsedObj[i]);
         }
       }
 
-      for (let i = 0; i < parsing.length; ++i) {
-        if (parsing[i] == "") {
-          parsing.splice(i, 1);
+      for (let i = 0; i < objects.parsedObj.length; ++i) {
+        if (objects.parsedObj[i] == "") {
+          objects.parsedObj.splice(i, 1);
         }
       }
 
-      for (let i = 0; i < parsing.length; ++i) {
-        parsing[i] = parsing[i].split(",");
-        for (let j = 0; j < parsing[i].length; ++j) {
-          let val = parsing[i][j];
+      for (let i = 0; i < objects.parsedObj.length; ++i) {
+        objects.parsedObj[i] = objects.parsedObj[i].split(",");
+        for (let j = 0; j < objects.parsedObj[i].length; ++j) {
+          let val = objects.parsedObj[i][j];
           if (!(await testLetters(val)))
-            parsing[i][j] = numberWithCommas(parsing[i][j]);
+            objects.parsedObj[i][j] = numberWithCommas(objects.parsedObj[i][j]);
         }
       }
 
-      // for (let i = 0; i < parsing.length; ++i) {
-      //   console.log("parsed " + i);
-      //   console.log(parsing[i]);
-      // }
-      
       let result;
       models.Notice.findAll({
-        attributes: ['id', 'title', 'cdate'],
+        attributes: ["id", "title", "cdate"],
         raw: true,
-        order: [['id', 'DESC']],
-        limit: 5
+        order: [["id", "DESC"]],
+        limit: 5,
       })
-        .then(data => {
+        .then((data) => {
           // console.log(data);
-          for(let i = 0 ; i < data.length ; i++){
-            let cdate = data[i].cdate.substring(5,7) + '/' + data[i].cdate.substring(8,10);
-            let day = data[i].cdate.substring(11,12);
+          for (let i = 0; i < data.length; i++) {
+            let cdate =
+              data[i].cdate.substring(5, 7) +
+              "/" +
+              data[i].cdate.substring(8, 10);
+            let day = data[i].cdate.substring(11, 12);
             const row = [cdate, day, data[i].title, String(data[i].id)];
             this.noticeObj[i] = row;
           }
-          result = values.valuesToJson(parsing, adminController.welcomeObj, this.noticeObj, adminController.safetyObj, adminController.workerObj);
+          result = values.valuesToJson(
+            objects.parsedObj,
+            objects.welcomeObj,
+            objects.noticeObj,
+            objects.safetyObj,
+            objects.workerObj
+          );
           callback(null, result);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
           res.json(util.successFalse(err));
-        })
+        });
     }
   });
 };
@@ -81,34 +83,51 @@ const parsingValues = (path, callback) => {
 // 글 생성 및 삭제시 업데이트
 exports.updateNoticeObj = () => {
   models.Notice.findAll({
-    attributes: ['id', 'title', 'cdate'],
+    attributes: ["id", "title", "cdate"],
     raw: true,
-    order: [['id', 'DESC']],
-    limit: 5
+    order: [["id", "DESC"]],
+    limit: 5,
   })
-    .then(data => {
+    .then((data) => {
       console.log(data);
       let row;
-      for(let i = 0 ; i < this.noticeObj.length ; i++){
-        if(data[i]){
-          let cdate = data[i].cdate.substring(5,7) + '/' + data[i].cdate.substring(8,10);
-          let day = data[i].cdate.substring(11,12);
+      for (let i = 0; i < objects.noticeObj.length; i++) {
+        if (data[i]) {
+          let cdate =
+            data[i].cdate.substring(5, 7) +
+            "/" +
+            data[i].cdate.substring(8, 10);
+          let day = data[i].cdate.substring(11, 12);
           row = [cdate, day, data[i].title, String(data[i].id)];
-        }else{
+        } else {
           row = null;
         }
-        this.noticeObj[i] = row;
-        exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, this.noticeObj, adminController.safetyObj, adminController.workerObj, adminController.slideObj);
-      }  
+        objects.noticeObj[i] = row;
+        exports.parsed = values.valuesToJson(
+          objects.parsedObj,
+          objects.welcomeObj,
+          objects.noticeObj,
+          objects.safetyObj,
+          objects.workerObj,
+          objects.slideObj
+        );
+      }
     })
-    .catch(err => {
+    .catch((err) => {
       console.log(err);
       res.json(util.successFalse(err));
-    })
-}
+    });
+};
 
 exports.updateInputData = () => {
-  exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, this.noticeObj, adminController.safetyObj, adminController.workerObj, adminController.slideObj);
+  exports.parsed = values.valuesToJson(
+    objects.parsedObj,
+    objects.welcomeObj,
+    objects.noticeObj,
+    objects.safetyObj,
+    objects.workerObj,
+    objects.slideObj
+  );
   // console.log(this.parsed);
 };
 
@@ -179,5 +198,3 @@ parsingValues(DCSPath, (err, data) => {
     });
   });
 })();
-
-// module.exports = parsingValues;

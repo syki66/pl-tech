@@ -2,40 +2,46 @@ const util = require("../../middleware/util");
 const express = require("express");
 const controller = require("./admin.controller");
 const router = express.Router();
-const multer = require('multer');
-const storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        const dest = "./worker";
-        cb(null, dest);
-    },
-    filename : function(req, file, cb){
-        const filename = `${req.body.dep}-${req.body.rank}-${req.body.name}.${file.originalname.split('.')[1]}`;
-        cb(null, filename);
-    } 
-})
+const multer = require("multer");
 
-const upload = multer({storage: storage});
+// /wmanage/upload 파일 저장 위치 및 이름 변경
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const dest = "./worker";
+    cb(null, dest);
+  },
+  filename: function (req, file, cb) {
+    const filename = `${req.body.dep}-${req.body.rank}-${req.body.name}.${
+      file.originalname.split(".")[1]
+    }`;
+    cb(null, filename);
+  },
+});
+const upload = multer({ storage: storage });
+
+// /admin 접근 권한 검사 - 세션 만료시 경고 메세지
+router.use("/", controller.authCheck);
 
 // GET - /admin 관리자 페이지
 router.get("/", controller.admin);
 
-// GET - /admin/post 공지 생성 페이지
-router.get("/post", controller.createPost);
+// GET - /admin/notice 공지 생성 페이지
+router.get("/notice", controller.createNotice);
 
-// POST - /admin/post/cprocess 공지 생성 처리 프로세스
-router.post("/post/cprocess", controller.createProcess);
+// POST - /admin/notice/cprocess 공지 생성 처리 프로세스
+router.post("/notice/cprocess", controller.createProcess);
 
-// GET - /admin/post/manage 공지 관리 페이지
-router.get("/post/manage/:pagenum", controller.managePost);
+// GET - /admin/notice/manage 공지 관리 페이지
+router.get("/notice/manage/:pageNum", controller.manageNotice);
 
-// GET - /admin/post/:postnum/update 공지 수정 페이지
-router.get("/post/:postnum/update", controller.updatePost);
+// GET - /admin/notice/:noticeNum/update 공지 수정 페이지
+router.get("/notice/:noticeNum/update", controller.updateNotice);
 
-// PATCH - /admin/post/:postnum/uprocess 공지 수정 처리 프로세스
-router.patch("/post/:postnum/uprocess", controller.updateProcess);
+// PATCH - /admin/notice/:noticeNum/uprocess 공지 수정 처리 프로세스
+router.patch("/notice/:noticeNum/uprocess", controller.updateProcess);
 
-// DELETE - /admin/post/:postnum/dprocess 공지 삭제 처리 프로세스
-router.delete("/post/:postnum/dprocess", controller.deleteProcess);
+// DELETE - /admin/notice/:noticeNum/dprocess 공지 삭제 처리 프로세스
+router.delete("/notice/:noticeNum/dprocess", controller.deleteProcess);
 
 // GET - /welcome 환영 페이지 렌더링
 router.get("/welcome", controller.welcome);
@@ -44,26 +50,31 @@ router.get("/welcome", controller.welcome);
 router.post("/welcome", controller.inputWelcome);
 
 // GET - /slide 슬라이드 관리
-router.get("/slide", controller.slide)
+router.get("/slide", controller.slide);
 
 // POST - /slide 슬라이드 적용
-router.post("/slide", controller.inputSlide)
+router.post("/slide", controller.inputSlide);
 
-// GET - /wbmanage 근무자 현황 관리
-router.get("/wmanage", controller.workerManage);
+// GET - /worker 근무자 현황 관리
+router.get("/worker", controller.worker);
 
-// POST - /wmanage 금일 근무자 적용 프로세스
-router.post("/wmanage", controller.inputWorker);
+// POST - /worker 금일 근무자 적용 프로세스
+router.post("/worker", controller.inputWorker);
 
 // POST - /wmanage/upload 금일 근무자 적용 프로세스
-router.post("/wmanage/upload", upload.single("userfile"), controller.uploadWorker);
+router.post(
+  "/worker/upload",
+  upload.single("userfile"),
+  controller.uploadWorker
+);
 
 // DELETE - /wmanage/delete 금일 근무자 적용 프로세스
-router.delete("/wmanage/delete", controller.deleteWorker);
+router.delete("/worker/delete", controller.deleteWorker);
 
 // POST - /hazard 무재해 페이지 입력 렌더링
 router.get("/safety", controller.safety);
 
 // POST - /hazard 무재해 페이지 입력
 router.post("/safety", controller.inputSafety);
+
 module.exports = router;
