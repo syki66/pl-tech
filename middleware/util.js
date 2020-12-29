@@ -49,7 +49,7 @@ util.parseError = function (err) {
 
 util.isAdminStatus = function(req, res){
     // console.log(req.session);
-    if(req.session.is_logined !== undefined && req.session.is_logined){
+    if(req.session.isLogin !== undefined && req.session.isLogin){
         return true;
     }else{
         return false;
