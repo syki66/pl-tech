@@ -51,4 +51,4 @@ function paintPage(num) {
 paintPage(pageNum);
 setInterval(() => {
   paintPage(pageNum);
-}, 1000);
+}, 600000);
