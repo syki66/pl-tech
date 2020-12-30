@@ -30,18 +30,22 @@ function paintPage(num) {
     }
     rowArray.forEach((row, rowIndex) => {
       row.forEach((e, i) => {
-        if (num == 8 && i == 1 && json.data[0][num][`row${rowIndex}`][i]){
-          workerImg = `<img class="image" src="/worker/${json.data[0][num][`row${rowIndex}`][i]}">`;
-          if (e.innerHTML == workerImg){
-            // pass
+        try{
+          if (num == 8 && i == 1 && json.data[0][num][`row${rowIndex}`][i]){
+            workerImg = `<img class="image" src="/worker/${json.data[0][num][`row${rowIndex}`][i]}">`;
+            if (e.innerHTML != workerImg){
+              e.innerHTML = workerImg;
+            }
+          } else if (num == 6 && i == 2) {
+              e.innerText = json.data[0][num][`row${rowIndex}`][i];
+              e.href = `/board/${json.data[0][num][`row${rowIndex}`][3]}`;
           } else{
-            e.innerHTML = workerImg;
-          }
-        } else if (num == 6 && i == 2) {
             e.innerText = json.data[0][num][`row${rowIndex}`][i];
-            e.href = `/board/${json.data[0][num][`row${rowIndex}`][3]}`;
-        } else{
-          e.innerText = json.data[0][num][`row${rowIndex}`][i];
+          }
+
+        } catch (error){
+          // console.log(error);
+          e.innerHTML = "";
         }
       });
     });
