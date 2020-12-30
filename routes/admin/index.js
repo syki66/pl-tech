@@ -54,17 +54,20 @@ router.patch("/notice/:noticeNum/uprocess", controller.updateProcess);
 // DELETE - /admin/notice/:noticeNum/dprocess 공지 삭제 처리 프로세스
 router.delete("/notice/:noticeNum/dprocess", controller.deleteProcess);
 
+// get - /admin/notice/:noticeNum/dprocess 공지 삭제 처리 프로세스
+router.post("/notice/:noticeNum/confirm", controller.confirm);
+
 // GET - /welcome 환영 페이지 렌더링
 router.get("/welcome", controller.welcome);
 
 // POST - /welcome 환영 페이지 입력
 router.post("/welcome", controller.inputWelcome);
 
-// GET - /slide 슬라이드 관리
-router.get("/slide", controller.slide)
+// POST - /safety 무재해 페이지 입력 렌더링
+router.get("/safety", controller.safety);
 
-// POST - /slide 슬라이드 적용
-router.post("/slide", controller.inputSlide)
+// POST - /safety 무재해 페이지 입력
+router.post("/safety", controller.inputSafety);
 
 // GET - /worker 근무자 현황 관리
 router.get("/worker", controller.worker);
@@ -78,10 +81,16 @@ router.post("/worker/upload", upload.single("userfile"), controller.uploadError,
 // DELETE - /worker/delete 금일 근무자 적용 프로세스
 router.delete("/worker/delete", controller.deleteWorker);
 
-// POST - /safety 무재해 페이지 입력 렌더링
-router.get("/safety", controller.safety);
+// GET - /slide 슬라이드 관리
+router.get("/slide", controller.slide);
 
-// POST - /safety 무재해 페이지 입력
-router.post("/safety", controller.inputSafety);
+// POST - /slide 슬라이드 적용
+router.post("/slide", controller.inputSlide);
+
+// POST - /slide 슬라이드 순환 시간 적용
+router.post("/slide/lotation", controller.inputLotation);
+
+// POST - /slide 뉴스탭 순환 시간 적용
+router.post("/slide/news", controller.inputNews);
 
 module.exports = router;

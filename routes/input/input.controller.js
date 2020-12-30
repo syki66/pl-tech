@@ -108,7 +108,7 @@ exports.updateNoticeObj = () => {
 }
 
 exports.updateInputData = () => {
-  exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, this.noticeObj, adminController.safetyObj, adminController.workerObj, adminController.slideObj);
+  exports.parsed = values.valuesToJson(parsing, adminController.welcomeObj, this.noticeObj, adminController.safetyObj, adminController.workerObj, adminController.slideObj, adminController.lotationObj, adminController.newsObj);
   // console.log(this.parsed);
 };
 

@@ -1,10 +1,11 @@
 const { worker } = require("cluster");
 
 // 우선 하드코딩
-exports.valuesToJson = (parsed, welcomeObj, noticeObj, safetyObj, workerObj, slideObj) => {
+exports.valuesToJson = (parsed, welcomeObj, noticeObj, safetyObj, workerObj, slideObj, lotationObj, newsObj) => {
 
   let values = [];
 
+  // values 1번째 요소
   let pageValues = [];
 
   let item_1 = new Object();
@@ -81,16 +82,16 @@ exports.valuesToJson = (parsed, welcomeObj, noticeObj, safetyObj, workerObj, sli
 
   pageValues.push(item_6);
 
-  if(noticeObj !== null){
-    let item_7 = new Object();
-    item_7.itemname = ["*7 게시판 주요 업무"]
-    item_7.row0 = noticeObj[0];
-    item_7.row1 = noticeObj[1];
-    item_7.row2 = noticeObj[2];
-    item_7.row3 = noticeObj[3];
-    item_7.row4 = noticeObj[4];
-    pageValues.push(item_7);
-  }
+
+  let item_7 = new Object();
+  item_7.itemname = ["*7 게시판 주요 업무"]
+  item_7.row0 = noticeObj[0];
+  item_7.row1 = noticeObj[1];
+  item_7.row2 = noticeObj[2];
+  item_7.row3 = noticeObj[3];
+  item_7.row4 = noticeObj[4];
+  pageValues.push(item_7);
+
   
   let item_8 = new Object();
   item_8.row0 = [safetyObj[0]];
@@ -102,23 +103,36 @@ exports.valuesToJson = (parsed, welcomeObj, noticeObj, safetyObj, workerObj, sli
 
   pageValues.push(item_8);
 
-  if(workerObj!==null){
-    let item_9 = new Object();
-    item_9.itemname = ["*9 근무자 현황"]
-    item_9.row0 = workerObj[0];
-    item_9.row1 = workerObj[1];
-    item_9.row2 = workerObj[2];
-    item_9.row3 = workerObj[3];
-    pageValues.push(item_9);
-  }
+
+  let item_9 = new Object();
+  item_9.itemname = ["*9 근무자 현황"]
+  item_9.row0 = workerObj[0];
+  item_9.row1 = workerObj[1];
+  item_9.row2 = workerObj[2];
+  item_9.row3 = workerObj[3];
+  pageValues.push(item_9);
+
   
   values.push(pageValues);
 
-  if(slideObj !== null){
-    let slideValues = [];
-    slideValues.push(slideObj);
-    values.push(slideValues);
-  }
+  // if(slideObj !== null){
+  //   let slideValues = [];
+  //   slideValues.push(slideObj);
+  //   values.push(slideValues);
+  // }
+
+  // values 2번째 요소
+  let slideValues = [];
+
+  let slide = new Object();
+  slide.itemname = ["슬라이드 및 뉴스탭 설정"];
+  slide.row0 = slideObj;
+  slide.row1 = lotationObj;
+  slide.row2 = newsObj;
+  slideValues.push(slide);
+
+  values.push(slideValues);
+  
 
   return JSON.parse(JSON.stringify(values));
 };
