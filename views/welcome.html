@@ -116,9 +116,9 @@
         
         function paintPage() {
             const json = JSON.parse(localStorage.getItem("json"));
-            let visitor = json.data[5][`row${0}`][0];
+            let visitor = json.data[0][5][`row${0}`][0];
             visitor = visitor.substring(0, visitor.length - 1);
-            let sentence = json.data[5][`row${0}`][1];
+            let sentence = json.data[0][5][`row${0}`][1];
             input_1.value = visitor;
             input_2.value = sentence;
         }
