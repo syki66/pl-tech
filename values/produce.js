@@ -1,12 +1,11 @@
 const fs = require("fs");
 const Iconv = require("iconv").Iconv;
-const values = require("../../values/slide");
-const objects = require("../../values/objects");
-const adminController = require("../admin/admin.controller");
+const slide = require("../values/slide");
+const objects = require("../values/objects");
 const DCSPath = "DCS_val.csv";
-const models = require("../../models");
+const models = require("../models");
 
-const parsingValues = (path, callback) => {
+const produceValues = (path, callback) => {
   let encode = new Iconv("euc-kr", "utf-8"); // csv 파일을 그냥 읽어오면 한글이 깨지기 때문에 인코딩 필요
 
   fs.readFile(path, async (err, data) => {
@@ -61,9 +60,9 @@ const parsingValues = (path, callback) => {
               data[i].cdate.substring(8, 10);
             let day = data[i].cdate.substring(11, 12);
             const row = [cdate, day, data[i].title, String(data[i].id)];
-            this.noticeObj[i] = row;
+            objects.noticeObj[i] = row;
           }
-          result = values.valuesToJson(
+          result = slide.valuesToJson(
             objects.parsedObj,
             objects.welcomeObj,
             objects.noticeObj,
@@ -74,73 +73,8 @@ const parsingValues = (path, callback) => {
         })
         .catch((err) => {
           console.log(err);
-          res.json(util.successFalse(err));
+          callback(err, null);
         });
-    }
-  });
-};
-
-// 글 생성 및 삭제시 업데이트
-exports.updateNoticeObj = () => {
-  models.Notice.findAll({
-    attributes: ["id", "title", "cdate"],
-    raw: true,
-    order: [["id", "DESC"]],
-    limit: 5,
-  })
-    .then((data) => {
-      console.log(data);
-      let row;
-      for (let i = 0; i < objects.noticeObj.length; i++) {
-        if (data[i]) {
-          let cdate =
-            data[i].cdate.substring(5, 7) +
-            "/" +
-            data[i].cdate.substring(8, 10);
-          let day = data[i].cdate.substring(11, 12);
-          row = [cdate, day, data[i].title, String(data[i].id)];
-        } else {
-          row = null;
-        }
-        objects.noticeObj[i] = row;
-        exports.parsed = values.valuesToJson(
-          objects.parsedObj,
-          objects.welcomeObj,
-          objects.noticeObj,
-          objects.safetyObj,
-          objects.workerObj,
-          objects.slideObj
-        );
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      res.json(util.successFalse(err));
-    });
-};
-
-exports.updateInputData = () => {
-  exports.parsed = values.valuesToJson(
-    objects.parsedObj,
-    objects.welcomeObj,
-    objects.noticeObj,
-    objects.safetyObj,
-    objects.workerObj,
-    objects.slideObj
-  );
-  // console.log(this.parsed);
-};
-
-const removeLetters = (str) => {
-  return new Promise((resolve, reject) => {
-    try {
-      let kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g; // 한글 정규식
-      let eng = /[a-zA-Z]/g;
-      str = str.replace(kor, ""); // 한글 제거
-      str = str.replace(eng, ""); // 한글 제거
-      resolve(str);
-    } catch (error) {
-      reject(error);
     }
   });
 };
@@ -185,16 +119,16 @@ function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-parsingValues(DCSPath, (err, data) => {
-  exports.parsed = data;
+produceValues(DCSPath, (err, data) => {
+  exports.values = data;
 });
 
 (async () => {
   // 파일 수정시 읽어오기, 상시 동작
   fs.watchFile(DCSPath, (curr, prev) => {
     console.log("File modification detected.");
-    parsingValues(DCSPath, (err, data) => {
-      exports.parsed = data;
+    produceValues(DCSPath, (err, data) => {
+      exports.values = data;
     });
   });
 })();

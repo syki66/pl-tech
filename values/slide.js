@@ -1,6 +1,3 @@
-const { worker } = require("cluster");
-
-// 우선 하드코딩
 exports.valuesToJson = (
   parsedObj,
   welcomeObj,
