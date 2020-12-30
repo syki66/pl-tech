@@ -51,9 +51,9 @@ router.get("/worker/rank", controller.rank);
 router.get("/worker/name", controller.name);
 
 // GET - /alert/worker/upload 근무자 등록 완료 알람
-router.get("/worker/upload", controller.upload);
+router.get("/worker/upload", controller.wupload);
 
-// GET - /alert/worker/uploadErr 근무자 등록 완료 알람
+// GET - /alert/worker/uploadErr 근무자 등록 에러 알람
 router.get("/worker/uploadErr", controller.uploadErr);
 
 // GET - /alert/worker/delete 근무자 사진 삭제 완료 알람

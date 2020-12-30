@@ -2,33 +2,22 @@ const util = require("../../middleware/util");
 const express = require("express");
 const controller = require("./admin.controller");
 const router = express.Router();
-const multer = require('multer');
-const { c_noticeList } = require("../../lib/template");
+const multer = require("multer");
 
 // /worker/upload 파일 저장 위치 및 이름 변경
 const storage = multer.diskStorage({
-    destination: function(req, file, cb){
-        cb(null, "./worker");
-    },
-    filename : function(req, file, cb){
-        // 부서명 1~8자
-        if(req.body.dep === "" || req.body.dep.length > 8){
-            cb("dep error");
-        }
-        // 직급 1~8자
-        else if(req.body.rank === "" || req.body.rank.length > 8){
-            cb("rank error");
-        }
-        // 이름 1~8자
-        else if(req.body.name === "" || req.body.name.length > 8){
-            cb("name error")
-        }else{
-            const filename = `${req.body.dep}-${req.body.rank}-${req.body.name}.${file.originalname.split('.')[1]}`;
-            cb(null, filename);
-        }
-    } 
-})
-const upload = multer({storage: storage});
+  destination: function (req, file, cb) {
+    const dest = "./worker";
+    cb(null, dest);
+  },
+  filename: function (req, file, cb) {
+    const filename = `${req.body.dep}-${req.body.rank}-${req.body.name}.${
+      file.originalname.split(".")[1]
+    }`;
+    cb(null, filename);
+  },
+});
+const upload = multer({ storage: storage });
 
 // /admin 접근 권한 검사 - 세션 만료시 경고 메세지
 router.use("/", controller.authCheck);
@@ -61,10 +50,10 @@ router.get("/welcome", controller.welcome);
 router.post("/welcome", controller.inputWelcome);
 
 // GET - /slide 슬라이드 관리
-router.get("/slide", controller.slide)
+router.get("/slide", controller.slide);
 
 // POST - /slide 슬라이드 적용
-router.post("/slide", controller.inputSlide)
+router.post("/slide", controller.inputSlide);
 
 // GET - /worker 근무자 현황 관리
 router.get("/worker", controller.worker);
@@ -72,8 +61,12 @@ router.get("/worker", controller.worker);
 // POST - /worker 금일 근무자 적용 프로세스
 router.post("/worker", controller.inputWorker);
 
-// POST - /worker/upload 금일 근무자 적용 프로세스
-router.post("/worker/upload", upload.single("userfile"), controller.uploadError, controller.uploadWorker);
+// POST - /wmanage/upload 금일 근무자 적용 프로세스
+router.post(
+  "/worker/upload",
+  upload.single("userfile"),
+  controller.uploadWorker
+);
 
 // DELETE - /worker/delete 금일 근무자 적용 프로세스
 router.delete("/worker/delete", controller.deleteWorker);
