@@ -40,12 +40,12 @@ exports.loginProcess = (req, res) => {
             });
           } else {
             console.log("비밀번호가 일치하지 않습니다.");
-            res.rediret("/alert/passErr");
+            res.rediret("/alert/login/pw");
           }
         });
       } else {
         console.log("아이디가 존재하지 않습니다.");
-        res.rediret("/alert/idErr");
+        res.rediret("/alert/login/id");
       }
     })
     .catch((err) => {
@@ -87,6 +87,6 @@ exports.registerProcess = (req, res) => {
     });
   } else {
     console.log("비밀번호가 일치하지 않습니다.");
-    res.redirect("/alert/passErr");
+    res.redirect("/alert/login/pw");
   }
 };

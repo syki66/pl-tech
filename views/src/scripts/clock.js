@@ -6,8 +6,8 @@ const MM = document.querySelector('.month');
 days = ["일", "월", "화", "수", "목", "금", "토"];
 
 function getTime() {
-    const timestamp = JSON.parse(localStorage.getItem('json')).timestamp;
-    const date = new Date(timestamp);
+    // const timestamp = JSON.parse(localStorage.getItem('json')).timestamp;
+    const date = new Date();
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const today = date.getDate();

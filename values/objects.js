@@ -7,6 +7,8 @@ exports.welcomeObj = [null, null];
 exports.safetyObj = [null, null, null, null, null, null];
 exports.workerObj = [null, null, null, null];
 exports.slideObj = [];
+exports.lotationObj = [null];
+exports.newsObj = [null];
 
 exports.updateObjects = () => {
   produce.values = slide.valuesToJson(
@@ -15,7 +17,9 @@ exports.updateObjects = () => {
     this.noticeObj,
     this.safetyObj,
     this.workerObj,
-    this.slideObj
+    this.slideObj,
+    this.lotationObj,
+    this.newsObj
   );
 };
 

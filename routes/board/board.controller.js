@@ -1,6 +1,5 @@
 const util = require("../../middleware/util");
 const models = require("../../models");
-const error = require("../../lib/error");
 const template = require("../../lib/template");
 const { concatSeries } = require("async");
 
