@@ -100,4 +100,11 @@ util.rmExtention = function(data){
     return list;
 }
 
+util.workerParser = function(image){
+    const element = image.split('-');
+    const dep = element[0];
+    const rank = element[1];
+    const name = element[2].split('.')[0];
+    return [dep, image, rank, name];
+}
 module.exports = util;
