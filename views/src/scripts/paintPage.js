@@ -12,8 +12,10 @@ function paintPage(num) {
   if (num == "home"){
     rowArray.forEach((row, rowIndex) => {
       row.forEach((e, i) => {
-        e.innerText = json.data[0][6][`row${rowIndex}`][i];
-        e.parentNode.href = `/board/${json.data[0][6][`row${rowIndex}`][3]}`;
+        if(json.data[0][6][`row${rowIndex}`]){
+          e.innerText = json.data[0][6][`row${rowIndex}`][i];
+          e.parentNode.href = `/board/${json.data[0][6][`row${rowIndex}`][3]}`;
+        }
       });
     });
   } else{
@@ -37,8 +39,10 @@ function paintPage(num) {
               e.innerHTML = workerImg;
             }
           } else if (num == 6 && i == 2) {
+            if(json.data[0][6][`row${rowIndex}`]){
               e.innerText = json.data[0][num][`row${rowIndex}`][i];
               e.href = `/board/${json.data[0][num][`row${rowIndex}`][3]}`;
+            }
           } else{
             e.innerText = json.data[0][num][`row${rowIndex}`][i];
           }

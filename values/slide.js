@@ -82,14 +82,15 @@ exports.valuesToJson = (
 
   let item_6 = new Object();
 
-  item_6.itemname = ["*6 환영 문구"];
-  item_6.row0 = [welcomeObj[0], welcomeObj[1]];
+  item_6.itemname = ["6 환영 문구"];
+  item_6.row0 = [welcomeObj[0]];
+  item_6.row1 = [welcomeObj[1]];
 
   pageValues.push(item_6);
 
   if (noticeObj !== null) {
     let item_7 = new Object();
-    item_7.itemname = ["*7 게시판 주요 업무"];
+    item_7.itemname = ["7 게시판 주요 업무"];
     item_7.row0 = noticeObj[0];
     item_7.row1 = noticeObj[1];
     item_7.row2 = noticeObj[2];
@@ -99,7 +100,7 @@ exports.valuesToJson = (
   }
 
   let item_8 = new Object();
-  item_8.itemname = ["*8 무재해 기록판"];
+  item_8.itemname = ["8 무재해 기록판"];
   item_8.row0 = [safetyObj[0]];
   item_8.row1 = [safetyObj[1]];
   item_8.row2 = [safetyObj[2]];
@@ -111,7 +112,7 @@ exports.valuesToJson = (
 
   if (workerObj !== null) {
     let item_9 = new Object();
-    item_9.itemname = ["*9 근무자 현황"];
+    item_9.itemname = ["9 근무자 현황"];
     item_9.row0 = workerObj[0];
     item_9.row1 = workerObj[1];
     item_9.row2 = workerObj[2];

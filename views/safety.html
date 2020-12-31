@@ -58,7 +58,7 @@
             font-family: "digital-font";
         }
 
-        :root{
+        :root {
             --width: 1920px;
         }
 
@@ -299,7 +299,8 @@
             left: calc(var(--width) / 100 * 52);
         }
 
-        .input__4, .link__1 {
+        .input__4,
+        .link__1 {
             position: absolute;
             top: calc(var(--width) / 100 * 39);
             left: calc(var(--width) / 100 * 68.4);
@@ -314,7 +315,7 @@
             cursor: pointer;
         }
 
-        .link__1{
+        .link__1 {
             top: calc(var(--width) / 100 * 49.5);
             left: calc(var(--width) / 100 * 13);
             color: black;
@@ -327,10 +328,10 @@
             text-decoration: none;
         }
 
-        .input__4:hover, .link__1:hover {
+        .input__4:hover,
+        .link__1:hover {
             background-color: #A4A4A4;
         }
-
     </style>
 </head>
 
@@ -394,10 +395,12 @@
         const input_1 = document.querySelector(".input__1");
         const input_2 = document.querySelector(".input__2");
         const input_3 = document.querySelector(".input__3");
-        
+
         function paintPage() {
             const json = JSON.parse(localStorage.getItem("json"));
-            input_1.value = json.data[0][7][`row${2}`][0];
+            if (json.data[0][7][`row${2}`][0] !== "-") {
+                input_1.value = json.data[0][7][`row${2}`][0];
+            }
             input_2.value = json.data[0][7][`row${4}`][0];
             input_3.value = json.data[0][7][`row${5}`][0];
         }
