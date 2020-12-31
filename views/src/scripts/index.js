@@ -26,8 +26,8 @@ let vw = pageWidth / 100;
 
 // indicator
 document.documentElement.style.setProperty("--navBottomPosition", `${5 * vw}px`);
-document.documentElement.style.setProperty("--indicatorWidth", `${2.5 * vw}px`);
-document.documentElement.style.setProperty("--indicatorHeight", `${1 * vw}px`);
+document.documentElement.style.setProperty("--indicatorWidth", `${2.8 * vw}px`);
+document.documentElement.style.setProperty("--indicatorHeight", `${1.3 * vw}px`);
 document.documentElement.style.setProperty("--indicatorMargin", `${0.2 * vw}px`);
 
 // prev next buttons
