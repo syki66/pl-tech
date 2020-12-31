@@ -2,7 +2,6 @@ const util = require("../../middleware/util");
 const models = require("../../models");
 const board = require("../../lib/board");
 const notice = require("../../lib/notice");
-const template = require("../../lib/template");
 const { concatSeries } = require("async");
 
 // GET /board 공지 목록 출력
