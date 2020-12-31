@@ -1,5 +1,6 @@
 const express = require("express");
 const controller = require("./admin.controller");
+const validator = require('../../middleware/validator');
 const router = express.Router();
 const multer = require("multer");
 
@@ -76,7 +77,7 @@ router.get("/worker", controller.worker);
 // POST - /worker 금일 근무자 적용 프로세스
 router.post("/worker", controller.inputWorker);
 
-// POST - /wmanage/upload 금일 근무자 적용 프로세스
+// POST - /wmanage/upload 근무자 추가 프로세스
 router.post(
   "/worker/upload",
   upload.single("userfile"),
@@ -84,7 +85,7 @@ router.post(
   controller.uploadWorker
 );
 
-// DELETE - /worker/delete 금일 근무자 적용 프로세스
+// DELETE - /worker/delete 근무자 삭제 프로세스
 router.delete("/worker/delete", controller.deleteWorker);
 
 // GET - /slide 슬라이드 관리
@@ -93,10 +94,10 @@ router.get("/slide", controller.slide);
 // POST - /slide 슬라이드 적용
 router.post("/slide", controller.inputSlide);
 
-// POST - /slide 슬라이드 순환 시간 적용
+// POST - /slide/lotation 슬라이드 순환 시간 적용
 router.post("/slide/lotation", controller.inputLotation);
 
-// POST - /slide 뉴스탭 순환 시간 적용
+// POST - /slide/news 뉴스탭 순환 시간 적용
 router.post("/slide/news", controller.inputNews);
 
 module.exports = router;
