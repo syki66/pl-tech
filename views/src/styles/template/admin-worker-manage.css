@@ -133,7 +133,7 @@ option:first-of-type {
   position: absolute;
   display: inline-block;
   width: calc(var(--width) / 100 * 22.5);
-  top: calc(var(--width) / 100 * 14);
+  top: calc(var(--width) / 100 * 14.2);
   left: calc(var(--width) / 100 * 9);
   padding: calc(var(--width) / 100 * 0.6) calc(var(--width) / 100 * 0.8);
   font-size: inherit;

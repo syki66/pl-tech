@@ -1,4 +1,3 @@
-const util = require("../../middleware/util");
 const express = require("express");
 const controller = require("./admin.controller");
 const router = express.Router();
@@ -10,23 +9,25 @@ const storage = multer.diskStorage({
     const dest = "./worker";
     cb(null, dest);
   },
-  filename : function(req, file, cb){
-        // 부서명 1~8자
-        if(req.body.dep === "" || req.body.dep.length > 8){
-            cb("dep error");
-        }
-        // 직급 1~8자
-        else if(req.body.rank === "" || req.body.rank.length > 8){
-            cb("rank error");
-        }
-        // 이름 1~8자
-        else if(req.body.name === "" || req.body.name.length > 8){
-            cb("name error")
-        }else{
-            const filename = `${req.body.dep}-${req.body.rank}-${req.body.name}.${file.originalname.split('.')[1]}`;
-            cb(null, filename);
-        }
-    } 
+  filename: function (req, file, cb) {
+    // 부서명 1~8자
+    if (req.body.dep === "" || req.body.dep.length > 8) {
+      cb("dep error");
+    }
+    // 직급 1~8자
+    else if (req.body.rank === "" || req.body.rank.length > 8) {
+      cb("rank error");
+    }
+    // 이름 1~8자
+    else if (req.body.name === "" || req.body.name.length > 8) {
+      cb("name error");
+    } else {
+      const filename = `${req.body.dep}-${req.body.rank}-${req.body.name}.${
+        file.originalname.split(".")[1]
+      }`;
+      cb(null, filename);
+    }
+  },
 });
 const upload = multer({ storage: storage });
 
@@ -78,7 +79,8 @@ router.post("/worker", controller.inputWorker);
 // POST - /wmanage/upload 금일 근무자 적용 프로세스
 router.post(
   "/worker/upload",
-  upload.single("userfile"), controller.uploadError,
+  upload.single("userfile"),
+  controller.uploadError,
   controller.uploadWorker
 );
 
