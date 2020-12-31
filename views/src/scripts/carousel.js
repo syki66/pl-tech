@@ -64,6 +64,7 @@ carousel.addEventListener('click', ()=>{
 
 // 재생, 일시정지, 자동재생 기능
 const pauseBtn = document.querySelector('.carousel__pause');
+const playPauseImg = document.querySelector('.play-pause__img');
 
 let rotation = setInterval(() => {
     nextBtn.click();
@@ -75,10 +76,8 @@ document.body.onmousedown = function() {
         rotation = setInterval(() => {
             nextBtn.click();
         }, rotationTime()[0]);
-        // console.log("continue");
     } else{
         clearInterval(rotation);
-        // console.log("stop");
     }
 }
 
@@ -87,15 +86,16 @@ pauseBtn.addEventListener('click', ()=>{
     if (pauseBtn.classList.contains('play')){
         pauseBtn.classList.remove('play');
         pauseBtn.classList.add('pause');
-        // console.log("pause");
+        playPauseImg.src = "/views/src/images/play.svg";
         clearInterval(rotation);
     } else{
         pauseBtn.classList.remove('pause');
         pauseBtn.classList.add('play');
-        // console.log("play");
+        playPauseImg.src = "/views/src/images/pause.svg";
         clearInterval(rotation);
         rotation = setInterval(() => {
             nextBtn.click();
         }, rotationTime()[0]);
+
     }
 });
