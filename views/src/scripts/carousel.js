@@ -63,8 +63,21 @@ carousel.addEventListener('click', ()=>{
 });
 
 // 커라젤 자동 슬라이드
-if (rotationTime()[0]){
-    setInterval(() => {
-        nextBtn.click();
-    }, rotationTime()[0]);
+function autoRotate(){
+    if (rotationTime()[0]){
+        let rotation = setInterval(() => {
+            nextBtn.click();
+        }, rotationTime()[0]);
+
+        document.body.onmousedown = function() { 
+            clearInterval(rotation);
+            autoRotate();
+        }
+    }
 }
+
+autoRotate();
+
+// document.body.onmouseup = function() {
+//     console.log("down");
+// }
