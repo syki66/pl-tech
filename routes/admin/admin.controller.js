@@ -1,10 +1,17 @@
 const util = require("../../middleware/util");
 const models = require("../../models");
 const template = require("../../lib/template");
-const slide = require("../../values/slide");
+const board = require("../../lib/board");
+const notice = require("../../lib/notice");
+const worker = require("../../lib/worker");
+const slide = require("../../lib/slide");
+const slideValues = require("../../values/slide");
 const objects = require("../../values/objects");
 const produce = require("../../values/produce");
+const errorHandler = require("errorhandler");
 const fs = require("fs");
+const { nextTick } = require("process");
+const { threadId } = require("worker_threads");
 
 // /admin 접근 권한 검사 - 세션 만료시 경고 메세지
 exports.authCheck = (req, res, next) => {
@@ -34,25 +41,26 @@ exports.createNotice = (req, res) => {
 exports.createProcess = (req, res) => {
   console.log("called createProcess");
 
-  if (req.body.title === "") {
+  if(req.body.title ===""){
     res.redirect("/alert/create/title");
-  } else {
+  }else{
+
     models.Notice.create({
       title: req.body.title,
       contents: req.body.contents,
       cdate: util.currentDate(),
     })
-      .then((data) => {
-        console.log(data.dataValues);
-        console.log("공지를 생성하였습니다.");
-        updateNoticeObj();
-        res.writeHead(302, { Location: "/alert/create" });
-        res.end("success");
-      })
-      .catch((err) => {
-        console.log(err);
-        res.json(util.successFalse(err));
-      });
+    .then((data) => {
+      console.log(data.dataValues);
+      console.log("공지를 생성하였습니다.");
+      updateNoticeObj();
+      res.writeHead(302, { Location: "/alert/create" });
+      res.end("success");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.json(util.successFalse(err));
+    });
   }
 };
 
@@ -75,7 +83,7 @@ exports.manageNotice = (req, res) => {
   })
     .then((data) => {
       console.log(data);
-      const list = template.c_noticeList(data, pnum, true);
+      const list = board.noticeList(data, pnum, true);
 
       models.Notice.findAll({
         attributes: [[models.sequelize.fn("count", "*"), "count"]],
@@ -83,8 +91,8 @@ exports.manageNotice = (req, res) => {
       })
         .then((data) => {
           const pages = Math.ceil(data[0].count / psize);
-          const pageBar = template.c_pageBar(pnum, pages);
-          res.send(template.c_board(list, pageBar, true));
+          const pageBar = board.pageBar(pnum, pages);
+          res.send(board.template(list, pageBar, true));
         })
         .catch((err) => {
           console.log(err);
@@ -111,7 +119,7 @@ exports.updateNotice = (req, res) => {
     .then((data) => {
       console.log(data);
       res.send(
-        template.a_edit(data[0].id, data[0].title, data[0].contents, pnum)
+        notice.edit(data[0].id, data[0].title, data[0].contents, pnum)
       );
     })
     .catch((err) => {
@@ -143,7 +151,7 @@ const updateNoticeObj = () => {
           row = null;
         }
         objects.noticeObj[i] = row;
-        produce.values = slide.valuesToJson(
+        produce.values = slideValues.valuesToJson(
           objects.parsedObj,
           objects.welcomeObj,
           objects.noticeObj,
@@ -186,11 +194,6 @@ exports.updateProcess = (req, res) => {
     });
 };
 
-exports.confirm = (req, res) => {
-  console.log("called confirm");
-  res.send(template.a_confirm(req.params.noticeNum, req.body.pageNum));
-};
-
 // DELETE - /admin/notice/:noticeNum/dprocess 공지 삭제 처리 프로세스
 exports.deleteProcess = (req, res) => {
   console.log("called deleteProcess");
@@ -220,8 +223,7 @@ exports.inputWelcome = (req, res) => {
   if (req.body === null || req.body === undefined) {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
-    objects.welcomeObj[0] = req.body.visitor + "님";
-    objects.welcomeObj[1] = req.body.sentence;
+    objects.welcomeObj = [req.body.visitor + "님", req.body.sentence];
     objects.updateObjects();
     res.writeHead(302, { Location: "/alert/welcome" });
     res.end("success");
@@ -238,21 +240,21 @@ exports.inputSafety = (req, res) => {
   if (req.body === null || req.body === undefined) {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
-    const moment = require("moment");
-    require("moment-timezone");
+    const moment = require('moment');
+    require('moment-timezone');
     moment.tz.setDefault("Asia/Seoul");
-
+    
     // 현재 날짜
-    var date = moment().format("YYYY년 MM월 DD일");
+    var date = moment().format('YYYY년 MM월 DD일')
 
     // 배수 3자리 초과
-    if (req.body.zeroHazard.length > 3) {
+    if (req.body.zeroHazard.length > 3){
       res.redirect("/alert/safety/hazard");
     }
     // 시작 날짜 > 현재 날짜
     else if (req.body.startDate > date) {
       res.redirect("/alert/safety/start");
-    } // 목표날짜 < 현재 날짜
+    }// 목표날짜 < 현재 날짜
     else if (req.body.targetDate < date) {
       res.redirect("/alert/safety/target");
     } else {
@@ -270,22 +272,19 @@ exports.inputSafety = (req, res) => {
 
 exports.worker = (req, res) => {
   console.log("called worker");
-  fs.readdir("./worker", function (error, filelist) {
+  fs.readdir("./worker", function(error, filelist){
     const leader = "leader";
     const staff1 = "staff1";
     const staff2 = "staff2";
     const staff3 = "staff3";
     const dStaff = "dStaff";
-    res.send(
-      template.a_workerManage(
-        template.a_workerList(dStaff, filelist),
-        template.a_workerList(leader, filelist),
-        template.a_workerList(staff1, filelist),
-        template.a_workerList(staff2, filelist),
-        template.a_workerList(staff3, filelist)
-      )
-    );
-  });
+    res.send(worker.template(
+      worker.workerList(dStaff, filelist),
+      worker.workerList(leader, filelist),
+      worker.workerList(staff1, filelist),
+      worker.workerList(staff2, filelist),
+      worker.workerList(staff3, filelist)));
+  })
 };
 
 exports.inputWorker = (req, res) => {
@@ -294,14 +293,10 @@ exports.inputWorker = (req, res) => {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
   } else {
     // 근무자 미선택 시
-    if (
-      req.body.leader === undefined &&
-      req.body.staff1 === undefined &&
-      req.body.staff2 === undefined &&
-      req.body.staff3 === undefined
-    ) {
-      res.redirect("/alert/worker/select");
+    if (req.body.leader === undefined && req.body.staff1 === undefined && req.body.staff2 === undefined && req.body.staff3 === undefined) {
+      res.redirect("/alert/worker/select")
     } else {
+
       objects.workerObj = [null, null, null, null];
 
       if (req.body.leader !== undefined) {
@@ -320,7 +315,7 @@ exports.inputWorker = (req, res) => {
       console.log(objects.workerObj);
 
       objects.updateObjects();
-      res.writeHead(302, { Location: "/alert/worker" });
+      res.writeHead(302, { Location: "/alert/worker"});
       res.end("success");
     }
   }
@@ -335,64 +330,65 @@ exports.uploadError = (err, req, res, next) => {
   } else if (err === "name error") {
     res.redirect("/alert/worker/name");
   }
-};
+}
 
 exports.uploadWorker = (req, res, next) => {
   console.log("called uploadWorker");
-  if (req.file === undefined) {
-    res.redirect("/alert/worker/uploadErr");
-  } else {
-    res.writeHead(302, { Location: "/alert/worker/upload" });
+  if(req.file === undefined){
+      res.redirect("/alert/worker/uploadErr");
+  }else{
+    res.writeHead(302, { Location: "/alert/worker/upload"});
     res.end("success");
   }
-};
+}
 
 exports.deleteWorker = (req, res) => {
   console.log("called deleteWorker");
-  const dir = "./worker/";
+  const dir = "./worker/"
   fs.unlink(dir + req.body.dStaff, (err) => {
-    if (err) {
+    if(err) {
       res.redirect("/alert/worker/src");
       return false;
     } else {
-      for (let i = 0; i < objects.workerObj.length; i++) {
-        if (objects.workerObj[i] === req.body.dStaff) {
+      for(let i = 0; i < objects.workerObj.length; i++){
+        if(objects.workerObj[i] === req.body.dStaff){
           objects.workerObj[i] = null;
           break;
         }
       }
       objects.updateObjects();
-      res.writeHead(302, { Location: "/alert/worker/delete" });
+      res.writeHead(302, { Location: "/alert/worker/delete"});
       res.end("success");
     }
   });
-};
+}
 
 exports.slide = (req, res) => {
   console.log("called slide");
-  fs.readdir("./views/src/pages", function (error, filelist) {
+  fs.readdir("./views/src/pages", function(error, filelist){
     var list = util.rmExtention(filelist);
-    res.send(template.a_slide(template.a_checkList(list)));
-  });
-};
+    res.send(slide.template(slide.checkList(list)));
+  })
+}
 
+exports.slideObj = [];
 exports.inputSlide = (req, res) => {
   console.log("called inputSlide");
 
-  if (req.body.checkResult === "") {
-    res.redirect("/alert/slide/check");
-  } else {
+  if(req.body.checkResult === ""){
+    res.redirect("/alert/slide/check")
+  }else{
     checkList = req.body.checkResult.split(",");
 
-    objects.slideObj = [null];
-    for (let i = 0; i < checkList.length; i++) {
-      objects.slideObj[i] = checkList[i];
-    }
-    objects.updateObjects();
-    res.writeHead(302, { Location: "/alert/slide" });
-    res.end("success");
+  objects.slideObj = [];
+  for (let i = 0; i < checkList.length; i++) {
+    objects.slideObj[i] = checkList[i];
   }
-};
+  objects.updateObjects();
+  res.writeHead(302, { Location: "/alert/slide" });
+  res.end("success");
+  }
+}
 
 exports.inputLotation = (req, res) => {
   console.log("called inputLotation");
@@ -404,24 +400,16 @@ exports.inputLotation = (req, res) => {
     const minute = req.body.sMinute === "" ? 0 : parseInt(req.body.sMinute);
     const second = req.body.sSecond === "" ? 0 : parseInt(req.body.sSecond);
 
-    if (
-      (hour === 0 && minute === 0 && second === 0) ||
-      hour < 0 ||
-      hour > 500 ||
-      minute < 0 ||
-      minute > 500 ||
-      second < 0 ||
-      second > 500
-    ) {
+    if(((hour === 0) && (minute === 0) && (second === 0)) || ((hour < 0 || hour > 500) || (minute < 0 || minute > 500) || (second < 0 || second > 500))){
       res.redirect("/alert/slide/time");
-    } else {
-      objects.lotationObj = [hour * 60 * 60 + minute * 60 + second];
+    }else{  
+      objects.lotationObj = [(hour * 60 * 60) + (minute * 60) + second];
       objects.updateObjects();
-      res.writeHead(302, { Location: "/alert/slide/lotation" });
+      res.writeHead(302, { Location: "/alert/slide/lotation"});
       res.end("success");
     }
   }
-};
+}
 
 exports.inputNews = (req, res) => {
   console.log("called inputNews");
@@ -432,22 +420,15 @@ exports.inputNews = (req, res) => {
     const hour = req.body.nHour === "" ? 0 : parseInt(req.body.nHour);
     const minute = req.body.nMinute === "" ? 0 : parseInt(req.body.nMinute);
     const second = req.body.nSecond === "" ? 0 : parseInt(req.body.nSecond);
-
-    if (
-      (hour === 0 && minute === 0 && second === 0) ||
-      hour < 0 ||
-      hour > 500 ||
-      minute < 0 ||
-      minute > 500 ||
-      second < 0 ||
-      second > 500
-    ) {
+    
+    if(((hour === 0) && (minute === 0) && (second === 0)) || ((hour < 0 || hour > 500) || (minute < 0 || minute > 500) || (second < 0 || second > 500))){
       res.redirect("/alert/slide/time");
-    } else {
-      objects.newsObj = [hour * 60 * 60 + minute * 60 + second];
+    }else{  
+      objects.newsObj = [(hour * 60 * 60) + (minute * 60) + second];
       objects.updateObjects();
-      res.writeHead(302, { Location: "/alert/slide/news" });
+      res.writeHead(302, { Location: "/alert/slide/news"});
       res.end("success");
     }
   }
-};
+}
+
