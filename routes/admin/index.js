@@ -55,9 +55,6 @@ router.patch("/notice/:noticeNum/uprocess", controller.updateProcess);
 // DELETE - /admin/notice/:noticeNum/dprocess 공지 삭제 처리 프로세스
 router.delete("/notice/:noticeNum/dprocess", controller.deleteProcess);
 
-// get - /admin/notice/:noticeNum/dprocess 공지 삭제 처리 프로세스
-router.post("/notice/:noticeNum/confirm", controller.confirm);
-
 // GET - /welcome 환영 페이지 렌더링
 router.get("/welcome", controller.welcome);
 
