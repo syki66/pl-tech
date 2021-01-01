@@ -158,7 +158,7 @@ const updateNoticeObj = () => {
           objects.workerObj,
           objects.slideObj
         );
-        // objects.updateObjects();
+        objects.updateObjects();
       }
     })
     .catch((err) => {
@@ -197,13 +197,15 @@ exports.updateProcess = (req, res) => {
 exports.deleteProcess = (req, res) => {
   console.log("called deleteProcess");
 
+  const pnum = req.body.pageNum;
+
   models.Notice.destroy({
     where: { id: req.params.noticeNum },
   })
     .then((data) => {
       console.log("공지를 삭제하였습니다.");
       updateNoticeObj();
-      res.writeHead(302, { Location: "/alert/delete" });
+      res.writeHead(302, { Location: `/alert/delete/${pnum}` });
       res.end("success");
     })
     .catch((err) => {
