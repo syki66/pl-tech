@@ -1,7 +1,10 @@
 const util = require("../../middleware/util");
 const models = require("../../models");
-const template = require("../../lib/template");
-const slide = require("../../values/slide");
+const board = require("../../lib/board");
+const notice = require("../../lib/notice");
+const worker = require("../../lib/worker");
+const slide = require("../../lib/slide");
+const slideValues = require("../../values/slide");
 const objects = require("../../values/objects");
 const produce = require("../../values/produce");
 const errorHandler = require("errorhandler");
@@ -78,7 +81,7 @@ exports.manageNotice = (req, res) => {
   })
     .then((data) => {
       console.log(data);
-      const list = template.c_noticeList(data, pnum, true);
+      const list = board.noticeList(data, pnum, true);
 
       models.Notice.findAll({
         attributes: [[models.sequelize.fn("count", "*"), "count"]],
@@ -86,8 +89,8 @@ exports.manageNotice = (req, res) => {
       })
         .then((data) => {
           const pages = Math.ceil(data[0].count / psize);
-          const pageBar = template.c_pageBar(pnum, pages);
-          res.send(template.c_board(list, pageBar, true));
+          const pageBar = board.pageBar(pnum, pages);
+          res.send(board.template(list, pageBar, true));
         })
         .catch((err) => {
           console.log(err);
@@ -114,7 +117,7 @@ exports.updateNotice = (req, res) => {
     .then((data) => {
       console.log(data);
       res.send(
-        template.a_edit(data[0].id, data[0].title, data[0].contents, pnum)
+        notice.edit(data[0].id, data[0].title, data[0].contents, pnum)
       );
     })
     .catch((err) => {
@@ -146,7 +149,7 @@ const updateNoticeObj = () => {
           row = null;
         }
         objects.noticeObj[i] = row;
-        produce.values = slide.valuesToJson(
+        produce.values = slideValues.valuesToJson(
           objects.parsedObj,
           objects.welcomeObj,
           objects.noticeObj,
@@ -187,11 +190,6 @@ exports.updateProcess = (req, res) => {
       console.log("공지를 수정할 수 없습니다.");
       res.json(util.successFalse(err));
     });
-};
-
-exports.confirm = (req, res) => {
-  console.log("called confirm");
-  res.send(template.a_confirm(req.params.noticeNum, req.body.pageNum));
 };
 
 // DELETE - /admin/notice/:noticeNum/dprocess 공지 삭제 처리 프로세스
@@ -278,16 +276,13 @@ exports.worker = (req, res) => {
     const staff2 = "staff2";
     const staff3 = "staff3";
     const dStaff = "dStaff";
-    res.send(
-      template.a_workerManage(
-        template.a_workerList(dStaff, filelist),
-        template.a_workerList(leader, filelist),
-        template.a_workerList(staff1, filelist),
-        template.a_workerList(staff2, filelist),
-        template.a_workerList(staff3, filelist)
-      )
-    );
-  });
+    res.send(worker.template(
+      worker.workerList(dStaff, filelist),
+      worker.workerList(leader, filelist),
+      worker.workerList(staff1, filelist),
+      worker.workerList(staff2, filelist),
+      worker.workerList(staff3, filelist)));
+  })
 };
 
 exports.inputWorker = (req, res) => {
@@ -374,9 +369,9 @@ exports.slide = (req, res) => {
   console.log("called slide");
   fs.readdir("./views/src/pages", function (error, filelist) {
     var list = util.rmExtention(filelist);
-    res.send(template.a_slide(template.a_checkList(list)));
-  });
-};
+    res.send(slide.template(slide.checkList(list)));
+  })
+}
 
 exports.slideObj = [];
 exports.inputSlide = (req, res) => {

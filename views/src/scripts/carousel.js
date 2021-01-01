@@ -62,9 +62,40 @@ carousel.addEventListener('click', ()=>{
     indicatorArray[current].classList.add('current__carousel');
 });
 
-// 커라젤 자동 슬라이드
-if (rotationTime()[0]){
-    setInterval(() => {
-        nextBtn.click();
-    }, rotationTime()[0]);
+// 재생, 일시정지, 자동재생 기능
+const pauseBtn = document.querySelector('.carousel__pause');
+const playPauseImg = document.querySelector('.play-pause__img');
+
+let rotation = setInterval(() => {
+    nextBtn.click();
+}, rotationTime()[0]);
+
+document.body.onmousedown = function() { 
+    if (pauseBtn.classList.contains('play')){
+        clearInterval(rotation);
+        rotation = setInterval(() => {
+            nextBtn.click();
+        }, rotationTime()[0]);
+    } else{
+        clearInterval(rotation);
+    }
 }
+
+pauseBtn.style.transform = `translateX(-${navWidth/2}px)`;
+pauseBtn.addEventListener('click', ()=>{
+    if (pauseBtn.classList.contains('play')){
+        pauseBtn.classList.remove('play');
+        pauseBtn.classList.add('pause');
+        playPauseImg.src = "/views/src/images/play.svg";
+        clearInterval(rotation);
+    } else{
+        pauseBtn.classList.remove('pause');
+        pauseBtn.classList.add('play');
+        playPauseImg.src = "/views/src/images/pause.svg";
+        clearInterval(rotation);
+        rotation = setInterval(() => {
+            nextBtn.click();
+        }, rotationTime()[0]);
+
+    }
+});

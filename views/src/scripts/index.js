@@ -25,12 +25,11 @@ document.documentElement.style.setProperty("--height", `${pageHeight}px`);
 let vw = pageWidth / 100;
 
 // indicator
-document.documentElement.style.setProperty(
-  "--navBottomPosition",
-  `${5 * vw}px`
-);
-document.documentElement.style.setProperty("--indicatorWidth", `${2.5 * vw}px`);
-document.documentElement.style.setProperty("--indicatorHeight", `${1 * vw}px`);
+document.documentElement.style.setProperty("--navBottomPosition", `${5 * vw}px`);
+document.documentElement.style.setProperty("--indicatorWidth", `${2.8 * vw}px`);
+document.documentElement.style.setProperty("--indicatorHeight", `${1.3 * vw}px`);
+document.documentElement.style.setProperty("--indicatorMargin", `${0.2 * vw}px`);
+
 // prev next buttons
 document.documentElement.style.setProperty("--sideBtnWidth", `${5 * vw}px`);
 
@@ -38,15 +37,10 @@ document.documentElement.style.setProperty("--sideBtnWidth", `${5 * vw}px`);
 document.documentElement.style.setProperty("--titleFontSize", `${3.3 * vw}px`);
 document.documentElement.style.setProperty("--titleTop", `${0.7 * vw}px`);
 document.documentElement.style.setProperty("--titleLeft", `${5.4 * vw}px`);
-document.documentElement.style.setProperty(
-  "--titleTextShadow",
-  `${0.15 * vw}px`
-);
+document.documentElement.style.setProperty("--titleTextShadow", `${0.15 * vw}px`);
+
 // 시계
 document.documentElement.style.setProperty("--clockFontSize", `${2.4 * vw}px`);
 document.documentElement.style.setProperty("--clockRight", `${3.7 * vw}px`);
 document.documentElement.style.setProperty("--clockTop", `${1.1 * vw}px`);
-document.documentElement.style.setProperty(
-  "--clockTextShadow",
-  `${0.1 * vw}px`
-);
+document.documentElement.style.setProperty("--clockTextShadow", `${0.1 * vw}px`);
