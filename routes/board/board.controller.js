@@ -1,6 +1,7 @@
 const util = require("../../middleware/util");
 const models = require("../../models");
-const template = require("../../lib/template");
+const board = require("../../lib/board");
+const notice = require("../../lib/notice");
 const { concatSeries } = require("async");
 
 // GET /board 공지 목록 출력
@@ -14,7 +15,7 @@ exports.noticeList = (req, res) => {
   })
     .then((data) => {
       console.log(data);
-      res.send(template.u_board(template.u_noticeList(data)));
+      res.send(board.template(board.noticeList(data)));
     })
     .catch((err) => {
       console.log("데이터를 불러올 수 없습니다.");
@@ -40,7 +41,7 @@ exports.noticeContents = (req, res) => {
       var title = data[0].title;
       var contents = data[0].contents;
       var cdate = util.noticeCdate(data[0].cdate);
-      res.send(template.u_notice(title, contents, cdate, page));
+      res.send(notice.template(title, contents, cdate, page));
     })
     .catch((err) => {
       console.log("데이터를 불러올 수 없습니다.");
@@ -67,7 +68,7 @@ exports.noticeMore = (req, res) => {
   })
     .then((data) => {
       console.log(data);
-      const list = template.c_noticeList(data, pnum, false);
+      const list = board.noticeList(data, pnum, false);
 
       models.Notice.findAll({
         attributes: [[models.sequelize.fn("count", "*"), "count"]],
@@ -75,8 +76,8 @@ exports.noticeMore = (req, res) => {
       })
         .then((data) => {
           const pages = Math.ceil(data[0].count / psize);
-          const ptemplate = template.c_pageBar(pnum, pages);
-          res.send(template.c_board(list, ptemplate, false));
+          const ptemplate = board.pageBar(pnum, pages);
+          res.send(board.template(list, ptemplate, false));
         })
         .catch((err) => {
           console.log(err);

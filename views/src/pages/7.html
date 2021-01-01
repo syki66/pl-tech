@@ -1,46 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>carousel 7</title>
     <link rel="stylesheet" type="text/css" href="/views/src/styles/page.css" />
     <style>
-        body{
+        body {
             margin: 0vw;
             background-image: url('/views/src/images/7.png');
             background-size: 100%;
-            background-repeat:no-repeat;
+            background-repeat: no-repeat;
         }
 
-        .post__container{
+        .post__container {
             overflow: hidden;
             width: 100%;
             height: 100%;
         }
-        .post__1, .post__2, .post__3, .post__4, .post__5{
-            position: absolute; 
+
+        .post__1,
+        .post__2,
+        .post__3,
+        .post__4,
+        .post__5 {
+            position: absolute;
             width: 53.2vw;
             height: 6.8vw;
             left: 42vw;
         }
-        .post__1{
+
+        .post__1 {
             top: 9.7vw;
         }
-        .post__2{
+
+        .post__2 {
             top: 17.45vw;
         }
-        .post__3{
+
+        .post__3 {
             top: 25.2vw;
         }
-        .post__4{
+
+        .post__4 {
             top: 32.95vw;
         }
-        .post__5{
+
+        .post__5 {
             top: 40.7vw;
         }
 
-        #post1_date, #post2_date, #post3_date, #post4_date, #post5_date{
+        #post1_date,
+        #post2_date,
+        #post3_date,
+        #post4_date,
+        #post5_date {
             left: 1.6vw;
             top: 50%;
             transform: translateY(-50%);
@@ -49,7 +64,11 @@
             color: #006b60;
         }
 
-        #post1_day, #post2_day, #post3_day, #post4_day, #post5_day{
+        #post1_day,
+        #post2_day,
+        #post3_day,
+        #post4_day,
+        #post5_day {
             left: 10vw;
             top: 50%;
             transform: translateY(-50%);
@@ -58,7 +77,11 @@
             color: #013445;
         }
 
-        #post1_title, #post2_title, #post3_title, #post4_title, #post5_title{
+        #post1_title,
+        #post2_title,
+        #post3_title,
+        #post4_title,
+        #post5_title {
             position: absolute;
             width: 34.8vw;
             height: 6vw;
@@ -67,7 +90,11 @@
             /* border: 1px solid blue; */
         }
 
-        #post1_title>a, #post2_title>a, #post3_title>a, #post4_title>a, #post5_title>a{
+        #post1_title>a,
+        #post2_title>a,
+        #post3_title>a,
+        #post4_title>a,
+        #post5_title>a {
             width: 100%;
             text-align: center;
             position: absolute;
@@ -77,19 +104,23 @@
             text-decoration: none;
             font-size: 2vw;
             font-weight: bold;
-            color:white;
+            color: white;
 
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
         }
 
-        #post1_title>a:hover, #post2_title>a:hover, #post3_title>a:hover, #post4_title>a:hover, #post5_title>a:hover{
+        #post1_title>a:hover,
+        #post2_title>a:hover,
+        #post3_title>a:hover,
+        #post4_title>a:hover,
+        #post5_title>a:hover {
             opacity: 1;
             text-decoration: underline;
         }
 
-        .link__1{
+        .link__1 {
             position: absolute;
             font-size: 1.6vw;
 
@@ -101,28 +132,33 @@
             left: 83vw;
         }
 
-        .link__1:hover{
+        .link__1:hover {
             text-decoration: underline;
         }
 
-        .row__0, .row__1, .row__2, .row__3, .row__4{
+        .row__0,
+        .row__1,
+        .row__2,
+        .row__3,
+        .row__4 {
             position: absolute;
         }
     </style>
 </head>
+
 <body>
     <div class="clock__container"></div>
 
     <div class="title__container">
-        <span class="title">*7 주요업무 사항</span>
+        <span class="title">7 주요업무 사항</span>
     </div>
 
     <div class="post__container">
         <div class="post__1">
-            <div id="post1_date" class="row__0">12/25</div>
-            <div id="post1_day" class="row__0">월</div>
+            <div id="post1_date" class="row__0"></div>
+            <div id="post1_day" class="row__0"></div>
             <div id="post1_title">
-                <a class="row__0"><span>공지를 작성해주세요.</span></a>
+                <a class="row__0"><span>등록된 공지사항이 없습니다.</span></a>
             </div>
         </div>
         <div class="post__2">
@@ -157,8 +193,9 @@
     </div>
 
     <script>const pageNum = 7;</script>
-    
+
     <script src="/views/src/scripts/paintPage.js"></script>
     <script src="/views/src/scripts/clock.js"></script>
 </body>
+
 </html>

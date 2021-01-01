@@ -4,13 +4,6 @@ exports.valuesToJson = (
   noticeObj,
   safetyObj,
   workerObj,
-<<<<<<< HEAD
-  slideObj
-) => {
-  let values = [];
-
-  let values_1 = [];
-=======
   slideObj,
   lotationObj,
   newsObj
@@ -18,7 +11,6 @@ exports.valuesToJson = (
   let values = [];
 
   let pageValues = [];
->>>>>>> main
 
   let item_1 = new Object();
 
@@ -32,11 +24,7 @@ exports.valuesToJson = (
   item_1.row5 = parsedObj[7];
   item_1.row6 = parsedObj[8];
 
-<<<<<<< HEAD
-  values_1.push(item_1);
-=======
   pageValues.push(item_1);
->>>>>>> main
 
   let item_2 = new Object();
 
@@ -54,11 +42,7 @@ exports.valuesToJson = (
   item_2.row10 = parsedObj[20];
   item_2.row11 = parsedObj[21]; // 판교 연계
 
-<<<<<<< HEAD
-  values_1.push(item_2);
-=======
   pageValues.push(item_2);
->>>>>>> main
 
   let item_3 = new Object();
 
@@ -68,11 +52,7 @@ exports.valuesToJson = (
   item_3.row1 = parsedObj[25];
   item_3.row2 = parsedObj[26];
 
-<<<<<<< HEAD
-  values_1.push(item_3);
-=======
   pageValues.push(item_3);
->>>>>>> main
 
   let item_4 = new Object();
 
@@ -85,11 +65,7 @@ exports.valuesToJson = (
   item_4.row4 = parsedObj[33];
   item_4.row5 = parsedObj[34];
 
-<<<<<<< HEAD
-  values_1.push(item_4);
-=======
   pageValues.push(item_4);
->>>>>>> main
 
   let item_5 = new Object();
 
@@ -102,40 +78,29 @@ exports.valuesToJson = (
   item_5.row4 = parsedObj[41];
   item_5.row5 = parsedObj[42];
 
-<<<<<<< HEAD
-  values_1.push(item_5);
-=======
   pageValues.push(item_5);
->>>>>>> main
 
   let item_6 = new Object();
 
-  item_6.itemname = ["*6 환영 문구"];
-  item_6.row0 = [welcomeObj[0], welcomeObj[1]];
+  item_6.itemname = ["6 환영 문구"];
+  item_6.row0 = [welcomeObj[0]];
+  item_6.row1 = [welcomeObj[1]];
 
-<<<<<<< HEAD
-  values_1.push(item_6);
-=======
   pageValues.push(item_6);
->>>>>>> main
 
   if (noticeObj !== null) {
     let item_7 = new Object();
-    item_7.itemname = ["*7 게시판 주요 업무"];
+    item_7.itemname = ["7 게시판 주요 업무"];
     item_7.row0 = noticeObj[0];
     item_7.row1 = noticeObj[1];
     item_7.row2 = noticeObj[2];
     item_7.row3 = noticeObj[3];
     item_7.row4 = noticeObj[4];
-<<<<<<< HEAD
-    values_1.push(item_7);
-=======
     pageValues.push(item_7);
->>>>>>> main
   }
 
   let item_8 = new Object();
-  item_8.itemname = ["*8 무재해 기록판"];
+  item_8.itemname = ["8 무재해 기록판"];
   item_8.row0 = [safetyObj[0]];
   item_8.row1 = [safetyObj[1]];
   item_8.row2 = [safetyObj[2]];
@@ -143,31 +108,15 @@ exports.valuesToJson = (
   item_8.row4 = [safetyObj[4]];
   item_8.row5 = [safetyObj[5]];
 
-<<<<<<< HEAD
-  values_1.push(item_8);
-=======
   pageValues.push(item_8);
->>>>>>> main
 
   if (workerObj !== null) {
     let item_9 = new Object();
-    item_9.itemname = ["*9 근무자 현황"];
+    item_9.itemname = ["9 근무자 현황"];
     item_9.row0 = workerObj[0];
     item_9.row1 = workerObj[1];
     item_9.row2 = workerObj[2];
     item_9.row3 = workerObj[3];
-<<<<<<< HEAD
-    values_1.push(item_9);
-  }
-
-  values.push(values_1);
-
-  if (slideObj !== null) {
-    let values_2 = [];
-    values_2.push(slideObj);
-    values.push(values_2);
-  }
-=======
     pageValues.push(item_9);
   }
 
@@ -184,7 +133,6 @@ exports.valuesToJson = (
    slideValues.push(slide);
  
    values.push(slideValues);
->>>>>>> main
 
   return JSON.parse(JSON.stringify(values));
 };
