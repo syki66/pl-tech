@@ -18,7 +18,6 @@ exports.create = (req, res) => {
   );
 };
 
-
 // GET - /alert/create/title 공지 생성 완료 알람
 exports.title = (req, res) => {
   res.status(201);
@@ -39,11 +38,12 @@ exports.confirm = (req, res) => {
   res.send(template.a_confirm("삭제하시겠습니까?", "/alert/delete"));
 };
 
-// GET - /alert/delete 공지 삭제 완료 알람
+// GET - /alert/delete/:pageNum 공지 삭제 완료 알람
 exports.delete = (req, res) => {
+  const pnum = req.params.pageNum;
   res.status(200);
   res.send(
-    alert.template("공지사항을 삭제했습니다.", "/admin/notice/manage/1")
+    alert.template("공지사항을 삭제했습니다.", `/admin/notice/manage/${pnum}`)
   );
 };
 
@@ -96,7 +96,7 @@ exports.login = (req, res) => {
 // GET - /alert/logout 로그아웃 완료 알람
 exports.logout = (req, res) => {
   res.status(200);
-  res.send(alert.template("로그아웃 했습니다.", "/auth/login"));
+  res.send(alert.template("로그아웃 했습니다.", "/home"));
 };
 
 // GET - /alert/worker 근무자 등록 완료 알람

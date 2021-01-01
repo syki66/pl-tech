@@ -17,8 +17,8 @@ router.get("/update", controller.update);
 // GET - /alert/confirm 공지 삭제 완료 알람
 router.get("/confirm", controller.confirm);
 
-// GET - /alert/delete 공지 삭제 완료 알람
-router.get("/delete", controller.delete);
+// GET - /alert/delete/:pageNum 공지 삭제 완료 알람
+router.get("/delete/:pageNum", controller.delete);
 
 // GET - /alert/welcome 환영문구 작성 완료 알람
 router.get("/welcome", controller.welcome);
