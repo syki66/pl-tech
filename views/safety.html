@@ -375,8 +375,8 @@
                         <div id="tence__2" class="tence">시작</div>
                         <form action="/admin/safety" method="post">
                             <p><input class="input__1" type="text" name="zeroHazard" placeholder=""></p>
-                            <p><input class="input__2" name="startDate" placeholder="시작날짜" readonly></p>
-                            <p><input class="input__3" name="targetDate" placeholder="목표날짜" readonly></p>
+                            <p><input class="input__2" name="startDate" placeholder="날짜 설정" readonly></p>
+                            <p><input class="input__3" name="targetDate" placeholder="날짜 설정" readonly></p>
                             <p><input class="input__4" type="submit" value="설정완료"></p>
                         </form>
                         <div id="tence__3" class="tence">목표</div>
@@ -400,9 +400,9 @@
             const json = JSON.parse(localStorage.getItem("json"));
             if (json.data[0][7][`row${2}`][0] !== "-") {
                 input_1.value = json.data[0][7][`row${2}`][0];
+                input_2.value = json.data[0][7][`row${4}`][0];
+                input_3.value = json.data[0][7][`row${5}`][0];
             }
-            input_2.value = json.data[0][7][`row${4}`][0];
-            input_3.value = json.data[0][7][`row${5}`][0];
         }
         paintPage();
     </script>

@@ -7,10 +7,7 @@ const slide = require("../../lib/slide");
 const slideValues = require("../../values/slide");
 const objects = require("../../values/objects");
 const produce = require("../../values/produce");
-const errorHandler = require("errorhandler");
 const fs = require("fs");
-const { nextTick } = require("process");
-const { threadId } = require("worker_threads");
 
 // /admin 접근 권한 검사 - 세션 만료시 경고 메세지
 exports.authCheck = (req, res, next) => {
@@ -377,6 +374,8 @@ exports.slideObj = [];
 exports.inputSlide = (req, res) => {
   console.log("called inputSlide");
 
+  console.log(req.body);
+
   if (req.body.checkResult === "") {
     res.redirect("/alert/slide/check");
   } else {
@@ -394,6 +393,8 @@ exports.inputSlide = (req, res) => {
 
 exports.inputLotation = (req, res) => {
   console.log("called inputLotation");
+
+  console.log(req.body);
 
   if (req.body === null || req.body === undefined) {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
@@ -423,6 +424,8 @@ exports.inputLotation = (req, res) => {
 
 exports.inputNews = (req, res) => {
   console.log("called inputNews");
+
+  console.log(req.body);
 
   if (req.body === null || req.body === undefined) {
     res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));

@@ -49,7 +49,7 @@ exports.delete = (req, res) => {
 // GET - /alert/welcome 환영문구 작성 완료 알람
 exports.welcome = (req, res) => {
   res.status(200);
-  res.send(alert.template("환영문구가 성공적으로 반영되었습니다.", "/admin"));
+  res.send(alert.template("환영문구가 성공적으로 반영되었습니다.", "/admin/welcome"));
 };
 
 // GET - /alert/welcome/visitor 방문자명 글자 수 제한 알람
@@ -155,7 +155,7 @@ exports.workerSrc = (req, res) => {
 // GET - /alert/safety 무재해 기록판 설정 완료 알람
 exports.safety = (req, res) => {
   res.status(201);
-  res.send(alert.template("무재해 기록판 설정을 완료했습니다.", "/admin"));
+  res.send(alert.template("무재해 기록판 설정을 완료했습니다.", "/admin/safety"));
 };
 
 // GET - /alert/safety/hazard 무재해 기록판 배수 설정 오류 알람 - 3자리 초과
@@ -191,7 +191,7 @@ exports.target = (req, res) => {
 // GET - /alert/slide 슬라이드 적용 완료 알람
 exports.slide = (req, res) => {
   res.status(201);
-  res.send(alert.template("슬라이드 순서를 적용했습니다.", "/admin"))
+  res.send(alert.template("슬라이드 순서를 적용했습니다.", "/admin/slide"))
 };
 
 // GET - /alert/slide/check 슬라이드 체크 오류 알람
@@ -203,13 +203,13 @@ exports.check = (req, res) => {
 // GET - /alert/slide/lotation 슬라이드 순환 시간 적용 완료 알람
 exports.lotation = (req, res) => {
   res.status(201);
-  res.send(alert.template("슬라이드 순환 시간을 적용했습니다.", "/admin"))
+  res.send(alert.template("슬라이드 순환 시간을 적용했습니다.", "/admin/slide"))
 };
 
 // GET - /alert/slide/news 뉴스탭 순환 시간 적용 완료 알람
 exports.news = (req, res) => {
   res.status(201);
-  res.send(alert.template("뉴스탭 순환 시간을 적용했습니다.", "/admin"))
+  res.send(alert.template("뉴스탭 순환 시간을 적용했습니다.", "/admin/slide"))
 };
 
 // GET - /alert/slide/time 순환 시간 입력 오류 알람
