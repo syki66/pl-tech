@@ -72,7 +72,7 @@ a.board__link:hover{
 .del__btn{
     height: 100%;
     width: 100%;
-    font-size: calc(var(--width) / 100 * 1.7);
+    font-size: calc(var(--width) / 100 * 1.4);
     border-radius: calc(var(--width) / 100 * 0.7);
     background-color: #DA0202;
     opacity: 1;

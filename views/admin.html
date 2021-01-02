@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,34 +10,38 @@
     <script src="/views/src/scripts/fetchJson.js"></script>
 
     <style>
-        p{
+        p {
             margin: 0vw;
         }
-        
-        :root{
+
+        :root {
             --width: 1920px;
         }
-        .container{
+
+        .container {
             background-image: url('/views/src/images/background_nonews.png');
         }
-        .inner__container{
+
+        .inner__container {
             position: relative;
             left: calc(var(--width) / 100 * 21.1);
         }
-        h2{
+
+        h2 {
             position: absolute;
             top: calc(var(--width) / 100 * 8.7);
             font-size: calc(var(--width) / 100 * 2.3);
             font-weight: 600;
         }
-        
-        .input__1{
+
+        .input__1 {
             position: absolute;
             top: calc(var(--width) / 100 * 43);
             left: calc(var(--width) / 100 * 51.5);
             width: calc(var(--width) / 100 * 6.3);
             height: calc(var(--width) / 100 * 3.2);
-            border-radius: calc(var(--width) / 100 * 0.7);;
+            border-radius: calc(var(--width) / 100 * 0.7);
+            ;
             font-size: calc(var(--width) / 100 * 1.26);
             background-color: #DA0202;
             opacity: 1;
@@ -44,14 +49,21 @@
             transition: 0.1s;
             cursor: pointer;
         }
-        .input__1:hover{
+
+        .input__1:hover {
             background-color: #B40202;
         }
-        .link__1, .link__2, .link__3, .link__4, .link__5, .link__6{
+
+        .link__1,
+        .link__2,
+        .link__3,
+        .link__4,
+        .link__5,
+        .link__6 {
             position: absolute;
             font-size: calc(var(--width) / 100 * 1.8);
             text-decoration: none;
-            list-style-type : circle;
+            list-style-type: circle;
 
             color: black;
             font-weight: 600;
@@ -60,7 +72,8 @@
 
             top: calc(var(--width) / 100 * 14);
         }
-        .link__7{
+
+        .link__7 {
             position: absolute;
             font-size: calc(var(--width) / 100 * 1.4);
 
@@ -72,30 +85,44 @@
 
             top: calc(var(--width) / 100 * 43.7);
         }
-        .link__1{
+
+        .link__1 {
             top: calc(var(--width) / 100 * 15.5);
         }
-        .link__2{
+
+        .link__2 {
             top: calc(var(--width) / 100 * 19);
         }
-        .link__3{
+
+        .link__3 {
             top: calc(var(--width) / 100 * 22.5);
         }
-        .link__4{
+
+        .link__4 {
             top: calc(var(--width) / 100 * 26);
         }
-        .link__5{
+
+        .link__5 {
             top: calc(var(--width) / 100 * 29.5);
         }
-        .link__6{
+
+        .link__6 {
             top: calc(var(--width) / 100 * 33);
         }
-        .link__1:hover, .link__2:hover, .link__3:hover, .link__4:hover, .link__5:hover, .link__6:hover, .link__7:hover{
+
+        .link__1:hover,
+        .link__2:hover,
+        .link__3:hover,
+        .link__4:hover,
+        .link__5:hover,
+        .link__6:hover,
+        .link__7:hover {
             opacity: 1;
             text-decoration: underline;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="clock__container"></div>
@@ -124,4 +151,5 @@
     <script src="/views/src/scripts/clock.js"></script>
     <script src="/views/src/scripts/index.js"></script>
 </body>
+
 </html>
