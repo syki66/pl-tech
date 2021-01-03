@@ -1,6 +1,7 @@
 const util = require("../../middleware/util");
 const models = require("../../models");
 const bcrypt = require("bcrypt");
+const alert = require("../../lib/alert");
 
 // GET - /auth/login 로그인 페이지
 exports.login = (req, res) => {
@@ -14,44 +15,51 @@ exports.login = (req, res) => {
 
 // POST - /auth/linprocess 로그인 처리 프로세스
 exports.loginProcess = (req, res) => {
-  const post = req.body;
-  const in_id = post.id;
-  const in_pw = post.password;
+  console.log("called loginProcess");
+  const valErr = req.valErr;
+  if (valErr) {
+    res.send(alert.template(valErr.data.errors[0].msg, "/auth/login"));
+  } else {
+    const post = req.body;
+    const in_id = post.id;
+    const in_pw = post.password;
 
-  models.Admin.findAll({
-    attributes: ["admin_id", "password"],
-    where: { admin_id: in_id },
-    raw: true,
-  })
-    .then((data) => {
-      //console.log(data);
-      if (data.length !== 0) {
-        const admin_id = data[0].admin_id;
-        const hashed_pw = data[0].password;
-        // 비밀번호 확인
-        bcrypt.compare(in_pw, hashed_pw, function (err, corr) {
-          // 아이디 확인
-          if (in_id === admin_id && corr) {
-            //success!
-            req.session.isLogin = true;
-            req.session.save(function () {
-              console.log(`관리자 ${admin_id} 로그인 했습니다.`);
-              res.redirect("/alert/login");
-            });
-          } else {
-            console.log("비밀번호가 일치하지 않습니다.");
-            res.redirect("/alert/login/pw");
-          }
-        });
-      } else {
-        console.log("아이디가 존재하지 않습니다.");
-        res.rediret("/alert/login/id");
-      }
+    models.Admin.findAll({
+      attributes: ["admin_id", "password"],
+      where: { admin_id: in_id },
+      raw: true,
     })
-    .catch((err) => {
-      console.log("로그인에 실패했습니다.");
-      res.json(util.successFalse(err));
-    });
+      .then((data) => {
+        //console.log(data);
+        if (data.length !== 0) {
+          const admin_id = data[0].admin_id;
+          const hashed_pw = data[0].password;
+          // 비밀번호 확인
+          bcrypt.compare(in_pw, hashed_pw, function (err, corr) {
+            // 아이디 확인
+            if (in_id === admin_id && corr) {
+              //success!
+              req.session.isLogin = true;
+              req.session.save(function () {
+                console.log(`관리자 ${admin_id} 로그인 했습니다.`);
+                res.redirect("/alert/login");
+              });
+            } else {
+              console.log("비밀번호가 일치하지 않습니다.");
+              res.redirect("/alert/login/pw");
+            }
+          });
+        } else {
+          console.log("아이디가 존재하지 않습니다.");
+          res.redirect("/alert/login/id");
+        }
+      })
+      .catch((err) => {
+        console.log("로그인에 실패했습니다.");
+        console.log(err);
+        res.json(util.successFalse(err));
+      });
+  }
 };
 
 // DELET - /auth/loutprocess 로그아웃 처리 프로세스
