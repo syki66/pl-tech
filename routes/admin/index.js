@@ -33,15 +33,19 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // /admin 접근 권한 검사 - 세션 만료시 경고 메세지
+// input validation OK
 router.use("/", controller.authCheck);
 
 // GET - /admin 관리자 페이지
+// session validation 필요?
 router.get("/", controller.admin);
 
 // GET - /admin/notice 공지 생성 페이지
+// input validation OK
 router.get("/notice", controller.createNotice);
 
 // POST - /admin/notice/cprocess 공지 생성 처리 프로세스
+// input validation OK
 router.post("/notice/cprocess",
 validator.title,
 validator.contents,
@@ -49,28 +53,44 @@ validator.result,
 controller.createProcess);
 
 // GET - /admin/notice/manage 공지 관리 페이지
-router.get("/notice/manage/:pageNum", controller.manageNotice);
+// input validation OK
+// board.noticeList validation 필요?
+router.get("/notice/manage/:pageNum", 
+validator.pageNum,
+validator.result,
+controller.manageNotice);
 
 // GET - /admin/notice/:noticeNum/update 공지 수정 페이지
-router.get("/notice/:noticeNum/update", controller.updateNotice);
+// input validation OK
+// notice.edit validation 필요?
+router.get("/notice/:noticeNum/update", 
+validator.pageNum,
+validator.noticeNum,
+validator.result,
+controller.updateNotice);
 
 // PATCH - /admin/notice/:noticeNum/uprocess 공지 수정 처리 프로세스
+// input validation OK
 router.patch("/notice/:noticeNum/uprocess", 
 validator.title,
 validator.contents,
 validator.noticeNum,
+validator.result,
 controller.updateProcess);
 
 // DELETE - /admin/notice/:noticeNum/dprocess 공지 삭제 처리 프로세스
+// input validation OK
 router.delete("/notice/:noticeNum/dprocess", 
 validator.noticeNum,
 validator.result,
 controller.deleteProcess);
 
 // GET - /welcome 환영 페이지 렌더링
+// input validation OK
 router.get("/welcome", controller.welcome);
 
 // POST - /welcome 환영 페이지 입력
+// input validation OK
 router.post("/welcome",
 validator.visitor,
 validator.sentence,
@@ -78,25 +98,32 @@ validator.result,
 controller.inputWelcome);
 
 // POST - /safety 무재해 페이지 입력 렌더링
+// input validation OK
 router.get("/safety", controller.safety);
 
 // POST - /safety 무재해 페이지 입력
+// input validation OK
 router.post("/safety",
 validator.safety,
 validator.result,
 controller.inputSafety);
 
 // GET - /worker 근무자 현황 관리
+// input validation OK
+// filelist validation 필요?
 router.get("/worker", controller.worker);
 
 // POST - /worker 금일 근무자 적용 프로세스
+// input validation OK
 router.post("/worker", 
 validator.inputWorker,
 validator.result,
 controller.inputWorker);
 
 // POST - /wmanage/upload 근무자 추가 프로세스
-// 유효값 검사 - 이미지 검사 필요
+// input validation OK
+// multer validation 필요할듯
+// https://stackoverflow.com/questions/54545581/how-can-i-return-multer-error-to-client-while-using-express-validator
 router.post("/worker/upload",
 upload.single("userfile"),
 validator.uploadWorker,
@@ -105,12 +132,15 @@ controller.uploadError,
 controller.uploadWorker);
 
 // DELETE - /worker/delete 근무자 삭제 프로세스
+// input validation OK
 router.delete("/worker/delete", 
 validator.deleteWorker,
 validator.result,
 controller.deleteWorker);
 
 // GET - /slide 슬라이드 관리
+// input validation OK
+// filelist validation 필요할듯
 router.get("/slide", controller.slide);
 
 // POST - /slide 슬라이드 적용
@@ -122,14 +152,14 @@ validator.result,
 controller.inputSlide);
 
 // POST - /slide/lotation 슬라이드 순환 시간 적용
-// 유효값 검사 - 우선 필요 없는 단위는 0 입력하게 해놨음
+// input validation - 우선 필요 없는 단위는 0 입력하게 해놨음
 router.post("/slide/lotation", 
 validator.inputLotation,
 validator.result,
 controller.inputLotation);
 
 // POST - /slide/news 뉴스탭 순환 시간 적용
-// 유효값 검사 - 우선 필요 없는 단위는 0 입력하게 해놨음
+// input validation - 우선 필요 없는 단위는 0 입력하게 해놨음
 router.post("/slide/news", 
 validator.inputNews,
 validator.result,

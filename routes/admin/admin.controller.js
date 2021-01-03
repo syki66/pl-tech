@@ -77,7 +77,7 @@ exports.manageNotice = (req, res) => {
     limit: [begin, psize],
   })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       const list = board.noticeList(data, pnum, true);
 
       models.Notice.findAll({
@@ -166,8 +166,6 @@ const updateNoticeObj = () => {
 // PATCH - /admin/notice/:noticeNum/uprocess 공지 수정 처리 프로세스
 exports.updateProcess = (req, res) => {
   console.log("called updateProcess");
-
-  const pnum = req.body.pageNum;
 
   models.Notice.update(
     {
@@ -322,6 +320,16 @@ exports.inputWorker = (req, res) => {
   }
 };
 
+exports.uploadWorker = (req, res, next) => {
+  console.log("called uploadWorker");
+  if (req.file === undefined) {
+    res.redirect("/alert/worker/uploadErr");
+  } else {
+    res.writeHead(302, { Location: "/alert/worker/upload" });
+    res.end("success");
+  }
+};
+
 exports.uploadError = (err, req, res, next) => {
   console.log("called uploadError");
   if (err === "dep error") {
@@ -330,16 +338,6 @@ exports.uploadError = (err, req, res, next) => {
     res.redirect("/alert/worker/rank");
   } else if (err === "name error") {
     res.redirect("/alert/worker/name");
-  }
-};
-
-exports.uploadWorker = (req, res, next) => {
-  console.log("called uploadWorker");
-  if (req.file === undefined) {
-    res.redirect("/alert/worker/uploadErr");
-  } else {
-    res.writeHead(302, { Location: "/alert/worker/upload" });
-    res.end("success");
   }
 };
 

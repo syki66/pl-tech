@@ -21,6 +21,7 @@
     "express-validator": "^6.9.0",
     "got": "^11.8.0",
     "http": "^0.0.0",
+    "https": "^1.0.0",
     "iconv": "^3.0.0",
     "install": "^0.13.0",
     "jstoxml": "^1.6.1",
