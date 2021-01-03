@@ -101,6 +101,17 @@ exports.noticeNum = [
         .escape()
 ]
 
+exports.pageNum = [
+    check('pageNum')
+        .not()
+        .isEmpty()
+        .withMessage('페이지 번호를 입력해주세요.')
+        .bail()
+        .isNumeric()
+        .withMessage('페이지 번호는 숫자 값만 허용됩니다.')
+        .escape()
+]
+
 exports.visitor = [
     check('visitor')
         .not()

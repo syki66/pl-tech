@@ -1,3 +1,4 @@
 node_modules
-figures/*
 config/config.json
+routes/session.js
+keys
