@@ -41,7 +41,7 @@ exports.calcSafety = (zhVal, startDate, targetDate) => {
   let ymdNow = yyNow + "년 " + mmNow + "월 " + ddNow + "일";
 
   if (startDate === null || targetDate === null) {
-    this.safetyObj = ["-", ymdNow, "-", "-", "설정 필요", "설정 필요"];
+    this.safetyObj = ["-", ymdNow, "-", "-", "-", "-"];
     this.updateObjects();
   } else {
     let yyStart = startDate.substring(0, 4);
