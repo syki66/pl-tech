@@ -40,7 +40,7 @@ exports.loginProcess = (req, res) => {
             });
           } else {
             console.log("비밀번호가 일치하지 않습니다.");
-            res.rediret("/alert/login/pw");
+            res.redirect("/alert/login/pw");
           }
         });
       } else {
