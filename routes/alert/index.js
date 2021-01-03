@@ -50,15 +50,6 @@ router.get("/worker", controller.worker);
 // GET - /alert/worker/select 근무자 선택 오류 알람
 router.get("/worker/select", controller.select);
 
-// GET - /alert/worker/dep dep(부서) 입력 오류 알람
-router.get("/worker/dep", controller.dep);
-
-// GET - /alert/worker/rank rank(직급) 입력 오류 알람
-router.get("/worker/rank", controller.rank);
-
-// GET - /alert/worker/name name(이름) 입력 오류 알람
-router.get("/worker/name", controller.name);
-
 // GET - /alert/worker/upload 근무자 사진 업로드 완료 알람
 router.get("/worker/upload", controller.upload);
 

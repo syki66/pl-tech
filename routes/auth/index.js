@@ -19,6 +19,9 @@ router.post("/loutprocess", controller.logoutProcess);
 // GET - /auth/register 관리자 등록 페이지
 router.get("/register", controller.register);
 
+// GET - /auth/register 관리자 등록 페이지
+router.get("/regprocess", controller.registerProcess);
+
 // POST - /auth/regprocess 관리자 등록 처리 프로세스
 router.post("/regprocess",
 validator.id,
