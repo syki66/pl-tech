@@ -1,6 +1,11 @@
 const express = require("express");
 const http = require("http");
 const https = require("https");
+const fs = require('fs');
+const options = {
+	key: fs.readFileSync('./keys/private.pem'),
+	cert: fs.readFileSync('./keys/public.pem')
+};
 const path = require("path");
 const axios = require("axios");
 const bodyParser = require("body-parser");
@@ -9,7 +14,8 @@ const cors = require("cors");
 const util = require("./middleware/util");
 const methodOverride = require("method-override");
 
-var app = express();
+let app = express(); //https
+let httpApp = express();
 
 const routes = require("./routes");
 
@@ -26,8 +32,14 @@ models.sequelize
     process.exit();
   });
 
-//environment
-app.set("port", process.env.PORT || 3000);
+//https environment
+httpApp.set("port", process.env.PORT || 80);
+httpApp.get("*", function (req, res, next) {
+  res.redirect("https://" + req.headers.host + req.path);
+});
+
+//http environment
+app.set("port", process.env.PORT || 443);
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -58,12 +70,43 @@ app.use(function (req, res, next) {
   );
 });
 
-let server = http.createServer(app);
+// app.use (function (req, res, next) {
+//   if (req.secure) {
+//           // request was via https, so do no special handling
+//           next();
+//   } else {
+//           // request was via http, so redirect to https
+//           res.redirect('https://' + req.headers.host + req.url);
+//   }
+// });
 
-//single thread server
-server.listen(app.get("port"), ip, function () {
-  console.log("ip : " + ip + " | port : " + app.get("port"));
-  console.log("server is running");
+// app.get('*', function(req, res) {  
+//   res.redirect('https://' + req.headers.host + req.url);
+//   console.log(req.url);
+//   // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
+//   // res.redirect('https://example.com' + req.url);
+// })
+
+// app.all('*', (req, res, next) => {
+//   let protocol = req.headers['x-forwarded-proto'] || req.protocol;
+//   if (protocol == 'https'){
+//       next();
+//   } else {
+//       let from = `${protocol}://${req.hostname}${req.url}`; 
+//       let to = `https://${req.hostname}${req.url}`;
+//       // log and redirect 
+//       console.log(`[${req.method}]: ${from} -> ${to}`);
+//       res.redirect(to);
+//   }
+// })
+
+http.createServer(httpApp).listen(httpApp.get("port"), ip, function () {
+  console.log("ip : " + ip + " | port : " + httpApp.get("port"));
+  console.log("HTTP server is running");
 });
 
-server.on("connection", function (socket) {});
+https.createServer(options, app).listen(app.get("port"), ip, function () {
+  console.log("ip : " + ip + " | port : " + app.get("port"));
+  console.log("HTTP server is running");
+});
+
