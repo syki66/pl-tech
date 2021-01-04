@@ -46,6 +46,13 @@ util.parseError = function (err) {
     }
 };
 
+util.printValErr = function(valErr){
+    console.log("\nValidation Error!\n" +
+    'msg : ' + valErr.data.errors[0].msg + '\n' +
+    'param : ' + valErr.data.errors[0].param + '\n' +
+    'location : ' + valErr.data.errors[0].location + '\n');
+}
+
 util.isAdminStatus = function(req, res){
     console.log(req.session);
     if(req.session.isLogin !== undefined && req.session.isLogin){
@@ -110,16 +117,4 @@ util.workerParser = function(image){
     return [dep, image, rank, name];
 }
 
-// app.all('*', (req, res, next) => {
-//     let protocol = req.headers['x-forwarded-proto'] || req.protocol;
-//     if (protocol == 'https'){
-//         next();
-//     } else {
-//         let from = `${protocol}://${req.hostname}${req.url}`; 
-//         let to = `https://${req.hostname}${req.url}`;
-//         // log and redirect 
-//         console.log(`[${req.method}]: ${from} -> ${to}`);
-//         res.redirect(to);
-//     }
-// })
 module.exports = util;

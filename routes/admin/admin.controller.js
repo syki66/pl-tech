@@ -38,7 +38,9 @@ exports.createNotice = (req, res) => {
 exports.createProcess = (req, res) => {
   console.log("called createProcess");
   const valErr = req.valErr;
+  
   if (valErr) {
+    util.printValErr(valErr);
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/notice"));
   } else {
     models.Notice.create({
@@ -169,7 +171,9 @@ exports.updateProcess = (req, res) => {
   console.log("called updateProcess");
   
   const valErr = req.valErr;
+
   if (valErr) {
+    util.printValErr(valErr);
     res.send(alert.template(valErr.data.errors[0].msg, `/admin/notice/${req.params.noticeNum}/update`));
   } else {
 
@@ -199,7 +203,9 @@ exports.deleteProcess = (req, res) => {
   console.log("called deleteProcess");
   const pnum = req.body.pageNum;
   const valErr = req.valErr;
+
   if (valErr) {
+    util.printValErr(valErr);
     res.send(alert.template(valErr.data.errors[0].msg, `/admin/notice/manage/${pnum}`));
   } else {
     models.Notice.destroy({
@@ -225,7 +231,9 @@ exports.welcome = (req, res) => {
 
 exports.inputWelcome = (req, res) => {
   const valErr = req.valErr;
+
   if (valErr) {
+    util.printValErr(valErr);
     res.send(alert.template(valErr.data.errors[0].msg, `/admin/welcome`));
   } else {
     console.log("called inputWelcome");
@@ -247,7 +255,9 @@ exports.safety = (req, res) => {
 
 exports.inputSafety = (req, res) => {
   const valErr = req.valErr;
+  
   if (valErr) {
+    util.printValErr(valErr);
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/safety"));
   } else {
     console.log("called inputSafety");
@@ -284,24 +294,33 @@ exports.inputSafety = (req, res) => {
 exports.worker = (req, res) => {
   console.log("called worker");
   fs.readdir("./worker", function (error, filelist) {
-    const leader = "leader";
-    const staff1 = "staff1";
-    const staff2 = "staff2";
-    const staff3 = "staff3";
-    const dStaff = "dStaff";
-    res.send(worker.template(
-      worker.workerList(dStaff, filelist),
-      worker.workerList(leader, filelist),
-      worker.workerList(staff1, filelist),
-      worker.workerList(staff2, filelist),
-      worker.workerList(staff3, filelist)));
+    if (error) {
+      const dir = "./worker";
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+    } else {
+      const leader = "leader";
+      const staff1 = "staff1";
+      const staff2 = "staff2";
+      const staff3 = "staff3";
+      const dStaff = "dStaff";
+      res.send(worker.template(
+        worker.workerList(dStaff, filelist),
+        worker.workerList(leader, filelist),
+        worker.workerList(staff1, filelist),
+        worker.workerList(staff2, filelist),
+        worker.workerList(staff3, filelist)));
+    }
   })
 };
 
 exports.inputWorker = (req, res) => {
   console.log("called inputWorker");
   const valErr = req.valErr;
+
   if (valErr) {
+    util.printValErr(valErr);
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/worker"));
   } else {
     if (req.body === null || req.body === undefined) {
@@ -344,7 +363,9 @@ exports.inputWorker = (req, res) => {
 exports.uploadWorker = (req, res, next) => {
   console.log("called uploadWorker");
   const valErr = req.valErr;
+
   if (valErr) {
+    util.printValErr(valErr);
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/worker"));
   } else {
     if (req.file === undefined) {
@@ -359,7 +380,9 @@ exports.uploadWorker = (req, res, next) => {
 exports.deleteWorker = (req, res) => {
   console.log("called deleteWorker");
   const valErr = req.valErr;
+
   if (valErr) {
+    util.printValErr(valErr);
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/worker"));
   } else {
     const dir = "./worker/";
@@ -394,9 +417,10 @@ exports.slideObj = [];
 exports.inputSlide = (req, res) => {
   console.log("called inputSlide");
   console.log(req.body);
-
   const valErr = req.valErr;
+
   if (valErr) {
+    util.printValErr(valErr);
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/slide"));
   } else {
     if (req.body.checkResult === "") {
@@ -421,7 +445,9 @@ exports.inputLotation = (req, res) => {
   console.log(req.body);
 
   const valErr = req.valErr;
+
   if (valErr) {
+    util.printValErr(valErr);
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/slide"));
   } else {
     if (req.body === null || req.body === undefined) {
@@ -445,7 +471,9 @@ exports.inputNews = (req, res) => {
   console.log(req.body);
 
   const valErr = req.valErr;
+
   if (valErr) {
+    util.printValErr(valErr);
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/slide"));
   } else {
     if (req.body === null || req.body === undefined) {

@@ -32,13 +32,13 @@ models.sequelize
     process.exit();
   });
 
-//https environment
+//http environment
 httpApp.set("port", process.env.PORT || 80);
 httpApp.get("*", function (req, res, next) {
   res.redirect("https://" + req.headers.host + req.path);
 });
 
-//http environment
+//https environment
 app.set("port", process.env.PORT || 443);
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -107,6 +107,6 @@ http.createServer(httpApp).listen(httpApp.get("port"), ip, function () {
 
 https.createServer(options, app).listen(app.get("port"), ip, function () {
   console.log("ip : " + ip + " | port : " + app.get("port"));
-  console.log("HTTP server is running");
+  console.log("HTTPS server is running");
 });
 
