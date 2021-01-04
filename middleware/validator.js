@@ -20,7 +20,8 @@ const regexDate = /^(19|20)\d{2}년\s(0[1-9]|1[012])월\s(0[1-9]|[12][0-9]|3[0-1
 const regexDRN = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]+$/;
 const regexWorker = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]+-[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]+-[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]+.[a-z|A-Z|0-9]+$/;
 const regexCheckResult = /^([1-9]{1},)+[1-9]{1}$/;
-const regexHMS = /^([0-9]|[1-9][0-9]|[1-9][0-9][0-9])$/;
+const regexMinuteSecond = /^([0-9]|[1-5][0-9])$/;
+const regexHour = /^([0-9]|1[0-9]|2[0-4])$/;
 
 
 exports.id = [
@@ -38,6 +39,9 @@ exports.id = [
         .bail()
         .isLength({ min: 6 }) // String의 길이가 6 이상인가?
         .withMessage('ID는 최소 6자 이상입니다.')
+        .bail()
+        .isLength({ max: 20 })
+        .withMessage('ID는 최대 20자 까지입니다.')
         .trim() // 해당 값에 공백이 있으면 없애고 붙힘
         .escape() //  <,>, &, ', "및 /를 해당 HTML 엔티티로 대체한다.
 ]
@@ -56,6 +60,9 @@ exports.password = [
         .bail()
         .isLength({ min: 6 })
         .withMessage('비밀번호는 최소 6자 이상입니다.')
+        .bail()
+        .isLength({ max: 20 })
+        .withMessage('비밀번호는 최대 20자 까지입니다.')
         .trim()
         .escape()
 ]
@@ -163,6 +170,9 @@ exports.safety = [
         .bail()
         .isNumeric()
         .withMessage('무재해 배수는 숫자 값만 허용됩니다.')
+        .bail()
+        .isLength({ max: 2 })
+        .withMessage('무재해 배수는 두 자릿수 이하로 작성해주세요. (0 ~ 99)')
         .trim()
         .escape(),
     check('startDate')
@@ -192,8 +202,8 @@ exports.uploadWorker = [
         .bail()
         .custom(value => regexDRN.test(value))
         .withMessage('부서명은 한글, 영어 대소문자, 숫자 값만 허용됩니다.')
-        .isLength({ max: 8 })
-        .withMessage('부서명은 최대 8자 입니다.')
+        .isLength({ max: 10 })
+        .withMessage('부서명은 최대 10자 입니다.')
         .escape(),
     check('rank')
         .not()
@@ -202,8 +212,8 @@ exports.uploadWorker = [
         .bail()
         .custom(value => regexDRN.test(value))
         .withMessage('직급명은 한글, 영어 대소문자, 숫자 값만 허용됩니다.')
-        .isLength({ max: 16 })
-        .withMessage('직급은 최대 8자 입니다.')
+        .isLength({ max: 10 })
+        .withMessage('직급은 최대 10자 입니다.')
         .escape(),
     check('name')
         .not()
@@ -212,8 +222,8 @@ exports.uploadWorker = [
         .bail()
         .custom(value => regexDRN.test(value))
         .withMessage('이름은 한글, 영어 대소문자, 숫자 값만 허용됩니다.')
-        .isLength({ max: 16 })
-        .withMessage('이름은 최대 8자 입니다.')
+        .isLength({ max: 10 })
+        .withMessage('이름은 최대 10자 입니다.')
         .escape(),
 ]
 
@@ -294,7 +304,7 @@ exports.checkResult = [
 ]
 
 exports.inputLotation = [
-    check(['sHour', 'sMinute', 'sSecond'])
+    check('sHour')
         .not()
         .isEmpty()
         .withMessage('슬라이드 순환 시간을 빈칸에 입력해주세요.')
@@ -302,23 +312,47 @@ exports.inputLotation = [
         .custom(value => !regexSpace.test(value))
         .withMessage('슬라이드 순환 시간 값에 공백은 허용되지 않습니다.')
         .bail()
-        .custom(value => regexHMS.test(value))
-        .withMessage('슬라이드 순환 시간은 숫자 값만 허용됩니다. (0 ~ 999)')
+        .custom(value => regexHour.test(value))
+        .withMessage('슬라이드 순환 시간 시는 24 이하의 숫자 값만 허용됩니다. (0 ~ 24)')
+        .trim()
+        .escape(),
+    check(['sMinute', 'sSecond'])
+        .not()
+        .isEmpty()
+        .withMessage('슬라이드 순환 시간을 빈칸에 입력해주세요.')
+        .bail()
+        .custom(value => !regexSpace.test(value))
+        .withMessage('슬라이드 순환 시간 값에 공백은 허용되지 않습니다.')
+        .bail()
+        .custom(value => regexMinuteSecond.test(value))
+        .withMessage('슬라이드 순환 시간 분, 초는 59 이하의 숫자 값만 허용됩니다. (0 ~ 59)')
         .trim()
         .escape()
 ]
 
 exports.inputNews = [
-    check(['nHour', 'nMinute', 'nSecond'])
+    check('nHour')
         .not()
         .isEmpty()
         .withMessage('뉴스탭 순환 시간을 빈칸에 입력해주세요.')
         .bail()
         .custom(value => !regexSpace.test(value))
-        .withMessage('슬라이드 순환 시간 값에 공백은 허용되지 않습니다.')
+        .withMessage('뉴스탭 순환 시간 값에 공백은 허용되지 않습니다.')
         .bail()
-        .custom(value => regexHMS.test(value))
-        .withMessage('뉴스탭 순환 시간은 숫자 값만 허용됩니다. (0 ~ 999)')
+        .custom(value => regexHour.test(value))
+        .withMessage('뉴스탭 순환 시간 시는 24 이하의 숫자 값만 허용됩니다. (0 ~ 24)')
+        .trim()
+        .escape(),
+    check(['nMinute', 'nSecond'])
+        .not()
+        .isEmpty()
+        .withMessage('뉴스탭 순환 시간을 빈칸에 입력해주세요.')
+        .bail()
+        .custom(value => !regexSpace.test(value))
+        .withMessage('뉴스탭 순환 시간 값에 공백은 허용되지 않습니다.')
+        .bail()
+        .custom(value => regexMinuteSecond.test(value))
+        .withMessage('뉴스탭 순환 시간 분, 초는 59 이하의 숫자 값만 허용됩니다. (0 ~ 59)')
         .trim()
         .escape()
 ]

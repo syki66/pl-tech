@@ -40,7 +40,6 @@ controller.createProcess);
 
 // GET - /admin/notice/manage 공지 관리 페이지
 // input validation OK
-// board.noticeList validation 필요?
 router.get("/notice/manage/:pageNum", 
 validator.pageNum,
 validator.result,
@@ -48,7 +47,6 @@ controller.manageNotice);
 
 // GET - /admin/notice/:noticeNum/update 공지 수정 페이지
 // input validation OK
-// notice.edit validation 필요?
 router.get("/notice/:noticeNum/update", 
 validator.pageNum,
 validator.noticeNum,
@@ -96,7 +94,6 @@ controller.inputSafety);
 
 // GET - /worker 근무자 현황 관리
 // input validation OK
-// filelist validation 필요?
 router.get("/worker", controller.worker);
 
 // POST - /worker 금일 근무자 적용 프로세스
@@ -108,8 +105,7 @@ controller.inputWorker);
 
 // POST - /wmanage/upload 근무자 추가 프로세스
 // input validation OK
-// multer validation 필요할듯
-// https://stackoverflow.com/questions/54545581/how-can-i-return-multer-error-to-client-while-using-express-validator
+// file validation 클라이언트 단에서 처리
 router.post("/worker/upload",
 upload.single("userfile"),
 validator.uploadWorker,
@@ -125,11 +121,10 @@ controller.deleteWorker);
 
 // GET - /slide 슬라이드 관리
 // input validation OK
-// filelist validation 필요할듯
 router.get("/slide", controller.slide);
 
 // POST - /slide 슬라이드 적용
-// 유효값 검사 - 동적으로 생성되는 check1, check2 ... 때문에 보류
+// input validation OK
 router.post("/slide",
 validator.checks,
 validator.checkResult,
