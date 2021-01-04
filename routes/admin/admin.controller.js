@@ -7,6 +7,7 @@ const slide = require("../../lib/slide");
 const slideValues = require("../../values/slide");
 const objects = require("../../values/objects");
 const produce = require("../../values/produce");
+const alert = require("../../lib/alert");
 const fs = require("fs");
 
 // /admin 접근 권한 검사 - 세션 만료시 경고 메세지
@@ -36,9 +37,9 @@ exports.createNotice = (req, res) => {
 // POST - /admin/notice/cprocess 공지 생성 처리 프로세스
 exports.createProcess = (req, res) => {
   console.log("called createProcess");
-
-  if (req.body.title === "") {
-    res.redirect("/alert/create/title");
+  const valErr = req.valErr;
+  if (valErr) {
+    res.send(alert.template(valErr.data.errors[0].msg, "/admin/notice"));
   } else {
     models.Notice.create({
       title: req.body.title,
@@ -58,8 +59,8 @@ exports.createProcess = (req, res) => {
       });
   }
 };
-
-// GET - /admin/notice/manage 공지 관리 페이지
+  
+  // GET - /admin/notice/manage/:pageNum 공지 관리 페이지
 exports.manageNotice = (req, res) => {
   console.log("called manageNotice");
 
@@ -166,46 +167,55 @@ const updateNoticeObj = () => {
 // PATCH - /admin/notice/:noticeNum/uprocess 공지 수정 처리 프로세스
 exports.updateProcess = (req, res) => {
   console.log("called updateProcess");
+  
+  const valErr = req.valErr;
+  if (valErr) {
+    res.send(alert.template(valErr.data.errors[0].msg, `/admin/notice/${req.params.noticeNum}/update`));
+  } else {
 
-  models.Notice.update(
-    {
-      title: req.body.title,
-      contents: req.body.contents,
-      cdate: util.currentDate(),
-    },
-    { where: { id: req.params.noticeNum } }
-  )
-    .then((data) => {
-      console.log("공지를 수정하였습니다.");
-      updateNoticeObj();
-      res.writeHead(302, { Location: "/alert/update" });
-      res.end("success");
-    })
-    .catch((err) => {
-      console.log("공지를 수정할 수 없습니다.");
-      res.json(util.successFalse(err));
-    });
+    models.Notice.update(
+      {
+        title: req.body.title,
+        contents: req.body.contents,
+        cdate: util.currentDate(),
+      },
+      { where: { id: req.params.noticeNum } }
+    )
+      .then((data) => {
+        console.log("공지를 수정하였습니다.");
+        updateNoticeObj();
+        res.writeHead(302, { Location: "/alert/update" });
+        res.end("success");
+      })
+      .catch((err) => {
+        console.log("공지를 수정할 수 없습니다.");
+        res.json(util.successFalse(err));
+      });
+  }
 };
 
 // DELETE - /admin/notice/:noticeNum/dprocess 공지 삭제 처리 프로세스
 exports.deleteProcess = (req, res) => {
   console.log("called deleteProcess");
-
   const pnum = req.body.pageNum;
-
-  models.Notice.destroy({
-    where: { id: req.params.noticeNum },
-  })
-    .then((data) => {
-      console.log("공지를 삭제하였습니다.");
-      updateNoticeObj();
-      res.writeHead(302, { Location: `/alert/delete/${pnum}` });
-      res.end("success");
+  const valErr = req.valErr;
+  if (valErr) {
+    res.send(alert.template(valErr.data.errors[0].msg, `/admin/notice/manage/${pnum}`));
+  } else {
+    models.Notice.destroy({
+      where: { id: req.params.noticeNum },
     })
-    .catch((err) => {
-      console.log("공지를 삭제할 수 없습니다.");
-      res.json(util.successFalse(err));
-    });
+      .then((data) => {
+        console.log("공지를 삭제하였습니다.");
+        updateNoticeObj();
+        res.writeHead(302, { Location: `/alert/delete/${pnum}` });
+        res.end("success");
+      })
+      .catch((err) => {
+        console.log("공지를 삭제할 수 없습니다.");
+        res.json(util.successFalse(err));
+      });
+  }
 };
 
 exports.welcome = (req, res) => {
@@ -214,14 +224,19 @@ exports.welcome = (req, res) => {
 };
 
 exports.inputWelcome = (req, res) => {
-  console.log("called inputWelcome");
-  if (req.body === null || req.body === undefined) {
-    res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
+  const valErr = req.valErr;
+  if (valErr) {
+    res.send(alert.template(valErr.data.errors[0].msg, `/admin/welcome`));
   } else {
-    objects.welcomeObj = [req.body.visitor + "님", req.body.sentence];
-    objects.updateObjects();
-    res.writeHead(302, { Location: "/alert/welcome" });
-    res.end("success");
+    console.log("called inputWelcome");
+    if (req.body === null || req.body === undefined) {
+      res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
+    } else {
+      objects.welcomeObj = [req.body.visitor + "님", req.body.sentence];
+      objects.updateObjects();
+      res.writeHead(302, { Location: "/alert/welcome" });
+      res.end("success");
+    }
   }
 };
 
@@ -231,36 +246,37 @@ exports.safety = (req, res) => {
 };
 
 exports.inputSafety = (req, res) => {
-  console.log("called inputSafety");
-  if (req.body === null || req.body === undefined) {
-    res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
+  const valErr = req.valErr;
+  if (valErr) {
+    res.send(alert.template(valErr.data.errors[0].msg, "/admin/safety"));
   } else {
-    const moment = require("moment");
-    require("moment-timezone");
-    moment.tz.setDefault("Asia/Seoul");
-
-    // 현재 날짜
-    var date = moment().format("YYYY년 MM월 DD일");
-
-    // 배수 3자리 초과
-    if (req.body.zeroHazard.length > 3) {
-      res.redirect("/alert/safety/hazard");
-    }
-    // 시작 날짜 > 현재 날짜
-    else if (req.body.startDate > date) {
-      res.redirect("/alert/safety/start");
-    } // 목표날짜 < 현재 날짜
-    else if (req.body.targetDate < date) {
-      res.redirect("/alert/safety/target");
+    console.log("called inputSafety");
+    if (req.body === null || req.body === undefined) {
+      res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
     } else {
-      console.log(req.body);
-      objects.calcSafety(
-        req.body.zeroHazard,
-        req.body.startDate,
-        req.body.targetDate
-      );
-      objects.updateObjects();
-      res.redirect("/alert/safety");
+      const moment = require("moment");
+      require("moment-timezone");
+      moment.tz.setDefault("Asia/Seoul");
+
+      // 현재 날짜
+      var date = moment().format("YYYY년 MM월 DD일");
+
+      // 시작 날짜 > 현재 날짜
+      if (req.body.startDate > date) {
+        res.redirect("/alert/safety/start");
+      } // 목표날짜 < 현재 날짜
+      else if (req.body.targetDate < date) {
+        res.redirect("/alert/safety/target");
+      } else {
+        console.log(req.body);
+        objects.calcSafety(
+          req.body.zeroHazard,
+          req.body.startDate,
+          req.body.targetDate
+        );
+        objects.updateObjects();
+        res.redirect("/alert/safety");
+      }
     }
   }
 };
@@ -284,82 +300,86 @@ exports.worker = (req, res) => {
 
 exports.inputWorker = (req, res) => {
   console.log("called inputWorker");
-  if (req.body === null || req.body === undefined) {
-    res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
+  const valErr = req.valErr;
+  if (valErr) {
+    res.send(alert.template(valErr.data.errors[0].msg, "/admin/worker"));
   } else {
-    // 근무자 미선택 시
-    if (
-      req.body.leader === undefined &&
-      req.body.staff1 === undefined &&
-      req.body.staff2 === undefined &&
-      req.body.staff3 === undefined
-    ) {
-      res.redirect("/alert/worker/select");
+    if (req.body === null || req.body === undefined) {
+      res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
     } else {
-      objects.workerObj = [null, null, null, null];
+      // 근무자 미선택 시
+      if (
+        req.body.leader === undefined &&
+        req.body.staff1 === undefined &&
+        req.body.staff2 === undefined &&
+        req.body.staff3 === undefined
+      ) {
+        res.redirect("/alert/worker/select");
+      } else {
+        objects.workerObj = [null, null, null, null];
 
-      if (req.body.leader !== undefined) {
-        objects.workerObj[0] = util.workerParser(req.body.leader);
-      }
-      if (req.body.staff1 !== undefined) {
-        objects.workerObj[1] = util.workerParser(req.body.staff1);
-      }
-      if (req.body.staff2 !== undefined) {
-        objects.workerObj[2] = util.workerParser(req.body.staff2);
-      }
-      if (req.body.staff3 !== undefined) {
-        objects.workerObj[3] = util.workerParser(req.body.staff3);
-      }
+        if (req.body.leader !== undefined) {
+          objects.workerObj[0] = util.workerParser(req.body.leader);
+        }
+        if (req.body.staff1 !== undefined) {
+          objects.workerObj[1] = util.workerParser(req.body.staff1);
+        }
+        if (req.body.staff2 !== undefined) {
+          objects.workerObj[2] = util.workerParser(req.body.staff2);
+        }
+        if (req.body.staff3 !== undefined) {
+          objects.workerObj[3] = util.workerParser(req.body.staff3);
+        }
 
-      console.log(objects.workerObj);
+        console.log(objects.workerObj);
 
-      objects.updateObjects();
-      res.writeHead(302, { Location: "/alert/worker" });
-      res.end("success");
+        objects.updateObjects();
+        res.writeHead(302, { Location: "/alert/worker" });
+        res.end("success");
+      }
     }
   }
 };
 
 exports.uploadWorker = (req, res, next) => {
   console.log("called uploadWorker");
-  if (req.file === undefined) {
-    res.redirect("/alert/worker/uploadErr");
+  const valErr = req.valErr;
+  if (valErr) {
+    res.send(alert.template(valErr.data.errors[0].msg, "/admin/worker"));
   } else {
-    res.writeHead(302, { Location: "/alert/worker/upload" });
-    res.end("success");
-  }
-};
-
-exports.uploadError = (err, req, res, next) => {
-  console.log("called uploadError");
-  if (err === "dep error") {
-    res.redirect("/alert/worker/dep");
-  } else if (err === "rank error") {
-    res.redirect("/alert/worker/rank");
-  } else if (err === "name error") {
-    res.redirect("/alert/worker/name");
+    if (req.file === undefined) {
+      res.redirect("/alert/worker/uploadErr");
+    } else {
+      res.writeHead(302, { Location: "/alert/worker/upload" });
+      res.end("success");
+    }
   }
 };
 
 exports.deleteWorker = (req, res) => {
   console.log("called deleteWorker");
-  const dir = "./worker/";
-  fs.unlink(dir + req.body.dStaff, (err) => {
-    if (err) {
-      res.redirect("/alert/worker/src");
-      return false;
-    } else {
-      for (let i = 0; i < objects.workerObj.length; i++) {
-        if (objects.workerObj[i] === req.body.dStaff) {
-          objects.workerObj[i] = null;
-          break;
+  const valErr = req.valErr;
+  if (valErr) {
+    res.send(alert.template(valErr.data.errors[0].msg, "/admin/worker"));
+  } else {
+    const dir = "./worker/";
+    fs.unlink(dir + req.body.dStaff, (err) => {
+      if (err) {
+        res.redirect("/alert/worker/src");
+        return false;
+      } else {
+        for (let i = 0; i < objects.workerObj.length; i++) {
+          if (objects.workerObj[i] === req.body.dStaff) {
+            objects.workerObj[i] = null;
+            break;
+          }
         }
+        objects.updateObjects();
+        res.writeHead(302, { Location: "/alert/worker/delete" });
+        res.end("success");
       }
-      objects.updateObjects();
-      res.writeHead(302, { Location: "/alert/worker/delete" });
-      res.end("success");
-    }
-  });
+    });
+  }
 };
 
 exports.slide = (req, res) => {
@@ -373,21 +393,25 @@ exports.slide = (req, res) => {
 exports.slideObj = [];
 exports.inputSlide = (req, res) => {
   console.log("called inputSlide");
-
   console.log(req.body);
 
-  if (req.body.checkResult === "") {
-    res.redirect("/alert/slide/check");
+  const valErr = req.valErr;
+  if (valErr) {
+    res.send(alert.template(valErr.data.errors[0].msg, "/admin/slide"));
   } else {
-    checkList = req.body.checkResult.split(",");
+    if (req.body.checkResult === "") {
+      res.redirect("/alert/slide/check");
+    } else {
+      checkList = req.body.checkResult.split(",");
 
-    objects.slideObj = [];
-    for (let i = 0; i < checkList.length; i++) {
-      objects.slideObj[i] = checkList[i];
+      objects.slideObj = [];
+      for (let i = 0; i < checkList.length; i++) {
+        objects.slideObj[i] = checkList[i];
+      }
+      objects.updateObjects();
+      res.writeHead(302, { Location: "/alert/slide" });
+      res.end("success");
     }
-    objects.updateObjects();
-    res.writeHead(302, { Location: "/alert/slide" });
-    res.end("success");
   }
 };
 
@@ -396,24 +420,17 @@ exports.inputLotation = (req, res) => {
 
   console.log(req.body);
 
-  if (req.body === null || req.body === undefined) {
-    res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
+  const valErr = req.valErr;
+  if (valErr) {
+    res.send(alert.template(valErr.data.errors[0].msg, "/admin/slide"));
   } else {
-    const hour = req.body.sHour === "" ? 0 : parseInt(req.body.sHour);
-    const minute = req.body.sMinute === "" ? 0 : parseInt(req.body.sMinute);
-    const second = req.body.sSecond === "" ? 0 : parseInt(req.body.sSecond);
-
-    if (
-      (hour === 0 && minute === 0 && second === 0) ||
-      hour < 0 ||
-      hour > 500 ||
-      minute < 0 ||
-      minute > 500 ||
-      second < 0 ||
-      second > 500
-    ) {
-      res.redirect("/alert/slide/time");
+    if (req.body === null || req.body === undefined) {
+      res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
     } else {
+      const hour = req.body.sHour === "" ? 0 : parseInt(req.body.sHour);
+      const minute = req.body.sMinute === "" ? 0 : parseInt(req.body.sMinute);
+      const second = req.body.sSecond === "" ? 0 : parseInt(req.body.sSecond);
+
       objects.lotationObj = [hour * 60 * 60 + minute * 60 + second];
       objects.updateObjects();
       res.writeHead(302, { Location: "/alert/slide/lotation" });
@@ -427,24 +444,17 @@ exports.inputNews = (req, res) => {
 
   console.log(req.body);
 
-  if (req.body === null || req.body === undefined) {
-    res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
+  const valErr = req.valErr;
+  if (valErr) {
+    res.send(alert.template(valErr.data.errors[0].msg, "/admin/slide"));
   } else {
-    const hour = req.body.nHour === "" ? 0 : parseInt(req.body.nHour);
-    const minute = req.body.nMinute === "" ? 0 : parseInt(req.body.nMinute);
-    const second = req.body.nSecond === "" ? 0 : parseInt(req.body.nSecond);
-
-    if (
-      (hour === 0 && minute === 0 && second === 0) ||
-      hour < 0 ||
-      hour > 500 ||
-      minute < 0 ||
-      minute > 500 ||
-      second < 0 ||
-      second > 500
-    ) {
-      res.redirect("/alert/slide/time");
+    if (req.body === null || req.body === undefined) {
+      res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
     } else {
+      const hour = req.body.nHour === "" ? 0 : parseInt(req.body.nHour);
+      const minute = req.body.nMinute === "" ? 0 : parseInt(req.body.nMinute);
+      const second = req.body.nSecond === "" ? 0 : parseInt(req.body.nSecond);
+
       objects.newsObj = [hour * 60 * 60 + minute * 60 + second];
       objects.updateObjects();
       res.writeHead(302, { Location: "/alert/slide/news" });
