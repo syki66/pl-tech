@@ -37,16 +37,11 @@ exports.id = [
         .isAlphanumeric() // 영문 || 숫자 || 영문 + 숫자인가?
         .withMessage('ID는 영문 또는 숫자 값만 허용됩니다.')
         .bail()
-<<<<<<< HEAD
-        .isLength({ min: 5 }) // String의 길이가 6 이상인가?
-        .withMessage('ID는 5자리 이상입니다.')
-=======
         .isLength({ min: 6 }) // String의 길이가 6 이상인가?
         .withMessage('ID는 최소 6자 이상입니다.')
         .bail()
         .isLength({ max: 20 })
         .withMessage('ID는 최대 20자 까지입니다.')
->>>>>>> babb547aebdcc54edb1a4abce478902a82e0924f
         .trim() // 해당 값에 공백이 있으면 없애고 붙힘
         .escape() //  <,>, &, ', "및 /를 해당 HTML 엔티티로 대체한다.
 ]
@@ -147,12 +142,9 @@ exports.visitor = [
         .not()
         .isEmpty()
         .withMessage('방문자명을 입력해주세요.')
-<<<<<<< HEAD
-=======
         .bail()
-        .isLength({ max: 8 })
+        .isLength({ max: 16 })
         .withMessage('방문자명은 8자 이하로 작성해주세요.')
->>>>>>> babb547aebdcc54edb1a4abce478902a82e0924f
         .escape()
 ]
 
@@ -160,14 +152,10 @@ exports.sentence = [
     check('sentence')
         .not()
         .isEmpty()
-<<<<<<< HEAD
-        .withMessage('환영 문구를 입력해주세요.')
-=======
         .withMessage('환영문구를 입력해주세요.')
         .bail()
-        .isLength({ max: 36 })
+        .isLength({ max: 72 })
         .withMessage('환영문구는 36자 이하로 작성해주세요.')
->>>>>>> babb547aebdcc54edb1a4abce478902a82e0924f
         .escape()
 ]
 
@@ -214,11 +202,7 @@ exports.uploadWorker = [
         .bail()
         .custom(value => regexDRN.test(value))
         .withMessage('부서명은 한글, 영어 대소문자, 숫자 값만 허용됩니다.')
-<<<<<<< HEAD
-        .isLength({ max: 8 })
-=======
         .isLength({ max: 10 })
->>>>>>> babb547aebdcc54edb1a4abce478902a82e0924f
         .withMessage('부서명은 최대 10자 입니다.')
         .escape(),
     check('rank')
@@ -228,11 +212,7 @@ exports.uploadWorker = [
         .bail()
         .custom(value => regexDRN.test(value))
         .withMessage('직급명은 한글, 영어 대소문자, 숫자 값만 허용됩니다.')
-<<<<<<< HEAD
-        .isLength({ max: 16 })
-=======
         .isLength({ max: 10 })
->>>>>>> babb547aebdcc54edb1a4abce478902a82e0924f
         .withMessage('직급은 최대 10자 입니다.')
         .escape(),
     check('name')
@@ -242,11 +222,7 @@ exports.uploadWorker = [
         .bail()
         .custom(value => regexDRN.test(value))
         .withMessage('이름은 한글, 영어 대소문자, 숫자 값만 허용됩니다.')
-<<<<<<< HEAD
-        .isLength({ max: 16 })
-=======
         .isLength({ max: 10 })
->>>>>>> babb547aebdcc54edb1a4abce478902a82e0924f
         .withMessage('이름은 최대 10자 입니다.')
         .escape(),
 ]
@@ -328,13 +304,6 @@ exports.checkResult = [
 ]
 
 exports.inputLotation = [
-<<<<<<< HEAD
-    check(['sHour', 'sMinute', 'sSecond'])
-        .custom(value => /^[0-9|]+$/.test(value))
-        .withMessage('슬라이드 순환 시간은 숫자 값만 가능합니다. (필요 없는 단위는 0 입력)')
-        .isFloat({ min:0, max: 60 })
-        .withMessage('최대 60까지 입력 가능합니다.')
-=======
     check('sHour')
         .not()
         .isEmpty()
@@ -358,18 +327,10 @@ exports.inputLotation = [
         .custom(value => regexMinuteSecond.test(value))
         .withMessage('슬라이드 순환 시간 분, 초는 59 이하의 숫자 값만 허용됩니다. (0 ~ 59)')
         .trim()
->>>>>>> babb547aebdcc54edb1a4abce478902a82e0924f
         .escape()
 ]
 
 exports.inputNews = [
-<<<<<<< HEAD
-    check(['nHour', 'nMinute', 'nSecond'])
-        .custom(value => /^[0-9|]+$/.test(value))
-        .withMessage('뉴스탭 순환 시간은 숫자 값만 가능합니다. (필요 없는 단위는 0 입력)')
-        .isFloat({ min:0, max: 60 })
-        .withMessage('최대 60까지 입력 가능합니다.')
-=======
     check('nHour')
         .not()
         .isEmpty()
@@ -393,7 +354,6 @@ exports.inputNews = [
         .custom(value => regexMinuteSecond.test(value))
         .withMessage('뉴스탭 순환 시간 분, 초는 59 이하의 숫자 값만 허용됩니다. (0 ~ 59)')
         .trim()
->>>>>>> babb547aebdcc54edb1a4abce478902a82e0924f
         .escape()
 ]
 
