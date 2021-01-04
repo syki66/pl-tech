@@ -113,9 +113,9 @@
         <div class="inner__container">
             <h2>관리자 설정 페이지 - 환영문구 작성</h2>
             <form action="/admin/welcome" method="post">
-                <p><input class="input__1" type="text" name="visitor" placeholder="방문자명" maxlength="8"></p>
-                <p><textarea class="input__2" name="sentence" placeholder="환영문구" maxlength="36"></textarea></p>
-                <p><input class="input__3" type="submit" value="작성완료"></p>
+                <p><input class="input__1" type="text" name="visitor" placeholder="방문자명 (16byte 제한)" onkeyup="maxByte(this, 16, 0)" maxlength="16"></p>
+                <p><textarea class="input__2" name="sentence" placeholder="환영문구 (72byte 제한)" onkeyup="maxByte(this, 72 , 1)" maxlength="72"></textarea></p>
+                <p><input class="input__3" type="submit" onclick="return checkform()" value="작성완료"></p>
                 <p><a class="link__1" href="/admin">돌아가기</a></p>
             </form>
         </div>
@@ -138,6 +138,36 @@
             }
         }
         paintPage();
+    </script>
+    <script>
+        const title = document.querySelector('.input__1');
+        const content = document.querySelector('.input__2');
+
+        function checkform(){
+            if (title.value == "") {
+                alert("방문자명을 입력해주세요.");
+                return false;
+            }
+            if (content.value == "") {
+                alert("환영 문구를 입력해주세요.");
+                return false;
+            }
+        }
+        
+        function countUtf8Bytes(s){
+            var b = 0, i = 0, c
+            for(;c=s.charCodeAt(i++);b+=c>>11?2:c>>7?2:1);
+            return b
+        }
+
+        let prevItem = [title.value, content.value] ;
+
+        function maxByte(e, byte, id){
+            if (byte < countUtf8Bytes(e.value)){
+                e.value = prevItem[id];
+            }
+            prevItem[id] = e.value;
+        }
     </script>
 </body>
 
