@@ -102,11 +102,27 @@
             <form action="/admin/notice/cprocess" method="post">
                 <p><input class="input__1" type="text" name="title" placeholder="제목을 입력하세요"></p>
                 <p><textarea class="input__2" name="contents" placeholder="내용을 입력하세요"></textarea></p>
-                <p><input class="input__3" type="submit" value="작성완료"></p>
+                <p><input class="input__3" type="submit" onclick="return checkform()" value="작성완료"></p>
                 <p><a class="link__1" href="javascript:history.back()">돌아가기</a></p>
             </form>
         </div>
     </div>
+
+    <script>
+        const title = document.querySelector('.input__1');
+        const content = document.querySelector('.input__2');
+
+        function checkform(){
+            if (title.value == "") {
+                alert("제목을 입력해주세요.");
+                return false;
+            }
+            if (content.value == "") {
+                alert("내용을 입력해주세요.");
+                return false;
+            }
+        }
+    </script>
 
     <script src="/views/src/scripts/clock.js"></script>
     <script src="/views/src/scripts/index.js"></script>
