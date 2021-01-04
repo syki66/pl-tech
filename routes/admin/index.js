@@ -131,7 +131,7 @@ router.get("/slide", controller.slide);
 // POST - /slide 슬라이드 적용
 // 유효값 검사 - 동적으로 생성되는 check1, check2 ... 때문에 보류
 router.post("/slide",
-// validator.checks,
+validator.checks,
 validator.checkResult,
 validator.result,
 controller.inputSlide);
