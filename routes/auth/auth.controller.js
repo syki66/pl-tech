@@ -5,7 +5,6 @@ const alert = require("../../lib/alert");
 
 // GET - /auth/login 로그인 페이지
 exports.login = (req, res) => {
-  console.log(req.session);
   if (req.session.is_logined) {
     res.redirect("/admin");
   } else {
@@ -17,7 +16,9 @@ exports.login = (req, res) => {
 exports.loginProcess = (req, res) => {
   console.log("called loginProcess");
   const valErr = req.valErr;
+
   if (valErr) {
+    util.printValErr(valErr);
     res.send(alert.template(valErr.data.errors[0].msg, "/auth/login"));
   } else {
     const post = req.body;

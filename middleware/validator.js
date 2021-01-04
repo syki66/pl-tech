@@ -38,8 +38,8 @@ exports.id = [
         .isAlphanumeric() // 영문 || 숫자 || 영문 + 숫자인가?
         .withMessage('ID는 영문 또는 숫자 값만 허용됩니다.')
         .bail()
-        .isLength({ min: 6 }) // String의 길이가 6 이상인가?
-        .withMessage('ID는 6자리 이상입니다.')
+        .isLength({ min: 5 }) // String의 길이가 6 이상인가?
+        .withMessage('ID는 5자리 이상입니다.')
         .trim() // 해당 값에 공백이 있으면 없애고 붙힘
         .escape() //  <,>, &, ', "및 /를 해당 HTML 엔티티로 대체한다.
 ]
@@ -124,8 +124,6 @@ exports.visitor = [
         .not()
         .isEmpty()
         .withMessage('방문자명을 입력해주세요.')
-        .isLength({ max: 8 })
-        .withMessage('방문자명은 최대 8자 입니다.')
         .escape()
 ]
 
@@ -134,8 +132,6 @@ exports.sentence = [
         .not()
         .isEmpty()
         .withMessage('환영 문구를 입력해주세요.')
-        .isLength({ max: 36 })
-        .withMessage('환영 문구는 최대 36자 입니다.')
         .escape()
 ]
 
@@ -176,7 +172,7 @@ exports.uploadWorker = [
         .custom(value => /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]+$/.test(value))
         .withMessage('부서명은 한글, 영어 대소문자, 숫자 값만 허용됩니다.')
         .isLength({ max: 8 })
-        .withMessage('부서명은 최대 8자 입니다.')
+        .withMessage('부서명은 최대 10자 입니다.')
         .escape(),
     check('rank')
         .not()
@@ -186,7 +182,7 @@ exports.uploadWorker = [
         .custom(value => /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]+$/.test(value))
         .withMessage('직급명은 한글, 영어 대소문자, 숫자 값만 허용됩니다.')
         .isLength({ max: 16 })
-        .withMessage('직급은 최대 8자 입니다.')
+        .withMessage('직급은 최대 10자 입니다.')
         .escape(),
     check('name')
         .not()
@@ -196,7 +192,7 @@ exports.uploadWorker = [
         .custom(value => /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]+$/.test(value))
         .withMessage('이름은 한글, 영어 대소문자, 숫자 값만 허용됩니다.')
         .isLength({ max: 16 })
-        .withMessage('이름은 최대 8자 입니다.')
+        .withMessage('이름은 최대 10자 입니다.')
         .escape(),
 ]
 
@@ -375,8 +371,8 @@ exports.inputLotation = [
     check(['sHour', 'sMinute', 'sSecond'])
         .custom(value => /^[0-9|]+$/.test(value))
         .withMessage('슬라이드 순환 시간은 숫자 값만 가능합니다. (필요 없는 단위는 0 입력)')
-        .isLength({ max: 3 })
-        .withMessage('최대 999까지 입력 가능합니다.')
+        .isFloat({ min:0, max: 60 })
+        .withMessage('최대 60까지 입력 가능합니다.')
         .escape()
 ]
 
@@ -384,8 +380,8 @@ exports.inputNews = [
     check(['nHour', 'nMinute', 'nSecond'])
         .custom(value => /^[0-9|]+$/.test(value))
         .withMessage('뉴스탭 순환 시간은 숫자 값만 가능합니다. (필요 없는 단위는 0 입력)')
-        .isLength({ max: 3 })
-        .withMessage('최대 999까지 입력 가능합니다.')
+        .isFloat({ min:0, max: 60 })
+        .withMessage('최대 60까지 입력 가능합니다.')
         .escape()
 ]
 
