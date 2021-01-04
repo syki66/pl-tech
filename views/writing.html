@@ -100,8 +100,8 @@
         <div class="inner__container">
             <h2>관리자 설정 페이지 - 공지 작성</h2>
             <form action="/admin/notice/cprocess" method="post">
-                <p><input class="input__1" type="text" name="title" placeholder="제목을 입력하세요"></p>
-                <p><textarea class="input__2" name="contents" placeholder="내용을 입력하세요"></textarea></p>
+                <p><input class="input__1" type="text" name="title" placeholder="제목을 입력하세요 (50자 제한)" maxlength="50"></p>
+                <p><textarea class="input__2" name="contents" placeholder="내용을 입력하세요 (5000자 제한)" maxlength="5000"></textarea></p>
                 <p><input class="input__3" type="submit" onclick="return checkform()" value="작성완료"></p>
                 <p><a class="link__1" href="javascript:history.back()">돌아가기</a></p>
             </form>
