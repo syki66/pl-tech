@@ -111,24 +111,6 @@ exports.select = (req, res) => {
   res.send(alert.template("근무자를 선택 해주세요.", "/admin/worker"));
 };
 
-/// GET - /alert/worker/dep dep(부서) 입력 오류 알람
-exports.dep = (req, res) => {
-  res.status(201);
-  res.send(alert.template("부서명이 올바르지 않습니다. (1 ~ 8자)", "/admin/worker"));
-};
-
-// GET - /alert/worker/rank rank(직급) 입력 오류 알람
-exports.rank = (req, res) => {
-  res.status(201);
-  res.send(alert.template("직급이 올바르지 않습니다. (1 ~ 8자)", "/admin/worker"));
-};
-
-// GET - /alert/worker/name name(이름) 입력 오류 알람
-exports.name = (req, res) => {
-  res.status(201);
-  res.send(alert.template("이름이 올바르지 않습니다. (1 ~ 8자)", "/admin/worker"));
-};
-
 // GET - /alert/worker/upload 근무자 사진 업로드 완료 알람
 exports.upload = (req, res) => {
   res.status(201);
@@ -157,14 +139,6 @@ exports.workerSrc = (req, res) => {
 exports.safety = (req, res) => {
   res.status(201);
   res.send(alert.template("무재해 기록판 설정을 완료했습니다.", "/admin/safety"));
-};
-
-// GET - /alert/safety/hazard 무재해 기록판 배수 설정 오류 알람 - 3자리 초과
-exports.hazard = (req, res) => {
-  res.status(201);
-  res.send(
-    alert.template("배수는 3자리를 초과할 수 없습니다.", "/admin/safety")
-  );
 };
 
 // GET - /alert/safety/start 무재해 기록판 날짜 설정 오류 알람 - 시작 날짜 > 현재 날짜
@@ -213,8 +187,4 @@ exports.news = (req, res) => {
   res.send(alert.template("뉴스탭 순환 시간을 적용했습니다.", "/admin/slide"))
 };
 
-// GET - /alert/slide/time 순환 시간 입력 오류 알람
-exports.time = (req, res) => {
-  res.status(201);
-  res.send(alert.template("값이 올바르지 않습니다. (입력 범위 : 0 ~ 500)", "/admin/slide"))
-};
+

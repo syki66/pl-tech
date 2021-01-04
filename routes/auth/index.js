@@ -25,6 +25,9 @@ router.post("/loutprocess", controller.logoutProcess);
 // input validation OK
 router.get("/register", controller.register);
 
+// GET - /auth/register 관리자 등록 페이지
+router.get("/regprocess", controller.registerProcess);
+
 // POST - /auth/regprocess 관리자 등록 처리 프로세스
 // input validation OK
 router.post("/regprocess",

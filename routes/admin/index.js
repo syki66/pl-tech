@@ -3,6 +3,7 @@ const controller = require("./admin.controller");
 const validator = require('../../middleware/validator');
 const router = express.Router();
 const multer = require("multer");
+const { validationResult } = require("express-validator");
 
 // /worker/upload 파일 저장 위치 및 이름 변경
 const storage = multer.diskStorage({
@@ -11,24 +12,9 @@ const storage = multer.diskStorage({
     cb(null, dest);
   },
   filename: function (req, file, cb) {
-    // 부서명 1~8자
-    if (req.body.dep === "" || req.body.dep.length > 8) {
-      cb("dep error");
-    }
-    // 직급 1~8자
-    else if (req.body.rank === "" || req.body.rank.length > 8) {
-      cb("rank error");
-    }
-    // 이름 1~8자
-    else if (req.body.name === "" || req.body.name.length > 8) {
-      cb("name error");
-    } else {
-      const filename = `${req.body.dep}-${req.body.rank}-${req.body.name}.${
-        file.originalname.split(".")[1]
-      }`;
-      cb(null, filename);
-    }
-  },
+    const filename = `${req.body.dep}-${req.body.rank}-${req.body.name}.${file.originalname.split(".")[1]}`;
+    cb(null, filename);
+  }
 });
 const upload = multer({ storage: storage });
 
@@ -128,7 +114,6 @@ router.post("/worker/upload",
 upload.single("userfile"),
 validator.uploadWorker,
 validator.result,
-controller.uploadError,
 controller.uploadWorker);
 
 // DELETE - /worker/delete 근무자 삭제 프로세스

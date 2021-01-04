@@ -4,14 +4,21 @@ var util = require("../middleware/util");
 exports.result = (req, res, next) => {
     const err = validationResult(req);
     if (!err.isEmpty()) {
-        res.status(422);
-        console.dir(err);
+        //res.status(422);
+        //console.dir(err);
         err.errors.name = err.name
-        res.json(util.successFalse({ 
+        
+        // res.json(util.successFalse({
+        //     name: 'ValidationError',
+        //     errors: err.errors //에러가 ID에서만 나면 [0], password까지 나면 [1]까지 배열 출력
+        // }));
+
+
+        req.valErr = util.successFalse({
             name: 'ValidationError',
-            errors : err.errors //에러가 ID에서만 나면 [0], password까지 나면 [1]까지 배열 출력
-            })
-        );
+            errors: err.errors //에러가 ID에서만 나면 [0], password까지 나면 [1]까지 배열 출력
+        })
+        next();
     }
     else next();
 }
@@ -117,6 +124,8 @@ exports.visitor = [
         .not()
         .isEmpty()
         .withMessage('방문자명을 입력해주세요.')
+        .isLength({ max: 8 })
+        .withMessage('방문자명은 최대 8자 입니다.')
         .escape()
 ]
 
@@ -125,6 +134,8 @@ exports.sentence = [
         .not()
         .isEmpty()
         .withMessage('환영 문구를 입력해주세요.')
+        .isLength({ max: 36 })
+        .withMessage('환영 문구는 최대 36자 입니다.')
         .escape()
 ]
 
@@ -164,6 +175,8 @@ exports.uploadWorker = [
         .bail()
         .custom(value => /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]+$/.test(value))
         .withMessage('부서명은 한글, 영어 대소문자, 숫자 값만 허용됩니다.')
+        .isLength({ max: 8 })
+        .withMessage('부서명은 최대 8자 입니다.')
         .escape(),
     check('rank')
         .not()
@@ -172,6 +185,8 @@ exports.uploadWorker = [
         .bail()
         .custom(value => /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]+$/.test(value))
         .withMessage('직급명은 한글, 영어 대소문자, 숫자 값만 허용됩니다.')
+        .isLength({ max: 16 })
+        .withMessage('직급은 최대 8자 입니다.')
         .escape(),
     check('name')
         .not()
@@ -180,7 +195,9 @@ exports.uploadWorker = [
         .bail()
         .custom(value => /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z|0-9]+$/.test(value))
         .withMessage('이름은 한글, 영어 대소문자, 숫자 값만 허용됩니다.')
-        .escape()
+        .isLength({ max: 16 })
+        .withMessage('이름은 최대 8자 입니다.')
+        .escape(),
 ]
 
 exports.inputWorker = [
@@ -358,6 +375,8 @@ exports.inputLotation = [
     check(['sHour', 'sMinute', 'sSecond'])
         .custom(value => /^[0-9|]+$/.test(value))
         .withMessage('슬라이드 순환 시간은 숫자 값만 가능합니다. (필요 없는 단위는 0 입력)')
+        .isLength({ max: 3 })
+        .withMessage('최대 999까지 입력 가능합니다.')
         .escape()
 ]
 
@@ -365,6 +384,8 @@ exports.inputNews = [
     check(['nHour', 'nMinute', 'nSecond'])
         .custom(value => /^[0-9|]+$/.test(value))
         .withMessage('뉴스탭 순환 시간은 숫자 값만 가능합니다. (필요 없는 단위는 0 입력)')
+        .isLength({ max: 3 })
+        .withMessage('최대 999까지 입력 가능합니다.')
         .escape()
 ]
 
