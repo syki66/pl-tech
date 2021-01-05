@@ -5,6 +5,7 @@ const alert = require("../../lib/alert");
 
 // GET - /auth/login 로그인 페이지
 exports.login = (req, res) => {
+  //req.session.is_logined 쓸모 업슨ㄴ거 같은데?
   if (req.session.is_logined) {
     res.redirect("/admin");
   } else {

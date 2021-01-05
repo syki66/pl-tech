@@ -43,7 +43,7 @@
 
             color: white;
 
-            font-size: calc(var(--width) / 100 * 1.8);
+            font-size: calc(var(--width) / 100 * 1.5);
             font-weight: 600;
 
             padding: 0vw calc(var(--width) / 100 * 1);
@@ -113,8 +113,10 @@
         <div class="inner__container">
             <h2>관리자 설정 페이지 - 환영문구 작성</h2>
             <form action="/admin/welcome" method="post">
-                <p><input class="input__1" type="text" name="visitor" placeholder="방문자명 (16byte 제한)" onkeyup="maxByte(this, 16, 0)" maxlength="16"></p>
-                <p><textarea class="input__2" name="sentence" placeholder="환영문구 (72byte 제한)" onkeyup="maxByte(this, 72 , 1)" maxlength="72"></textarea></p>
+                <p><input class="input__1" type="text" name="visitor" placeholder="방문자명 (한글 8자, 영문 16자 제한)"
+                        onkeyup="maxByte(this, 16, 0)" maxlength="16"></p>
+                <p><textarea class="input__2" name="sentence" placeholder="환영문구 (한글 36자, 영문 72자 제한)"
+                        onkeyup="maxByte(this, 72 , 1)" maxlength="72"></textarea></p>
                 <p><input class="input__3" type="submit" onclick="return checkform()" value="작성완료"></p>
                 <p><a class="link__1" href="/admin">돌아가기</a></p>
             </form>
@@ -143,7 +145,7 @@
         const title = document.querySelector('.input__1');
         const content = document.querySelector('.input__2');
 
-        function checkform(){
+        function checkform() {
             if (title.value == "") {
                 alert("방문자명을 입력해주세요.");
                 return false;
@@ -153,17 +155,17 @@
                 return false;
             }
         }
-        
-        function countUtf8Bytes(s){
+
+        function countUtf8Bytes(s) {
             var b = 0, i = 0, c
-            for(;c=s.charCodeAt(i++);b+=c>>11?2:c>>7?2:1);
+            for (; c = s.charCodeAt(i++); b += c >> 11 ? 2 : c >> 7 ? 2 : 1);
             return b
         }
 
-        let prevItem = [title.value, content.value] ;
+        let prevItem = [title.value, content.value];
 
-        function maxByte(e, byte, id){
-            if (byte < countUtf8Bytes(e.value)){
+        function maxByte(e, byte, id) {
+            if (byte < countUtf8Bytes(e.value)) {
                 e.value = prevItem[id];
             }
             prevItem[id] = e.value;
