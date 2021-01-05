@@ -5,12 +5,10 @@ const controller = require("./auth.controller");
 
 // GET - /auth/login 로그인 페이지
 // input validation OK
-// session validation 필요?
 router.get("/login", controller.login);
 
 // POST - /auth/linprocess 로그인 처리 프로세스
 // input validation OK
-// session validation 필요?
 router.post("/linprocess", 
 validator.id,
 validator.password,

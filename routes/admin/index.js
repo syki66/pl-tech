@@ -23,7 +23,7 @@ const upload = multer({ storage: storage });
 router.use("/", controller.authCheck);
 
 // GET - /admin 관리자 페이지
-// session validation 필요?
+// input validation OK
 router.get("/", controller.admin);
 
 // GET - /admin/notice 공지 생성 페이지
