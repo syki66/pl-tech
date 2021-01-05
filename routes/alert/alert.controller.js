@@ -90,37 +90,37 @@ exports.idErr = (req, res) => {
 // GET - /alert/login 로그인 완료 알람
 exports.login = (req, res) => {
   res.status(200);
-  res.send(alert.template("관리자로 로그인 했습니다.", "/admin"));
+  res.send(alert.template("관리자로 로그인했습니다.", "/admin"));
 };
 
 // GET - /alert/logout 로그아웃 완료 알람
 exports.logout = (req, res) => {
   res.status(200);
-  res.send(alert.template("로그아웃 했습니다.", "/home"));
+  res.send(alert.template("로그아웃했습니다.", "/home"));
 };
 
 // GET - /alert/worker 근무자 등록 완료 알람
 exports.worker = (req, res) => {
   res.status(201);
-  res.send(alert.template("근무자 등록을 완료했습니다.", "/admin"));
+  res.send(alert.template("근무자 현황이 적용되었습니다.", "/admin"));
 };
 
 // GET - /alert/worker/select 근무자 선택 오류 알람
 exports.select = (req, res) => {
   res.status(201);
-  res.send(alert.template("근무자를 선택 해주세요.", "/admin/worker"));
+  res.send(alert.template("근무자를 선택해주세요.", "/admin/worker"));
 };
 
-// GET - /alert/worker/upload 근무자 사진 업로드 완료 알람
+// GET - /alert/worker/upload 근무자 추가 완료 알람
 exports.upload = (req, res) => {
   res.status(201);
-  res.send(alert.template("근무자 사진을 등록했습니다.", "/admin/worker"));
+  res.send(alert.template("근무자를 성공적으로 추가했습니다.", "/admin/worker"));
 };
 
 // GET - /alert/worker/uploadErr 근무자 사진 업로드 오류 알람
 exports.uploadErr = (req, res) => {
   res.status(201);
-  res.send(alert.template("사진을 등록해 주세요.", "/admin/worker"));
+  res.send(alert.template("사진을 등록해주세요.", "/admin/worker"));
 };
 
 // GET - /alert/worker/delete 근무자 사진 삭제 완료 알람
@@ -132,7 +132,7 @@ exports.wdelete = (req, res) => {
 // GET - /alert/wmanage/src 근무자 사진 삭제 오류 알람
 exports.workerSrc = (req, res) => {
   res.status(201);
-  res.send(alert.template( "삭제할 근무자를 선택해 주세요.", "/admin/worker"));
+  res.send(alert.template( "삭제할 근무자를 선택해주세요.", "/admin/worker"));
 };
 
 // GET - /alert/safety 무재해 기록판 설정 완료 알람
@@ -146,7 +146,7 @@ exports.start = (req, res) => {
   res.status(201);
   res.send(
     alert.template(
-      "시작 날짜는 현재 날짜 보다 빨라야 합니다.",
+      "시작 날짜는 현재 날짜보다 빨라야 합니다.",
       "/admin/safety"
     )
   );
@@ -157,7 +157,7 @@ exports.target = (req, res) => {
   res.status(201);
   res.send(
     alert.template(
-      "목표 날짜는 현재 날짜 보다 늦어야 합니다.",
+      "목표 날짜는 현재 날짜보다 늦어야 합니다.",
       "/admin/safety"
     )
   );
@@ -172,7 +172,7 @@ exports.slide = (req, res) => {
 // GET - /alert/slide/check 슬라이드 체크 오류 알람
 exports.check = (req, res) => {
   res.status(201);
-  res.send(alert.template("슬라이드를 선택 해주세요.", "/admin/slide"))
+  res.send(alert.template("슬라이드를 선택해주세요.", "/admin/slide"))
 };
 
 // GET - /alert/slide/lotation 슬라이드 순환 시간 적용 완료 알람

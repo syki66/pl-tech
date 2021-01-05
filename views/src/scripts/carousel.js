@@ -99,3 +99,12 @@ pauseBtn.addEventListener('click', ()=>{
 
     }
 });
+
+// 새로고침 기능
+const refreshBtn = document.querySelector('.carousel__refresh');
+const refreshImg = document.querySelector('.refresh__img');
+
+refreshBtn.style.transform = `translateX(-${navWidth/2}px)`;
+refreshBtn.addEventListener(('click'), () => {
+    window.location.reload();
+});

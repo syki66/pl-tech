@@ -228,40 +228,15 @@ exports.uploadWorker = [
 ]
 
 exports.inputWorker = [
-    oneOf([
-        check('leader')
-            .not()
-            .isEmpty()
-            .withMessage('근무자를 선택해주세요.')
-            .bail()
-            .custom(value => regexWorker.test(value))
-            .withMessage('근무자 정보 형식(부서-직급-이름)이 올바르지 않습니다.')
-            .escape(),
-        check('staff1')
-            .not()
-            .isEmpty()
-            .withMessage('근무자를 선택해주세요.')
-            .bail()
-            .custom(value => regexWorker.test(value))
-            .withMessage('근무자 정보 형식(부서-직급-이름)이 올바르지 않습니다.')
-            .escape(),
-        check('staff2')
-            .not()
-            .isEmpty()
-            .withMessage('근무자를 선택해주세요.')
-            .bail()
-            .custom(value => regexWorker.test(value))
-            .withMessage('근무자 정보 형식(부서-직급-이름)이 올바르지 않습니다.')
-            .escape(),
-        check('staff3')
-            .not()
-            .isEmpty()
-            .withMessage('근무자를 선택해주세요.')
-            .bail()
-            .custom(value => regexWorker.test(value))
-            .withMessage('근무자 정보 형식(부서-직급-이름)이 올바르지 않습니다.')
-            .escape()
-    ])
+    check(['leader', 'staff1', 'staff2', 'staff3'])
+        .optional({ checkFalsy: true })
+        .not()
+        .isEmpty()
+        .withMessage('근무자를 선택해주세요.')
+        .bail()
+        .custom(value => regexWorker.test(value))
+        .withMessage('근무자 정보 형식(부서-직급-이름)이 올바르지 않습니다.')
+        .escape()
 ]
 
 exports.deleteWorker = [
