@@ -327,6 +327,7 @@ exports.inputWorker = (req, res) => {
       res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
     } else {
       // 근무자 미선택 시
+      // 추후 삭제 예정
       if (
         req.body.leader === undefined &&
         req.body.staff1 === undefined &&
