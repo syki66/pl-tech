@@ -112,10 +112,10 @@ util.rmExtention = function(data){
 util.workerParser = function(image){
     if(image || image !== ''){
         const element = image.split('-');
-        const dep = element[0];
-        const rank = element[1];
-        const name = element[2].split('.')[0];
-        return [dep, image, rank, name];
+        const name = element[0];
+        const dep = element[1];
+        const rank = element[2].split('.')[0];
+        return [name, image, dep, rank];
     }
 }
 
