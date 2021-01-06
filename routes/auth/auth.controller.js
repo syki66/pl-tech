@@ -20,6 +20,7 @@ exports.loginProcess = (req, res) => {
 
   if (valErr) {
     util.printValErr(valErr);
+    res.status(400);
     res.send(alert.template(valErr.data.errors[0].msg, "/auth/login"));
   } else {
     const post = req.body;

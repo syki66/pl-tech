@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,30 +10,35 @@
     <script src="/views/src/scripts/fetchJson.js"></script>
 
     <style>
-        p{
+        p {
             margin: 0vw;
         }
-        
-        :root{
+
+        :root {
             --width: 1920px;
         }
-        .container{
+
+        .container {
             background-image: url('/views/src/images/background_nonews.png');
         }
-        .inner__container{
+
+        .inner__container {
             position: relative;
             left: calc(var(--width) / 100 * 21.1);
         }
-        h2{
+
+        h2 {
             position: absolute;
             top: calc(var(--width) / 100 * 8.7);
             font-size: calc(var(--width) / 100 * 2.3);
             font-weight: 600;
         }
-        .input__1, .input__2{
+
+        .input__1,
+        .input__2 {
             position: absolute;
             background-color: #222222;
-            
+
             width: calc(var(--width) / 100 * 22.1);
             height: calc(var(--width) / 100 * 3.5);
             border-radius: calc(var(--width) / 100 * 0.7);
@@ -44,22 +50,25 @@
 
             padding: 0vw calc(var(--width) / 100 * 1);
         }
-        .input__1{
+
+        .input__1 {
             top: calc(var(--width) / 100 * 19.8);
             left: calc(var(--width) / 100 * 16.8);
         }
-        .input__2{
+
+        .input__2 {
             top: calc(var(--width) / 100 * 26.1);
             left: calc(var(--width) / 100 * 16.8);
         }
-        
-        .input__3{
+
+        .input__3 {
             position: absolute;
             top: calc(var(--width) / 100 * 32.4);
             left: calc(var(--width) / 100 * 34.5);
             width: calc(var(--width) / 100 * 6.3);
             height: calc(var(--width) / 100 * 3.2);
-            border-radius: calc(var(--width) / 100 * 0.7);;
+            border-radius: calc(var(--width) / 100 * 0.7);
+            ;
             font-size: calc(var(--width) / 100 * 1.4);
             background-color: #D8D8D8;
             opacity: 1;
@@ -67,10 +76,13 @@
             transition: 0.1s;
             cursor: pointer;
         }
-        .input__3:hover{
+
+        .input__3:hover {
             background-color: #A4A4A4;
         }
-        .link__1, .link__2{
+
+        .link__1,
+        .link__2 {
             position: absolute;
             font-size: calc(var(--width) / 100 * 1.4);
 
@@ -80,19 +92,24 @@
             transition: 0.1s;
             text-decoration: none;
         }
-        .link__1{
+
+        .link__1 {
             top: calc(var(--width) / 100 * 32.4);
             left: calc(var(--width) / 100 * 16.9);
         }
-        .link__2{
+
+        .link__2 {
             top: calc(var(--width) / 100 * 44.2);
         }
-        .link__1:hover, .link__2:hover{
+
+        .link__1:hover,
+        .link__2:hover {
             opacity: 1;
             text-decoration: underline;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="clock__container"></div>
@@ -104,8 +121,10 @@
         <div class="inner__container">
             <h2>관리자 페이지 로그인</h2>
             <form action="/auth/linprocess" method="post">
-                <p><input class="input__1" type="text" name="id" placeholder="아이디" maxlength="20"></p>
-                <p><input class="input__2" type="password" name="password" placeholder="비밀번호" maxlength="20"></p>
+                <p><input class="input__1" type="text" name="id" placeholder="아이디" maxlength="20" spellcheck="false">
+                </p>
+                <p><input class="input__2" type="password" name="password" placeholder="비밀번호" maxlength="20"
+                        spellcheck="false"></p>
                 <p><input class="input__3" type="submit" value="로그인"></p>
                 <a class="link__1" href="/auth/register">새 관리자 등록</a>
             </form>
@@ -116,4 +135,5 @@
     <script src="/views/src/scripts/clock.js"></script>
     <script src="/views/src/scripts/index.js"></script>
 </body>
+
 </html>

@@ -8,6 +8,7 @@ const slideValues = require("../../values/slide");
 const objects = require("../../values/objects");
 const produce = require("../../values/produce");
 const alert = require("../../lib/alert");
+const alertValues = require("../../values/alert");
 const fs = require("fs");
 
 // /admin 접근 권한 검사 - 세션 만료시 경고 메세지
@@ -17,8 +18,11 @@ exports.authCheck = (req, res, next) => {
   if (isAdminStatus) {
     next();
   } else {
-    res.writeHead(302, { Location: "/alert/auth" });
-    res.end("success");
+    res.status(200);
+    res.send(alert.template(
+      alertValues.authAlert.msg,
+      alertValues.authAlert.link
+    ));
   }
 };
 
@@ -41,6 +45,7 @@ exports.createProcess = (req, res) => {
   
   if (valErr) {
     util.printValErr(valErr);
+    res.status(400); 
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/notice"));
   } else {
     models.Notice.create({
@@ -50,14 +55,22 @@ exports.createProcess = (req, res) => {
     })
       .then((data) => {
         console.log(data.dataValues);
-        console.log("공지를 생성하였습니다.");
+        console.log("[DB] 공지 생성 성공");
         updateNoticeObj();
-        res.writeHead(302, { Location: "/alert/create" });
-        res.end("success");
+        res.status(201);
+        res.send(alert.template(
+          alertValues.createAlert.msg,
+          alertValues.createAlert.link
+        ));
       })
       .catch((err) => {
+        console.log("[DB] 공지 생성 실패");
         console.log(err);
-        res.json(util.successFalse(err));
+        res.status(500);
+        res.send(alert.template(
+          alertValues.createErrAlert.msg,
+          alertValues.createErrAlert.link
+        ));
       });
   }
 };
@@ -80,21 +93,28 @@ exports.manageNotice = (req, res) => {
     limit: [begin, psize],
   })
     .then((data) => {
-      // console.log(data);
+      console.log(data);
       const list = board.noticeList(data, pnum, true);
 
-      models.Notice.findAll({
+      models.Notice.findAll({ // 이중 쿼리
         attributes: [[models.sequelize.fn("count", "*"), "count"]],
         raw: true,
       })
         .then((data) => {
+          console.log(data);
           const pages = Math.ceil(data[0].count / psize);
           const pageBar = board.pageBar(pnum, pages);
+          res.status(200);
           res.send(board.template(list, pageBar, true));
         })
         .catch((err) => {
+          console.log('[DB] 공지 목록 조회 실패');
           console.log(err);
-          es.json(util.successFalse(err));
+          res.status(500);
+          res.send(alert.template(
+            alertValues.manageErrAlert.msg,
+            alertValues.manageErrAlert.link
+          ));
         });
     })
     .catch((err) => {
@@ -174,6 +194,7 @@ exports.updateProcess = (req, res) => {
 
   if (valErr) {
     util.printValErr(valErr);
+    res.status(400); 
     res.send(alert.template(valErr.data.errors[0].msg, `/admin/notice/${req.params.noticeNum}/update`));
   } else {
 
@@ -206,6 +227,7 @@ exports.deleteProcess = (req, res) => {
 
   if (valErr) {
     util.printValErr(valErr);
+    res.status(400); 
     res.send(alert.template(valErr.data.errors[0].msg, `/admin/notice/manage/${pnum}`));
   } else {
     models.Notice.destroy({
@@ -229,18 +251,49 @@ exports.welcome = (req, res) => {
   res.render("../views/welcome.html");
 };
 
+function countUtf8Bytes(s) {
+  var b = 0, i = 0, c
+  for (; c = s.charCodeAt(i++); b += c >> 11 ? 2 : c >> 7 ? 2 : 1);
+  return b
+}
+
 exports.inputWelcome = (req, res) => {
   const valErr = req.valErr;
 
   if (valErr) {
     util.printValErr(valErr);
+    res.status(400); 
     res.send(alert.template(valErr.data.errors[0].msg, `/admin/welcome`));
   } else {
     console.log("called inputWelcome");
     if (req.body === null || req.body === undefined) {
       res.json(util.successFalse(new Error(), "바디가 존재하지 않습니다."));
     } else {
-      objects.welcomeObj = [req.body.visitor + "님", req.body.sentence];
+      let visitor = req.body.visitor + "님";
+      let sentence = req.body.sentence;
+      // let part = "";
+      // let partArr = [];
+      // let front = 0;
+      // for(let i = 0; i < sentence.length; ++i){ // 한줄에 15바이트 이상 허용하지 않고, 맨 뒤에 \n 붙혀줌
+      //   if(/\s/.test(sentence[i])){
+      //     part += sentence.substring(front, i + 1);
+      //     console.log('bytes : ' + countUtf8Bytes(part));
+      //     console.log(part);
+      //     if(countUtf8Bytes(part) >= 20){ // 자른 스트링 바이트 값을 반올림 하여 20이 넘으면
+      //       console.log('else : ' + part);
+      //       partArr.push(part + '\n');
+      //       part = "";
+      //     }
+      //     front = i + 1;
+      //   }
+      // }
+      // partArr.push(sentence.substring(front, sentence.length));
+
+      // for(let i = 0; i < partArr.length; ++i)
+      //   console.log (partArr[i]);
+
+      // sentence = sentence.split('\s')
+      objects.welcomeObj = [visitor, sentence];
       objects.updateObjects();
       res.writeHead(302, { Location: "/alert/welcome" });
       res.end("success");
@@ -258,6 +311,7 @@ exports.inputSafety = (req, res) => {
   
   if (valErr) {
     util.printValErr(valErr);
+    res.status(400); 
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/safety"));
   } else {
     console.log("called inputSafety");
@@ -321,6 +375,7 @@ exports.inputWorker = (req, res) => {
 
   if (valErr) {
     util.printValErr(valErr);
+    res.status(400); 
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/worker"));
   } else {
     if (req.body === null || req.body === undefined) {
@@ -367,6 +422,7 @@ exports.uploadWorker = (req, res, next) => {
 
   if (valErr) {
     util.printValErr(valErr);
+    res.status(400); 
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/worker"));
   } else {
     if (req.file === undefined) {
@@ -384,6 +440,7 @@ exports.deleteWorker = (req, res) => {
 
   if (valErr) {
     util.printValErr(valErr);
+    res.status(400); 
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/worker"));
   } else {
     const dir = "./worker/";
@@ -422,6 +479,7 @@ exports.inputSlide = (req, res) => {
 
   if (valErr) {
     util.printValErr(valErr);
+    res.status(400); 
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/slide"));
   } else {
     if (req.body.checkResult === "") {
@@ -449,6 +507,7 @@ exports.inputLotation = (req, res) => {
 
   if (valErr) {
     util.printValErr(valErr);
+    res.status(400); 
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/slide"));
   } else {
     if (req.body === null || req.body === undefined) {
@@ -475,6 +534,7 @@ exports.inputNews = (req, res) => {
 
   if (valErr) {
     util.printValErr(valErr);
+    res.status(400); 
     res.send(alert.template(valErr.data.errors[0].msg, "/admin/slide"));
   } else {
     if (req.body === null || req.body === undefined) {
