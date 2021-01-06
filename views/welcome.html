@@ -113,10 +113,10 @@
         <div class="inner__container">
             <h2>관리자 설정 페이지 - 환영문구 작성</h2>
             <form action="/admin/welcome" method="post">
-                <p><input class="input__1" type="text" name="visitor" placeholder="방문자명 (한글 8자, 영문 16자 제한)"
-                        onkeyup="maxByte(this, 16, 0)" maxlength="16"></p>
-                <p><textarea class="input__2" name="sentence" placeholder="환영문구 (한글 36자, 영문 72자 제한)"
-                        onkeyup="maxByte(this, 72 , 1)" maxlength="72"></textarea></p>
+                <p><input class="input__1" type="text" name="visitor" placeholder="방문자명(한글 8자, 영문 16자 제한)"
+                        onkeyup="maxByte(this, 16, 0)" maxlength="16" spellcheck="false"></p>
+                <p><textarea class="input__2" name="sentence" placeholder="환영문구(한글 36자, 영문 72자 제한)"
+                        onkeyup="maxByte(this, 72 , 1)" maxlength="72" spellcheck="false"></textarea></p>
                 <p><input class="input__3" type="submit" onclick="return checkform()" value="작성완료"></p>
                 <p><a class="link__1" href="/admin">돌아가기</a></p>
             </form>
@@ -151,7 +151,7 @@
                 return false;
             }
             if (content.value == "") {
-                alert("환영 문구를 입력해주세요.");
+                alert("환영문구를 입력해주세요.");
                 return false;
             }
         }
