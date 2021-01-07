@@ -104,7 +104,5 @@ pauseBtn.addEventListener('click', ()=>{
 const refreshBtn = document.querySelector('.carousel__refresh');
 const refreshImg = document.querySelector('.refresh__img');
 
-refreshBtn.style.transform = `translateX(-${navWidth/2}px)`;
-refreshBtn.addEventListener(('click'), () => {
-    window.location.reload();
-});
+refreshBtn.style.transform = `translateX(${navWidth/2}px)`;
+refreshBtn.onmouseup = function refresh(){window.location.reload()}
