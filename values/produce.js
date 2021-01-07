@@ -24,7 +24,10 @@ const produceValues = (path, callback) => {
       for (let i = 0; i < objects.parsedObj.length; ++i) {
         if (objects.parsedObj[i][0] === "*") {
           objects.parsedObj[i] = await removeSpecial(objects.parsedObj[i]);
-          objects.parsedObj[i] = objects.parsedObj[i].substring(1,objects.parsedObj[i].length);
+          objects.parsedObj[i] = objects.parsedObj[i].substring(
+            1,
+            objects.parsedObj[i].length
+          );
         } else {
           objects.parsedObj[i] = await removeSpecial(objects.parsedObj[i]);
         }
@@ -116,6 +119,16 @@ const removeSpecial = (str) => {
   });
 };
 
+function produceWorkerFolder(dir) {
+  if (!fs.existsSync(dir)) {
+    console.log("근무자 정보 폴더 존재하지 않음");
+    fs.mkdirSync(dir);
+    console.log("폴더 생성 완료");
+  } else {
+    console.log("근무자 정보 폴더 존재");
+  }
+}
+
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -123,6 +136,8 @@ function numberWithCommas(x) {
 produceValues(DCSPath, (err, data) => {
   exports.values = data;
 });
+
+produceWorkerFolder("./worker");
 
 (async () => {
   // 파일 수정시 읽어오기, 상시 동작
