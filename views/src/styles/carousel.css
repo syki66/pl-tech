@@ -93,17 +93,18 @@ body {
     margin: var(--indicatorMargin);
     color: white;
     bottom: var(--navBottomPosition);
-    left: calc( (var(--width) / 2) - var(--indicatorHeight) - (var(--indicatorMargin) * 2) );
+    
     cursor: pointer;
 
     opacity: 0.6;
 
     transition: opacity 0.05s ease-in-out;
-
-    /* border: 1px solid red; */
+}
+.carousel__pause{
+    left: calc( (var(--width) / 2) - var(--indicatorHeight) - (var(--indicatorMargin) * 2) );
 }
 .carousel__refresh{
-    left: calc( (var(--width) / 2) + var(--indicatorHeight) * 22 + (var(--indicatorMargin)) );
+    left: calc( (var(--width) / 2) + var(--indicatorMargin) );
 }
 .carousel__pause:hover, .carousel__refresh:hover{
     opacity: 1;
@@ -112,14 +113,6 @@ body {
     opacity: 0.1;
 }
 
-
-
-/* .play{
-    background-color: red;
-}
-.pause{
-    background-color: blue;
-} */
 .play-pause__img{
     width: 100%;
     height: 100%;

@@ -185,7 +185,7 @@ input[type="checkbox"]:checked ~ label>.check__svg {
 }
 
 .apply-btn__1{
-    top: calc(var(--width) / 100 * 4.5);
+    top: calc(var(--width) / 100 * 7.4);
     left: calc(var(--width) / 100 * 51.5);
 }
 
@@ -213,4 +213,27 @@ input[type="checkbox"]:checked ~ label>.check__svg {
 .link__1:hover{
     opacity: 1;
     text-decoration: underline;
+}
+
+
+
+
+
+.all-btn{
+    position: absolute;
+    width: calc(var(--width) / 100 * 5);
+    height: calc(var(--width) / 100 * 2);
+    border-radius: calc(var(--width) / 100 * 0.5);;
+    font-size: calc(var(--width) / 100 * 1);
+    background-color: #D8D8D8;
+    opacity: 1;
+    font-weight: 600;
+    transition: 0.1s;
+    cursor: pointer;
+    top: calc(var(--width) / 100 * 4.8);
+    left: calc(var(--width) / 100 * 51.5);
+}
+
+.all-btn:hover{
+    background-color: #A4A4A4;
 }
