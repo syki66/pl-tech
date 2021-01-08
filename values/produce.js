@@ -25,9 +25,10 @@ const produceValues = (path, callback) => {
         if (objects.parsedObj[i][0] === "*") {
           objects.parsedObj[i] = await removeSpecial(objects.parsedObj[i]);
           objects.parsedObj[i] = objects.parsedObj[i].substring(
-            1,
+            3,
             objects.parsedObj[i].length
           );
+          console.log(objects.parsedObj[i]);
         } else {
           objects.parsedObj[i] = await removeSpecial(objects.parsedObj[i]);
         }
