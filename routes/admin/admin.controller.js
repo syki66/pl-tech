@@ -538,9 +538,9 @@ exports.inputLotation = (req, res) => {
   } else {
     if (req.body) {
       let { sHour, sMinute, sSecond } = req.body;
-      const hour = sHour ? 0 : parseInt(req.body.sHour);
-      const minute = sMinute ? 0 : parseInt(req.body.sMinute);
-      const second = sSecond ? 0 : parseInt(req.body.sSecond);
+      const hour = sHour ? parseInt(sHour) : 0;
+      const minute = sMinute ? parseInt(sMinute) : 0;
+      const second = sSecond ? parseInt(sSecond) : 0;
 
       objects.lotationObj = [hour * 60 * 60 + minute * 60 + second];
       objects.updateObjects();
@@ -569,9 +569,9 @@ exports.inputNews = (req, res) => {
     res.send(template(valErr[0].msg, "/admin/slide"));
   } else {
     let { nHour, nMinute, nSecond } = req.body;
-    const hour = nHour ? 0 : parseInt(req.body.nHour);
-    const minute = nMinute ? 0 : parseInt(req.body.nMinute);
-    const second = nSecond ? 0 : parseInt(req.body.nSecond);
+    const hour = nHour ? parseInt(nHour) : 0;
+    const minute = nMinute ? parseInt(nMinute) : 0;
+    const second = nSecond ? parseInt(nSecond) : 0;
 
     objects.newsObj = [hour * 60 * 60 + minute * 60 + second];
     objects.updateObjects();
