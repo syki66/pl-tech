@@ -1,11 +1,11 @@
 :root {
     --width : 1920px;
     --height : 1080px;
-    --sideBtnWidth : 100px;
-    --indicatorWidth: 55px;
-    --indicatorHeight: 20px;
-    --indicatorMargin: 4px;
-    --navBottomPosition: 100px;
+    --sideBtnWidth : calc(var(--width) / 100 * 5);
+    --indicatorWidth: calc(var(--width) / 100 * 2.8);
+    --indicatorHeight: calc(var(--width) / 100 * 1.3);
+    --indicatorMargin: calc(var(--width) / 100 * 0.2);
+    --navBottomPosition: calc(var(--width) / 100 * 5);
 }
 body {
     overflow:hidden;
