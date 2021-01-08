@@ -66,10 +66,13 @@ carousel.addEventListener('click', ()=>{
 const pauseBtn = document.querySelector('.carousel__pause');
 const playPauseImg = document.querySelector('.play-pause__img');
 
+// 자동 슬라이드 기능
+// 여기서 rotationTime()은 carouselSettings.js에 있음
 let rotation = setInterval(() => {
     nextBtn.click();
 }, rotationTime()[0]);
 
+// 만약 index.html 요소를 클릭할경우 로테이션 시간 초기화
 document.body.onmousedown = function() { 
     if (pauseBtn.classList.contains('play')){
         clearInterval(rotation);
@@ -81,6 +84,7 @@ document.body.onmousedown = function() {
     }
 }
 
+// pause-play
 pauseBtn.style.transform = `translateX(-${navWidth/2}px)`;
 pauseBtn.addEventListener('click', ()=>{
     if (pauseBtn.classList.contains('play')){

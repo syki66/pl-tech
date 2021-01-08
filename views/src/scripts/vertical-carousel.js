@@ -27,6 +27,7 @@ function v_slideNext(newsNum){
 }
 
 // 뉴스 자동 슬라이드
+// 여기서 rotationTime()은 carouselSettings.js에 있음
 if (rotationTime()[1]){
     v_slideNext(v_slides.length);
     setInterval(() => {

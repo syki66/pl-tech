@@ -1,13 +1,15 @@
 :root{
-    --titleFontSize: 3.3vw;
-    --titleTop: 0.7vw;
-    --titleLeft: 5.4vw;
-    --titleTextShadow: 0.15vw;
+    --width : 1920px;
 
-    --clockFontSize: 2.4vw;
-    --clockRight: 3.7vw;
-    --clockTop: 1.1vw;
-    --clockTextShadow: 0.1vw;
+    --titleFontSize: calc(var(--width) / 100 * 3.3);
+    --titleTop: calc(var(--width) / 100 * 0.7);
+    --titleLeft: calc(var(--width) / 100 * 5.4);
+    --titleTextShadow: calc(var(--width) / 100 * 0.15);
+
+    --clockFontSize: calc(var(--width) / 100 * 2.4);
+    --clockRight: calc(var(--width) / 100 * 3.7);
+    --clockTop: calc(var(--width) / 100 * 1.1);
+    --clockTextShadow: calc(var(--width) / 100 * 0.1);
 }
 
 .title__container{
