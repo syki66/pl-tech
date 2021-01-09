@@ -1,3 +1,4 @@
+//auth.controller
 exports.authAlert = {
   msg: "로그인이 필요합니다.",
   link: "/auth/login",
@@ -50,6 +51,8 @@ exports.logoutErrAlert = {
   link: "/admin",
 };
 
+//admin.controller
+
 exports.createAlert = {
   msg: "공지사항을 작성했습니다.",
   link: "/admin/notice/manage/1",
@@ -60,7 +63,7 @@ exports.createErrAlert = {
   link: "/admin/notice",
 };
 
-exports.manageErrAlert = {
+exports.noticeListErrAlert = {
   msg: "공지사항 리스트 조회에 실패했습니다.",
   link: "/admin",
 };
@@ -169,4 +172,11 @@ exports.lotationAlert = {
 exports.newsAlert = {
   msg: "뉴스탭 순환 시간이 적용되었습니다.",
   link: "/admin/slide",
+};
+
+//home.controller
+
+exports.parsingErrAlert = {
+  msg: "DCS 데이터 파싱에 실패했습니다.",
+  link: "/home",
 };

@@ -3,6 +3,7 @@ const models = require("../../models");
 const board = require("../../lib/board");
 const notice = require("../../lib/notice");
 const { concatSeries } = require("async");
+const { noticeListErrAlert } = require("../../values/alert");
 
 // GET /board 공지 목록 출력
 exports.noticeList = (req, res) => {
@@ -14,12 +15,15 @@ exports.noticeList = (req, res) => {
     limit: 5,
   })
     .then((data) => {
-      console.log(data);
+      res.status(200);
       res.send(board.template(board.noticeList(data)));
+      console.log("[DB] 공지사항 리스트 조회 성공");
     })
     .catch((err) => {
-      console.log("데이터를 불러올 수 없습니다.");
-      res.json(util.successFalse(err));
+      res.status(500);
+      res.send(template(noticeListErrAlert.msg, noticeListErrAlert.link));
+      console.log(err);
+      console.log("[DB] 공지사항 리스트 조회 실패");
     });
 };
 
@@ -31,21 +35,23 @@ exports.noticeContents = (req, res) => {
   if (req.query.pagenum) {
     page = "/more/" + req.query.pageNum;
   }
-  models.Notice.findAll({
+  models.Notice.findOne({
     where: { id: req.params.noticeNum },
     attributes: ["title", "contents", "cdate"],
     raw: true,
   })
     .then((data) => {
-      console.log(data);
-      var title = data[0].title;
-      var contents = data[0].contents;
-      var cdate = util.noticeCdate(data[0].cdate);
+      let { title, contents, cdate } = data;
+      cdate = util.noticeCdate(cdate);
+      res.status(200);
       res.send(notice.template(title, contents, cdate, page));
+      console.log("[DB] 공지사항 리스트 조회 성공");
     })
     .catch((err) => {
-      console.log("데이터를 불러올 수 없습니다.");
-      res.json(util.successFalse(err));
+      res.status(500);
+      res.send(template(noticeListErrAlert.msg, noticeListErrAlert.link));
+      console.log(err);
+      console.log("[DB] 공지사항 리스트 조회 실패");
     });
 };
 
@@ -67,25 +73,29 @@ exports.noticeMore = (req, res) => {
     limit: [bnum, psize],
   })
     .then((data) => {
-      console.log(data);
       const list = board.noticeList(data, pnum, false);
-
+      console.log(data);
       models.Notice.findAll({
         attributes: [[models.sequelize.fn("count", "*"), "count"]],
         raw: true,
       })
         .then((data) => {
+          console.log(data);
           const pages = Math.ceil(data[0].count / psize);
           const ptemplate = board.pageBar(pnum, pages);
           res.send(board.template(list, ptemplate, false));
         })
         .catch((err) => {
+          res.status(500);
+          res.send(template(noticeListErrAlert.msg, noticeListErrAlert.link));
           console.log(err);
-          res.json(util.successFalse(err));
+          console.log("[DB] count 조회 실패");
         });
     })
     .catch((err) => {
+      res.status(500);
+      res.send(template(noticeListErrAlert.msg, noticeListErrAlert.link));
       console.log(err);
-      res.json(util.successFalse(err));
+      console.log("[DB] 공지사항 리스트 조회 실패");
     });
 };
