@@ -12,6 +12,7 @@ const produceValues = (path, callback) => {
     if (err) {
       console.dir(err);
       console.log("DCS 파일 읽기 실패");
+      console.log("루트 폴더에 DCS 파일이 있는지 확인하십시오");
       callback(err, null);
     } else {
       console.log("DCS 파일 읽기 성공");
@@ -133,9 +134,15 @@ function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-produceValues(DCSPath, (err, data) => {
-  exports.values = data;
-});
+setTimeout(() => {
+  produceValues(DCSPath, (err, data) => {
+    if (!err) {
+      exports.values = data;
+    } else {
+      exports.parsingErr = err;
+    }
+  });
+}, 1000);
 
 produceWorkerFolder("./worker");
 
