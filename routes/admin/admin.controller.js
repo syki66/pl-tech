@@ -16,6 +16,7 @@ const {
   editErrAlert,
   updateAlert,
   updateErrAlert,
+  updateNoticeObjErrAlert,
   deleteAlert,
   deleteErrAlert,
   welcomeAlert,
@@ -79,11 +80,10 @@ exports.createProcess = (req, res) => {
       cdate: util.currentDate(),
     })
       .then((data) => {
-        updateNoticeObj();
+        updateNoticeObj(1);
         res.status(201);
         res.send(template(createAlert.msg, createAlert.link));
-        // console.log(data.dataValues);
-        console.log("공지사항 생성 성공");
+        console.log("[DB] 공지사항 생성 성공");
       })
       .catch((err) => {
         res.status(500);
@@ -104,49 +104,43 @@ exports.manageNotice = (req, res) => {
     res.send(template(valErr[0].msg, "/admin/notice"));
     util.printValErr(valErr);
   } else {
-  }
-  const pnum = req.params.pageNum;
-  // 페이지당 6개씩
-  const psize = 6;
-  // 시작 페이지
-  const begin = (pnum - 1) * psize;
+    const pnum = req.params.pageNum;
+    // 페이지당 6개씩
+    const psize = 6;
+    // 시작 페이지
+    const begin = (pnum - 1) * psize;
 
-  models.Notice.findAll({
-    attributes: ["id", "title", "cdate"],
-    raw: true,
-    order: [["id", "DESC"]],
-    // begin 부터 psize 만큼 데이터 조회
-    limit: [begin, psize],
-  })
-    .then((data) => {
-      // console.log(data);
-      const list = board.noticeList(data, pnum, true);
-      console.log("공지사항 리스트 조회 성공");
-      models.Notice.findAll({
-        // 이중 쿼리
-        attributes: [[models.sequelize.fn("count", "*"), "count"]],
-        raw: true,
-      })
-        .then((data) => {
-          const pages = Math.ceil(data[0].count / psize);
-          const pageBar = board.pageBar(pnum, pages);
-          res.status(200);
-          res.send(board.template(list, pageBar, true));
-          console.log("count 조회 성공");
-        })
-        .catch((err) => {
-          res.status(500);
-          res.send(template(noticeListErrAlert.msg, noticeListErrAlert.link));
-          console.log(err);
-          console.log("[DB] count 조회 실패");
-        });
-    })
-    .catch((err) => {
-      res.status(500);
-      res.send(template(noticeListErrAlert.msg, noticeListErrAlert.link));
-      console.log(err);
-      console.log("[DB] 공지사항 리스트 조회 실패");
+    let query1 = models.Notice.findAll({
+      attributes: ["id", "title", "cdate"],
+      raw: true,
+      order: [["id", "DESC"]],
+      limit: [begin, psize],
     });
+
+    let query2 = models.Notice.findAll({
+      attributes: [[models.sequelize.fn("count", "*"), "count"]],
+      raw: true,
+    });
+
+    Promise.all([query1, query2])
+      .then((data) => {
+        let notices = data[0];
+        let count = data[1];
+
+        const list = board.noticeList(notices, pnum, true);
+        const pages = Math.ceil(count / psize);
+        const pageBar = board.pageBar(pnum, pages);
+        res.status(200);
+        res.send(board.template(list, pageBar, true));
+        console.log("[DB] 공지사항 리스트 조회 성공");
+      })
+      .catch((err) => {
+        res.status(500);
+        res.send(template(noticeListErrAlert.msg, noticeListErrAlert.link));
+        console.log(err);
+        console.log("[DB] 공지사항 리스트 조회 실패");
+      });
+  }
 };
 
 // GET - /admin/notice/:noticeNum/update 공지 수정 페이지
@@ -155,28 +149,29 @@ exports.updateNotice = (req, res) => {
 
   const pnum = req.query.pageNum;
 
-  models.Notice.findAll({
+  models.Notice.findOne({
     where: { id: req.params.noticeNum },
     attributes: ["id", "title", "contents"],
     raw: true,
   })
     .then((data) => {
-      // console.log(data);
-      let { id, title, contents } = data[0];
+      console.log(data);
+      let { id, title, contents } = data;
       res.status(200);
       res.send(notice.edit(id, title, contents, pnum));
-      console.log("수정 대상 공지사항 조회 성공");
+      console.log("[DB] 수정 대상 공지사항 조회 성공");
     })
     .catch((err) => {
+      let UEA = updateErrAlert(req.params.noticeNum);
       res.status(500);
-      res.send(template(editErrAlert.msg, editErrAlert.link));
+      res.send(template(UEA.msg, UEA.link));
       console.log(err);
       console.log("[DB] 수정 대상 공지사항 조회 실패");
     });
 };
 
-// 글 생성 및 삭제시 업데이트
-const updateNoticeObj = () => {
+// 공지사항 생성 및 삭제시 업데이트
+const updateNoticeObj = (noticeNum) => {
   models.Notice.findAll({
     attributes: ["id", "title", "cdate"],
     raw: true,
@@ -210,8 +205,11 @@ const updateNoticeObj = () => {
       }
     })
     .catch((err) => {
+      let UNEA = updateNoticeObjErrAlert(noticeNum);
+      res.status(500);
+      res.send(template(UNEA.msg, UNEA.link));
       console.log(err);
-      console.log("[DB] updateNoticeObject 에러");
+      console.log("[DB] 수정 대상 공지사항 조회 실패");
     });
 };
 
@@ -220,13 +218,12 @@ exports.updateProcess = (req, res) => {
   console.log("called updateProcess");
 
   const valErr = req.valErr;
+  let { noticeNum } = req.params;
 
   if (valErr) {
     util.printValErr(valErr);
     res.status(400);
-    res.send(
-      template(valErr[0].msg, `/admin/notice/${req.params.noticeNum}/update`)
-    );
+    res.send(template(valErr[0].msg, `/admin/notice/${noticeNum}/update`));
   } else {
     models.Notice.update(
       {
@@ -234,16 +231,16 @@ exports.updateProcess = (req, res) => {
         contents: req.body.contents,
         cdate: util.currentDate(),
       },
-      { where: { id: req.params.noticeNum } }
+      { where: { id: noticeNum } }
     )
       .then((data) => {
-        updateNoticeObj();
+        updateNoticeObj(noticeNum);
         res.status(200);
         res.send(template(updateAlert.msg, updateAlert.link));
-        console.log("공지사항 수정 성공");
+        console.log("[DB] 공지사항 수정 성공");
       })
       .catch((err) => {
-        let UEA = updateErrAlert(req.params.noticeNum);
+        let UEA = updateErrAlert(noticeNum);
         res.status(500);
         res.send(template(UEA.msg, UEA.link));
         console.log(err);
@@ -268,14 +265,14 @@ exports.deleteProcess = (req, res) => {
     })
       .then((data) => {
         //pnum 동적으로?
-        updateNoticeObj();
+        updateNoticeObj(req.params.noticeNum);
         let DA = deleteAlert(pnum);
         res.status(200);
         res.send(template(DA.msg, DA.link));
-        console.log("공지사항 삭제 성공");
+        console.log("[DB] 공지사항 삭제 성공");
       })
       .catch((err) => {
-        let DEA = deleteErrAlert(req.params.pageNum);
+        let DEA = deleteErrAlert(pnum);
         res.status(500);
         res.send(template(DEA.msg, DEA.link));
         console.log(err);
@@ -288,14 +285,6 @@ exports.welcome = (req, res) => {
   console.log("called welcome");
   res.render("../views/welcome.html");
 };
-
-function countUtf8Bytes(s) {
-  var b = 0,
-    i = 0,
-    c;
-  for (; (c = s.charCodeAt(i++)); b += c >> 11 ? 2 : c >> 7 ? 2 : 1);
-  return b;
-}
 
 exports.inputWelcome = (req, res) => {
   console.log("called inputWelcome");
@@ -385,6 +374,7 @@ exports.worker = (req, res) => {
           worker.workerList(staff3, filelist)
         )
       );
+      console.log("[Fs] 근무자 파일리스트 불러오기 성공");
     } else {
       res.status(500);
       res.send(template(filelistErrAlert.msg, filelistErrAlert.link));
@@ -483,6 +473,7 @@ exports.slide = (req, res) => {
     if (!err) {
       var list = util.rmExtention(filelist);
       res.send(slide.template(slide.checkList(list)));
+      console.log("[Fs] 슬라이드 페이지 파일리스트 불러오기 성공");
     } else {
       res.status(500);
       res.send(template(filelistErrAlert.msg, filelistErrAlert.link));

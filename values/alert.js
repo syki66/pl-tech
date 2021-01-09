@@ -85,6 +85,13 @@ exports.updateErrAlert = (noticeNum) => {
   };
 };
 
+exports.updateNoticeObjErrAlert = (noticeNum) => {
+  return {
+    msg: "서버에서 공지사항 수정/삭제 사항을 업데이트하는데 실패했습니다.",
+    link: `/admin/notice/${noticeNum}/update`,
+  };
+};
+
 exports.deleteAlert = (pageNum) => {
   return {
     msg: "공지사항을 삭제했습니다.",
@@ -178,5 +185,7 @@ exports.newsAlert = {
 
 exports.parsingErrAlert = {
   msg: "DCS 데이터 파싱에 실패했습니다.",
-  link: "/home",
+  link: "/",
 };
+
+//home.controller
