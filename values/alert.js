@@ -111,10 +111,10 @@ exports.welcomeAlert = {
   link: "/admin/welcome",
 };
 
-exports.welcomeErrAlert = {
-  msg: "환영문구를 적용하는데 실패했습니다.",
-  link: "/admin/welcome",
-};
+// exports.welcomeErrAlert = {
+//   msg: "환영문구를 적용하는데 실패했습니다.",
+//   link: "/admin/welcome",
+// };
 
 exports.startDateAlert = {
   msg: "시작 날짜는 현재 날짜보다 빨라야 합니다.",
@@ -131,10 +131,10 @@ exports.safetyAlert = {
   link: "/admin/safety",
 };
 
-exports.safetyErrAlert = {
-  msg: "무재해 기록판을 적용하는데 실패했습니다.",
-  link: "/admin/safety",
-};
+// exports.safetyErrAlert = {
+//   msg: "무재해 기록판을 적용하는데 실패했습니다.",
+//   link: "/admin/safety",
+// };
 
 exports.filelistErrAlert = {
   msg: "파일리스트를 불러오는데 실패했습니다.",
