@@ -122,18 +122,18 @@ exports.registerProcess = (req, res) => {
             .then((data) => {
               res.status(201);
               res.send(template(registerAlert.msg, registerAlert.link));
-              console.log("관리자가 등록되었습니다.");
+              console.log("관리자가 등록되었습니다");
             })
             .catch((err) => {
               res.status(500);
               res.send(template(registerErrAlert.msg, registerErrAlert.link));
               console.log(err);
-              console.log("[DB] 관리자 등록에 실패했습니다.");
+              console.log("[DB] 관리자 등록에 실패했습니다");
             });
         } else {
           res.status(500);
           res.send(template(registerErrAlert.msg, registerErrAlert.link));
-          console.log("[Hash] 관리자 등록에 실패했습니다.");
+          console.log("[Hash] 관리자 등록에 실패했습니다");
         }
       });
     } else {

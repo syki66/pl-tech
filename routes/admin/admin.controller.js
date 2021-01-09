@@ -13,29 +13,23 @@ const {
   createAlert,
   createErrAlert,
   noticeListErrAlert,
-  editErrAlert,
   updateAlert,
   updateErrAlert,
   updateNoticeObjErrAlert,
   deleteAlert,
   deleteErrAlert,
   welcomeAlert,
-  welcomeErrAlert,
   startDateAlert,
   targetDateAlert,
   safetyAlert,
-  safetyErrAlert,
   filelistErrAlert,
   workerInputAlert,
   workerUploadAlert,
   workerDeleteAlert,
   slideCheckAlert,
   slideAlert,
-  slideErrAlert,
   lotationAlert,
-  lotationErrAlert,
   newsAlert,
-  newsErrAlert,
 } = require("../../values/alert");
 const fs = require("fs");
 
@@ -155,7 +149,6 @@ exports.updateNotice = (req, res) => {
     raw: true,
   })
     .then((data) => {
-      console.log(data);
       let { id, title, contents } = data;
       res.status(200);
       res.send(notice.edit(id, title, contents, pnum));
@@ -179,7 +172,6 @@ const updateNoticeObj = (noticeNum) => {
     limit: 5,
   })
     .then((data) => {
-      console.log(data);
       let row;
       for (let i = 0; i < objects.noticeObj.length; i++) {
         if (data[i]) {
@@ -296,18 +288,13 @@ exports.inputWelcome = (req, res) => {
     res.status(400);
     res.send(template(valErr[0].msg, `/admin/welcome`));
   } else {
-    if (req.body) {
-      let { visitor, sentence } = req.body;
-      visitor += "님";
-      objects.welcomeObj = [visitor, sentence];
-      objects.updateObjects();
-      res.status(200);
-      res.send(template(welcomeAlert.msg, welcomeAlert.link));
-    } else {
-      res.status(400);
-      res.send(template(welcomeErrAlert.msg, welcomeErrAlert.link));
-      throw new Error("[req.body] 환영문구 body가 존재하지 않음");
-    }
+    let { visitor, sentence } = req.body;
+    visitor += "님";
+    objects.welcomeObj = [visitor, sentence];
+    objects.updateObjects();
+    res.status(200);
+    res.send(template(welcomeAlert.msg, welcomeAlert.link));
+    console.log("환영문구 적용 성공");
   }
 };
 
@@ -326,32 +313,26 @@ exports.inputSafety = (req, res) => {
     res.status(400);
     res.send(template(valErr[0].msg, "/admin/safety"));
   } else {
-    if (req.body) {
-      const moment = require("moment");
-      require("moment-timezone");
-      moment.tz.setDefault("Asia/Seoul");
+    const moment = require("moment");
+    require("moment-timezone");
+    moment.tz.setDefault("Asia/Seoul");
 
-      // 현재 날짜
-      let date = moment().format("YYYY년 MM월 DD일");
-      let { zeroHazard, startDate, targetDate } = req.body;
-      // 시작 날짜 > 현재 날짜
-      if (startDate > date) {
-        res.status(400);
-        res.send(template(startDateAlert.msg, startDateAlert.link));
-      } // 목표날짜 < 현재 날짜
-      else if (targetDate < date) {
-        res.status(400);
-        res.send(template(targetDateAlert.msg, targetDateAlert.link));
-      } else {
-        objects.calcSafety(zeroHazard, startDate, targetDate);
-        res.status(200);
-        res.send(template(safetyAlert.msg, safetyAlert.link));
-        console.log("무재해 기록판 적용 성공");
-      }
-    } else {
+    // 현재 날짜
+    let date = moment().format("YYYY년 MM월 DD일");
+    let { zeroHazard, startDate, targetDate } = req.body;
+    // 시작 날짜 > 현재 날짜
+    if (startDate > date) {
       res.status(400);
-      res.send(template(safetyErrAlert.msg, safetyErrAlert.link));
-      throw new Error("[req.body] 무재해 기록판 body가 존재하지 않음");
+      res.send(template(startDateAlert.msg, startDateAlert.link));
+    } // 목표날짜 < 현재 날짜
+    else if (targetDate < date) {
+      res.status(400);
+      res.send(template(targetDateAlert.msg, targetDateAlert.link));
+    } else {
+      objects.calcSafety(zeroHazard, startDate, targetDate);
+      res.status(200);
+      res.send(template(safetyAlert.msg, safetyAlert.link));
+      console.log("무재해 기록판 적용 성공");
     }
   }
 };
@@ -393,30 +374,21 @@ exports.inputWorker = (req, res) => {
     res.status(400);
     res.send(template(valErr[0].msg, "/admin/worker"));
   } else {
-    if (req.body) {
-      objects.workerObj = [null, null, null, null];
-      let { leader, staff1, staff2, staff3 } = req.body;
+    objects.workerObj = [null, null, null, null];
+    let { leader, staff1, staff2, staff3 } = req.body;
 
-      objects.workerObj[0] = util.workerParser(leader);
-      objects.workerObj[1] = util.workerParser(staff1);
-      objects.workerObj[2] = util.workerParser(staff2);
-      objects.workerObj[3] = util.workerParser(staff3);
+    objects.workerObj[0] = util.workerParser(leader);
+    objects.workerObj[1] = util.workerParser(staff1);
+    objects.workerObj[2] = util.workerParser(staff2);
+    objects.workerObj[3] = util.workerParser(staff3);
 
-      console.log(objects.workerObj);
-
-      objects.updateObjects();
-      res.status(200);
-      res.send(template(workerInputAlert.msg, workerInputAlert.link));
-      console.log("근무자 현황 적용 성공");
-    } else {
-      res.status(400);
-      res.send(template(workerInputErrAlert.msg, workerInputErrAlert.link));
-      throw new Error("[req.body] 근무자 현황 body가 존재하지 않음");
-    }
+    objects.updateObjects();
+    res.status(200);
+    res.send(template(workerInputAlert.msg, workerInputAlert.link));
+    console.log("근무자 현황 적용 성공");
   }
 };
 
-//아직 안했음
 exports.uploadWorker = (req, res, next) => {
   console.log("called uploadWorker");
   const valErr = req.valErr;
@@ -426,12 +398,9 @@ exports.uploadWorker = (req, res, next) => {
     res.status(400);
     res.send(template(valErr[0].msg, "/admin/worker"));
   } else {
-    if (req.file === undefined) {
-      res.redirect("/alert/worker/uploadErr");
-    } else {
-      res.writeHead(302, { Location: "/alert/worker/upload" });
-      res.end("success");
-    }
+    res.status(200);
+    res.send(template(workerUploadAlert.msg, workerUploadAlert.link));
+    console.log("근무자 추가 성공");
   }
 };
 
@@ -493,26 +462,21 @@ exports.inputSlide = (req, res) => {
     res.status(400);
     res.send(template(valErr[0].msg, "/admin/slide"));
   } else {
-    if (req.body) {
-      if (req.body.checkResult) {
-        checkList = req.body.checkResult.split(",");
+    if (req.body.checkResult) {
+      checkList = req.body.checkResult.split(",");
 
-        objects.slideObj = [];
-        for (let i = 0; i < checkList.length; i++) {
-          objects.slideObj[i] = checkList[i];
-        }
-        objects.updateObjects();
-        res.status(200);
-        res.send(template(slideAlert.msg, slideAlert.link));
-        console.log("슬라이드 순서 적용 성공");
-      } else {
-        res.status(400);
-        res.send(template(slideCheckAlert.msg, slideCheckAlert.link));
+      objects.slideObj = [];
+      for (let i = 0; i < checkList.length; i++) {
+        objects.slideObj[i] = checkList[i];
       }
+      objects.updateObjects();
+      res.status(200);
+      res.send(template(slideAlert.msg, slideAlert.link));
+      console.log("슬라이드 순서 적용 성공");
     } else {
       res.status(400);
-      res.send(template(slideErrAlert.msg, slideErrAlert.link));
-      throw new Error("[req.body] 슬라이드 순서 body가 존재하지 않음");
+      res.send(template(slideCheckAlert.msg, slideCheckAlert.link));
+      console.log("슬라이드 순서 body가 존재하지 않음");
     }
   }
 };
@@ -527,30 +491,21 @@ exports.inputLotation = (req, res) => {
     res.status(400);
     res.send(template(valErr[0].msg, "/admin/slide"));
   } else {
-    if (req.body) {
-      let { sHour, sMinute, sSecond } = req.body;
-      const hour = sHour ? parseInt(sHour) : 0;
-      const minute = sMinute ? parseInt(sMinute) : 0;
-      const second = sSecond ? parseInt(sSecond) : 0;
+    let { sHour, sMinute, sSecond } = req.body;
+    const hour = sHour ? parseInt(sHour) : 0;
+    const minute = sMinute ? parseInt(sMinute) : 0;
+    const second = sSecond ? parseInt(sSecond) : 0;
 
-      objects.lotationObj = [hour * 60 * 60 + minute * 60 + second];
-      objects.updateObjects();
-      res.status(200);
-      res.send(template(lotationAlert.msg, lotationAlert.link));
-      console.log("슬라이드 순환 시간 적용 성공");
-    } else {
-      res.status(400);
-      res.send(template(lotationErrAlert.msg, lotationErrAlert.link));
-      throw new Error("[req.body] 슬라이드 순환 시간 body가 존재하지 않음");
-    }
+    objects.lotationObj = [hour * 60 * 60 + minute * 60 + second];
+    objects.updateObjects();
+    res.status(200);
+    res.send(template(lotationAlert.msg, lotationAlert.link));
+    console.log("슬라이드 순환 시간 적용 성공");
   }
 };
 
-// 바디 검사 빼도 괜춘?
 exports.inputNews = (req, res) => {
   console.log("called inputNews");
-
-  console.log(req.body);
 
   const valErr = req.valErr;
 
