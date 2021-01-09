@@ -12,7 +12,7 @@ const {
   authAlert,
   createAlert,
   createErrAlert,
-  manageErrAlert,
+  noticeListErrAlert,
   editErrAlert,
   updateAlert,
   updateErrAlert,
@@ -83,13 +83,13 @@ exports.createProcess = (req, res) => {
         res.status(201);
         res.send(template(createAlert.msg, createAlert.link));
         // console.log(data.dataValues);
-        console.log("공지 생성 성공");
+        console.log("공지사항 생성 성공");
       })
       .catch((err) => {
         res.status(500);
         res.send(template(createErrAlert.msg, createErrAlert.link));
         console.log(err);
-        console.log("[DB] 공지 생성 실패");
+        console.log("[DB] 공지사항 생성 실패");
       });
   }
 };
@@ -136,14 +136,14 @@ exports.manageNotice = (req, res) => {
         })
         .catch((err) => {
           res.status(500);
-          res.send(template(manageErrAlert.msg, manageErrAlert.link));
+          res.send(template(noticeListErrAlert.msg, noticeListErrAlert.link));
           console.log(err);
           console.log("[DB] count 조회 실패");
         });
     })
     .catch((err) => {
       res.status(500);
-      res.send(template(manageErrAlert.msg, manageErrAlert.link));
+      res.send(template(noticeListErrAlert.msg, noticeListErrAlert.link));
       console.log(err);
       console.log("[DB] 공지사항 리스트 조회 실패");
     });

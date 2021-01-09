@@ -11,10 +11,10 @@ const produceValues = (path, callback) => {
   fs.readFile(path, async (err, data) => {
     if (err) {
       console.dir(err);
-      console.log("파일 읽기 실패.\n");
+      console.log("DCS 파일 읽기 실패");
       callback(err, null);
     } else {
-      console.log("파일 읽기 성공.");
+      console.log("DCS 파일 읽기 성공");
 
       let content = encode.convert(data); // euc-kr => utf-8로 컨버팅
       data = content.toString("utf-8"); // 컨버팅 데이터 utf-8 문자열로 변환
