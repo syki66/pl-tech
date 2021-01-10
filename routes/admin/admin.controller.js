@@ -119,11 +119,14 @@ exports.manageNotice = (req, res) => {
     Promise.all([query1, query2])
       .then((data) => {
         let notices = data[0];
-        let count = data[1];
+        let { count } = data[1][0];
+
+        console.log(notices);
 
         const list = board.noticeList(notices, pnum, true);
         const pages = Math.ceil(count / psize);
         const pageBar = board.pageBar(pnum, pages);
+        console.log(notices);
         res.status(200);
         res.send(board.template(list, pageBar, true));
         console.log("[DB] 공지사항 리스트 조회 성공");
@@ -311,7 +314,7 @@ exports.inputSafety = (req, res) => {
   if (valErr) {
     util.printValErr(valErr);
     res.status(400);
-    res.send(template(valErr[0].msg, "/admin/safety"));
+    res.send(template(valErr[0].msg, `/admin/safety`));
   } else {
     const moment = require("moment");
     require("moment-timezone");
