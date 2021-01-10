@@ -89,11 +89,11 @@ exports.noticeMore = (req, res) => {
         let notices = data[0];
         let count = data[1][0];
 
-        const list = board.noticeList(notices, pnum, true);
+        const list = board.noticeList(notices, pnum, false);
         const pages = Math.ceil(count / psize);
         const pageBar = board.pageBar(pnum, pages);
         res.status(200);
-        res.send(board.template(list, pageBar, true));
+        res.send(board.template(list, pageBar, false));
         console.log("[DB] 공지사항 리스트 조회 성공");
       })
       .catch((err) => {
