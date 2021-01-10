@@ -87,7 +87,7 @@ exports.noticeMore = (req, res) => {
     Promise.all([query1, query2])
       .then((data) => {
         let notices = data[0];
-        let count = data[1];
+        let count = data[1][0];
 
         const list = board.noticeList(notices, pnum, true);
         const pages = Math.ceil(count / psize);
