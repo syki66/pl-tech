@@ -88,10 +88,21 @@ function getFormatDate(date) {
 
 // 입력 폼 체크
 function checkForm() {
+  const regexSpace = /\s/;
+  const regexZH = /^([0-9]|[1-5][0-9])$/;
   let now = getFormatDate(new Date());
   if (!zeroHazard.value) {
     alert("무재해 배수를 입력해주세요.");
     return false;
+  } else {
+    if (regexSpace.test(zeroHazard.value)) {
+      alert("무재해 배수에 공백은 허용되지 않습니다.");
+      return false;
+    }
+    if (!regexZH.test(zeroHazard.value)) {
+      alert("무재해 배수는 0 - 99 사이의 숫자값입니다.");
+      return false;
+    }
   }
   if (!startDate.value) {
     alert("시작 날짜를 입력해주세요.");
@@ -105,7 +116,7 @@ function checkForm() {
     alert("목표 날짜를 입력해주세요.");
     return false;
   }
-  if (startDate.value < now) {
+  if (targetDate.value < now) {
     alert("목표 날짜는 현재 날짜보다 늦어야 합니다.");
     return false;
   }

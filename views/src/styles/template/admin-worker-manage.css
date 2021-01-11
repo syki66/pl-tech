@@ -20,7 +20,7 @@ p {
   position: absolute;
   padding: calc(var(--width) / 100 * 0.5) calc(var(--width) / 100 * 1);
   border-radius: calc(var(--width) / 100 * 0.5);
-  border: calc(var(--width) / 100 * 0.12) solid darkslategrey;
+  border: calc(var(--width) / 100 * 0.12) solid slategray;
 }
 .add__container {
   width: calc(var(--width) / 100 * 33);
@@ -115,7 +115,12 @@ option:first-of-type {
 .input__4 label {
   top: calc(var(--width) / 100 * 14);
   left: calc(var(--width) / 100 * 1.4);
-  border: calc(var(--width) / 100 * 0.12) solid darkslategrey;
+  border-color: #767676 #212121 #212121 #767676; /* 상하우좌 */
+  border-style: solid;
+  border-width: calc(var(--width) / 100 * 0.12);
+  opacity: 1;
+  font-weight: 600;
+  transition: 0.1s;
   text-align: center;
   line-height: calc(var(--width) / 100 * 2.5);
 }

@@ -41,8 +41,7 @@ exports.calcSafety = (zhVal, startDate, targetDate) => {
   let ymdNow = yyNow + "년 " + mmNow + "월 " + ddNow + "일";
 
   if (startDate === null || targetDate === null) {
-    this.safetyObj = ["-", ymdNow, "-", "-", "-", "-"];
-    this.updateObjects();
+    this.safetyObj = ["-", ymdNow, "-", "-", "설정 필요", "설정 필요"];
   } else {
     let yyStart = startDate.substring(0, 4);
     let yyTarget = targetDate.substring(0, 4);
@@ -51,29 +50,21 @@ exports.calcSafety = (zhVal, startDate, targetDate) => {
     let ddStart;
     let ddTarget;
 
-    if (startDate.substring(6, 7) === "0") {
-      mmStart = startDate.substring(7, 8);
-    } else {
-      mmStart = startDate.substring(6, 8);
-    }
+    startDate[6] === "0"
+      ? (mmStart = startDate.substring(7, 8))
+      : (mmStart = startDate.substring(6, 8));
 
-    if (targetDate.substring(6, 7) === "0") {
-      mmTarget = targetDate.substring(7, 8);
-    } else {
-      mmTarget = targetDate.substring(6, 8);
-    }
+    targetDate[6] === "0"
+      ? (mmTarget = targetDate.substring(7, 8))
+      : (mmTarget = targetDate.substring(6, 8));
 
-    if (startDate.substring(10, 11) === "0") {
-      ddStart = startDate.substring(11, 12);
-    } else {
-      ddStart = startDate.substring(10, 12);
-    }
+    startDate[10] === "0"
+      ? (ddStart = startDate.substring(11, 12))
+      : (ddStart = startDate.substring(10, 12));
 
-    if (targetDate.substring(10, 11) === "0") {
-      ddTarget = targetDate.substring(11, 12);
-    } else {
-      ddTarget = targetDate.substring(10, 12);
-    }
+    targetDate[10] === "0"
+      ? (ddTarget = targetDate.substring(11, 12))
+      : (ddTarget = targetDate.substring(10, 12));
 
     let start = new Date(yyStart, mmStart, ddStart);
     let target = new Date(yyTarget, mmTarget, ddTarget);
@@ -87,6 +78,7 @@ exports.calcSafety = (zhVal, startDate, targetDate) => {
 
     this.safetyObj = [snResult, ymdNow, zhVal, stResult, startDate, targetDate];
   }
+  this.updateObjects();
 };
 
 // 디폴트 값 설정
