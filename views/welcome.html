@@ -142,15 +142,15 @@
         paintPage();
     </script>
     <script>
-        const title = document.querySelector('.input__1');
-        const content = document.querySelector('.input__2');
+        const visitor = document.querySelector('.input__1');
+        const sentence = document.querySelector('.input__2');
 
         function checkform() {
-            if (title.value == "") {
+            if (!visitor.value) {
                 alert("방문자명을 입력해주세요.");
                 return false;
             }
-            if (content.value == "") {
+            if (!sentence.value) {
                 alert("환영문구를 입력해주세요.");
                 return false;
             }
