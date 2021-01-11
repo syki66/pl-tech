@@ -74,7 +74,7 @@ exports.createProcess = (req, res) => {
       cdate: util.currentDate(),
     })
       .then((data) => {
-        updateNoticeObj(1);
+        updateNoticeObj(2);
         res.status(201);
         res.send(template(createAlert.msg, createAlert.link));
         console.log("[DB] 공지사항 생성 성공");
@@ -248,6 +248,7 @@ exports.updateProcess = (req, res) => {
 exports.deleteProcess = (req, res) => {
   console.log("called deleteProcess");
   const pnum = req.body.pageNum;
+  console.log(pnum);
   const valErr = req.valErr;
 
   if (valErr) {
@@ -259,7 +260,6 @@ exports.deleteProcess = (req, res) => {
       where: { id: req.params.noticeNum },
     })
       .then((data) => {
-        //pnum 동적으로?
         updateNoticeObj(req.params.noticeNum);
         let DA = deleteAlert(pnum);
         res.status(200);
