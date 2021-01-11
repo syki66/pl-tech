@@ -227,6 +227,37 @@
             left: 52vw;
             color: #ffb700;
         }
+
+        .achieve-goal{
+            position: absolute;
+            bottom: 17.5vw;
+            left: 41vw;
+            font-size: 3vw;
+            font-weight: 900;
+            color:#CC9200;
+            text-shadow: 0.11vw 0.11vw 0.11vw black;
+
+            display: none;
+
+        }
+        .goal-shadow{
+            animation-duration: 1s;
+            animation-name: blinking;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+
+            display:none;
+        }
+
+        @keyframes blinking {
+            from {
+                text-shadow: #CCC31A 0 0 1vw;
+            }
+
+            to {
+                text-shadow: #CCC31A 0 0 2vw;
+            }
+        }
     </style>
 </head>
 
@@ -244,7 +275,7 @@
                 <div class="text">무재해</div>
             </div>
             <div class="value__2">
-                <div class="row__0">-</div>
+                <div class="row__0 current-cnt">-</div>
                 <div class="text">일</div>
             </div>
             <div class="value__3">
@@ -261,7 +292,7 @@
                 </div>
                 <div>
                     <div class="text">목표일</div>
-                    <div class="row__3">-</div>
+                    <div class="row__3 goal-cnt">-</div>
                     <div class="text">일</div>
                 </div>
             </div>
@@ -275,13 +306,35 @@
                     <div id="date__3" class="row__5">목표날짜</div>
                 </div>
             </div>
+            <div class="achieve-goal">
+                목표일를 달성하였습니다.
+            </div>
+            <div class="achieve-goal goal-shadow">
+                목표일를 달성하였습니다.
+            </div>
         </div>
     </div>
+
 
     <script>const pageNum = 8;</script>
     <script src="/views/src/scripts/paintPage.js"></script>
     <script src="/views/src/scripts/index.js"></script>
     <script src="/views/src/scripts/clock.js"></script>
+
+
+    <script>
+        const goal = document.querySelector('.achieve-goal');
+        const shadow = document.querySelector('.goal-shadow');
+
+        const currentCnt = document.querySelector('.current-cnt');
+        const goalCnt = document.querySelector('.goal-cnt');
+
+        if ( Number(currentCnt.innerText) >= Number(goalCnt.innerText) ){
+            goal.style.display="block";
+            shadow.style.display="block";
+        }
+        
+    </script>
 </body>
 
 </html>
