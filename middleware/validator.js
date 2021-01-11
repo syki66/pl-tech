@@ -28,7 +28,7 @@ exports.id = [
     .withMessage("ID에 공백은 허용되지 않습니다.")
     .bail()
     .isAlphanumeric() // 영문 || 숫자 || 영문 + 숫자인가?
-    .withMessage("ID는 영문 또는 숫자 값만 허용됩니다.")
+    .withMessage("ID는 영문 대소문자 또는 숫자 값만 허용됩니다.")
     .bail()
     .isLength({ min: 6 }) // String의 길이가 6 이상인가?
     .withMessage("ID는 최소 6자 이상입니다.")
@@ -165,7 +165,7 @@ exports.safety = [
     .withMessage("무재해 배수는 숫자 값만 허용됩니다.")
     .bail()
     .isLength({ max: 2 })
-    .withMessage("무재해 배수는 두 자릿수 이하로 작성해주세요. (0 ~ 99)")
+    .withMessage("무재해 배수는 0 - 99 사이의 숫자값입니다.")
     .trim()
     .escape(),
   check("startDate")
@@ -291,9 +291,7 @@ exports.inputLotation = [
     .withMessage("슬라이드 순환 시간 값에 공백은 허용되지 않습니다.")
     .bail()
     .custom((value) => regexHour.test(value))
-    .withMessage(
-      "슬라이드 순환 시간 시는 24 이하의 숫자 값만 허용됩니다. (0 ~ 24)"
-    )
+    .withMessage("슬라이드 순환 시간 시는 0 - 24 사이의 숫자값입니다.")
     .trim()
     .escape(),
   check(["sMinute", "sSecond"])
@@ -305,9 +303,7 @@ exports.inputLotation = [
     .withMessage("슬라이드 순환 시간 값에 공백은 허용되지 않습니다.")
     .bail()
     .custom((value) => regexMinuteSecond.test(value))
-    .withMessage(
-      "슬라이드 순환 시간 분, 초는 59 이하의 숫자 값만 허용됩니다. (0 ~ 59)"
-    )
+    .withMessage("슬라이드 순환 시간 분, 초는 0 - 59 사이의 숫자값입니다.")
     .trim()
     .escape(),
 ];
@@ -322,9 +318,7 @@ exports.inputNews = [
     .withMessage("뉴스탭 순환 시간 값에 공백은 허용되지 않습니다.")
     .bail()
     .custom((value) => regexHour.test(value))
-    .withMessage(
-      "뉴스탭 순환 시간 시는 24 이하의 숫자 값만 허용됩니다. (0 ~ 24)"
-    )
+    .withMessage("뉴스탭 순환 시간 시는 0 - 59 사이의 숫자값입니다.")
     .trim()
     .escape(),
   check(["nMinute", "nSecond"])
@@ -336,9 +330,7 @@ exports.inputNews = [
     .withMessage("뉴스탭 순환 시간 값에 공백은 허용되지 않습니다.")
     .bail()
     .custom((value) => regexMinuteSecond.test(value))
-    .withMessage(
-      "뉴스탭 순환 시간 분, 초는 59 이하의 숫자 값만 허용됩니다. (0 ~ 59)"
-    )
+    .withMessage("뉴스탭 순환 시간 분, 초는 0 - 59 사이의 숫자값입니다.")
     .trim()
     .escape(),
 ];
