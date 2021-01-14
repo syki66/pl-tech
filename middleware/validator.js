@@ -273,10 +273,10 @@ exports.checkResult = [
     .withMessage("슬라이드 순서를 체크박스로 지정해주세요.")
     .bail()
     .custom((value) => !regexSpace.test(value))
-    .withMessage("전체 슬라이드 순서 값에 공백은 허용되지 않습니다.")
+    .withMessage("슬라이드 순서 값에 공백은 허용되지 않습니다.")
     .bail()
     .custom((value) => regexCheckResult.test(value))
-    .withMessage("전체 슬라이드 순서 값은 숫자와 콤마 값만 허용됩니다.")
+    .withMessage("슬라이드 순서 값은 숫자와 콤마 값만 허용됩니다.")
     .trim()
     .escape(),
 ];
