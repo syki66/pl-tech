@@ -90,6 +90,7 @@ function getFormatDate(date) {
 function checkForm() {
   const regexSpace = /\s/;
   const regexZH = /^([0-9]|[1-5][0-9])$/;
+  const regexDate = /^(19|20)\d{2}년\s(0[1-9]|1[012])월\s(0[1-9]|[12][0-9]|3[0-1])일$/;
   let now = getFormatDate(new Date());
   if (!zeroHazard.value) {
     alert("무재해 배수를 입력해주세요.");
@@ -107,18 +108,26 @@ function checkForm() {
   if (!startDate.value) {
     alert("시작 날짜를 입력해주세요.");
     return false;
-  }
-  if (startDate.value > now) {
-    alert("시작 날짜는 현재 날짜보다 빨라야 합니다.");
-    return false;
+  } else {
+    if (!regexDate.test(startDate.value)) {
+      alert("시작 날짜 값 형식(YYYY년 MM월 DD일)이 올바르지 않습니다.");
+      return false;
+    } else if (startDate.value > now) {
+      alert("시작 날짜는 현재 날짜보다 빨라야 합니다.");
+      return false;
+    }
   }
   if (!targetDate.value) {
     alert("목표 날짜를 입력해주세요.");
     return false;
-  }
-  if (targetDate.value < now) {
-    alert("목표 날짜는 현재 날짜보다 늦어야 합니다.");
-    return false;
+  } else {
+    if (!regexDate.test(targetDate.value)) {
+      alert("목표 날짜 값 형식(YYYY년 MM월 DD일)이 올바르지 않습니다.");
+      return false;
+    } else if (targetDate.value < now) {
+      alert("목표 날짜는 현재 날짜보다 늦어야 합니다.");
+      return false;
+    }
   }
 }
 
