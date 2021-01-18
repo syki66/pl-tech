@@ -2,6 +2,9 @@ const id = document.querySelector(".input__1");
 const password = document.querySelector(".input__2");
 const conf = document.querySelector(".input__3");
 const submit = document.querySelector(".input__4");
+const check__id = document.querySelector("#check__id");
+const check__password = document.querySelector("#check__password");
+const check__confirm = document.querySelector("#check__confirm");
 
 // 입력 폼 체크
 // 길이는 체크하지 않는다
@@ -56,4 +59,96 @@ function checkForm() {
 
 submit.onclick = function () {
   return checkForm();
+};
+
+let httpRequest = new XMLHttpRequest();
+
+function idRequest() {
+  if (!httpRequest) {
+    alert("XMLHTTP 인스턴스를 만들 수가 없습니다.");
+    return false;
+  }
+  httpRequest.onreadystatechange = fillIDContents;
+  httpRequest.open("POST", "checkid");
+  httpRequest.setRequestHeader("Content-Type", "application/json"); // 컨텐츠타입을 json으로
+  httpRequest.send(JSON.stringify({ id: id.value }));
+}
+
+function fillIDContents() {
+  if (httpRequest.readyState === XMLHttpRequest.DONE) {
+    if (httpRequest.status === 200) {
+      let res = JSON.parse(httpRequest.responseText);
+      res.data
+        ? (check__id.innerText = res.data)
+        : (check__id.innerText = res.comment);
+    }
+  }
+}
+
+function passwordRequest() {
+  if (!httpRequest) {
+    alert("XMLHTTP 인스턴스를 만들 수가 없습니다.");
+    return false;
+  }
+  httpRequest.onreadystatechange = fillPasswordContents;
+  httpRequest.open("POST", "checkpassword");
+  httpRequest.setRequestHeader("Content-Type", "application/json"); // 컨텐츠타입을 json으로
+  httpRequest.send(JSON.stringify({ password: password.value }));
+}
+
+function fillPasswordContents() {
+  if (httpRequest.readyState === XMLHttpRequest.DONE) {
+    if (httpRequest.status === 200) {
+      let res = JSON.parse(httpRequest.responseText);
+      res.data
+        ? (check__password.innerText = res.data)
+        : (check__password.innerText = res.comment);
+    }
+  }
+}
+
+function confirmRequest() {
+  if (!httpRequest) {
+    alert("XMLHTTP 인스턴스를 만들 수가 없습니다.");
+    return false;
+  }
+  httpRequest.onreadystatechange = fillConfirmContents;
+  httpRequest.open("POST", "checkconfirm");
+  httpRequest.setRequestHeader("Content-Type", "application/json"); // 컨텐츠타입을 json으로
+  httpRequest.send(JSON.stringify({ confirm: conf.value }));
+}
+
+function fillConfirmContents() {
+  if (httpRequest.readyState === XMLHttpRequest.DONE) {
+    if (httpRequest.status === 200) {
+      let res = JSON.parse(httpRequest.responseText);
+      res.data
+        ? (check__confirm.innerText = res.data)
+        : (check__confirm.innerText = res.comment);
+    }
+  }
+}
+
+id.onfocus = function () {
+  return idRequest();
+};
+
+id.onkeyup = function () {
+  return idRequest();
+};
+
+password.onfocus = function () {
+  return passwordRequest();
+};
+
+password.onkeyup = function () {
+  return passwordRequest();
+};
+
+conf.onfocus = function () {
+  return confirmRequest();
+};
+
+conf.onkeyup = function () {
+  return confirmRequest();
 };

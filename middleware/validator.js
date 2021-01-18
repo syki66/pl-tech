@@ -39,6 +39,27 @@ exports.id = [
     .escape(), //  <,>, &, ', "및 /를 해당 HTML 엔티티로 대체한다.
 ];
 
+exports.checkid = [
+  check("id")
+    .not()
+    .isEmpty()
+    .withMessage("비밀번호를 입력해주세요.")
+    .bail()
+    .custom((value) => !regexSpace.test(value))
+    .withMessage("비밀번호에 공백은 허용되지 않습니다.")
+    .bail()
+    .isAlphanumeric()
+    .withMessage("비밀번호는 영문 또는 숫자 값만 허용됩니다.")
+    .bail()
+    .isLength({ min: 6 })
+    .withMessage("비밀번호는 최소 6자 이상입니다.")
+    .bail()
+    .isLength({ max: 20 })
+    .withMessage("비밀번호는 최대 20자 까지입니다.")
+    .trim()
+    .escape(),
+];
+
 exports.password = [
   check("password")
     .not()

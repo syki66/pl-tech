@@ -143,3 +143,57 @@ exports.registerProcess = (req, res) => {
     }
   }
 };
+
+exports.checkID = (req, res) => {
+  const valErr = req.valErr;
+  console.log("called checkID");
+  if (valErr) {
+    util.printValErr(valErr);
+    res.status(200);
+    res.json(util.successFalse(null, valErr[0].msg));
+  } else {
+    const id = req.body.id;
+    models.Admin.findOne({
+      attributes: ["admin_id"],
+      where: { admin_id: id },
+      raw: true,
+    })
+      .then((data) => {
+        if (!data) {
+          res.json(util.successTrue("사용 가능한 ID입니다."));
+        } else {
+          res.json(util.successFalse(null, "이미 존재하는 ID입니다."));
+        }
+      })
+      .catch((err) => {
+        res.status(500);
+        res.send(template(registerErrAlert.msg, registerErrAlert.link));
+        console.log(err);
+        console.log("[DB] 관리자 등록에 실패했습니다");
+      });
+  }
+};
+
+exports.checkPassword = (req, res) => {
+  const valErr = req.valErr;
+  console.log("called checkPassword");
+  if (valErr) {
+    util.printValErr(valErr);
+    res.status(200);
+    res.json(util.successFalse(null, valErr[0].msg));
+  } else {
+    res.json(util.successTrue(" "));
+  }
+};
+
+exports.checkConfirm = (req, res) => {
+  const valErr = req.valErr;
+  console.log("called checkConfirm");
+  if (valErr) {
+    util.printValErr(valErr);
+    res.status(200);
+    res.json(util.successFalse(null, valErr[0].msg));
+  } else {
+    res.json(util.successTrue(" "));
+  }
+};
