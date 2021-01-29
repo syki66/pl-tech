@@ -246,7 +246,6 @@ exports.updateProcess = (req, res) => {
 exports.deleteProcess = (req, res) => {
     console.log("called deleteProcess");
     const pnum = req.body.pageNum;
-    console.log(pnum);
     const valErr = req.valErr;
 
     if (valErr) {
@@ -291,7 +290,7 @@ exports.inputWelcome = (req, res) => {
     } else {
         let { visitor, sentence } = req.body;
         visitor += "님";
-        objects.welcomeObj = [visitor, sentence];
+        objects.welcomeObj = [[visitor], [sentence]];
         objects.updateObjects();
         res.status(200);
         res.send(template(welcomeAlert.msg, welcomeAlert.link));
