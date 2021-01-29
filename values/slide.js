@@ -19,6 +19,9 @@ exports.valuesToJson = (
 
         let pageValues = [];
 
+        let objPrefix = ["welcome", "notice", "safety", "worker"];
+        let objItemName = ["환영 문구", "게시판 주요 업무", "무재해 기록판", "근무자 현황"];
+
         for (let i = 1; i <= 5; ++i) {
             const item = new Object();
             const parsedObj = eval("parsedObj" + i);
@@ -32,44 +35,14 @@ exports.valuesToJson = (
             pageValues.push(item);
         }
 
-        let item_6 = new Object();
-
-        item_6.itemname = ["환영 문구"];
-        item_6.row0 = [welcomeObj[0]];
-        item_6.row1 = [welcomeObj[1]];
-
-        pageValues.push(item_6);
-
-        if (noticeObj !== null) {
-            let item_7 = new Object();
-            item_7.itemname = ["게시판 주요 업무"];
-            item_7.row0 = noticeObj[0];
-            item_7.row1 = noticeObj[1];
-            item_7.row2 = noticeObj[2];
-            item_7.row3 = noticeObj[3];
-            item_7.row4 = noticeObj[4];
-            pageValues.push(item_7);
-        }
-
-        let item_8 = new Object();
-        item_8.itemname = ["무재해 기록판"];
-        item_8.row0 = [safetyObj[0]];
-        item_8.row1 = [safetyObj[1]];
-        item_8.row2 = [safetyObj[2]];
-        item_8.row3 = [safetyObj[3]];
-        item_8.row4 = [safetyObj[4]];
-        item_8.row5 = [safetyObj[5]];
-
-        pageValues.push(item_8);
-
-        if (workerObj !== null) {
-            let item_9 = new Object();
-            item_9.itemname = ["근무자 현황"];
-            item_9.row0 = workerObj[0];
-            item_9.row1 = workerObj[1];
-            item_9.row2 = workerObj[2];
-            item_9.row3 = workerObj[3];
-            pageValues.push(item_9);
+        for (let i = 0; i < 4; ++i) {
+            const item = new Object();
+            const obj = eval(objPrefix[i] + "Obj");
+            item.itemname = [objItemName[i]];
+            for (let j = 0; j < obj.length; ++j) {
+                eval("item.row" + j + "= obj[" + j + "]");
+            }
+            pageValues.push(item);
         }
 
         values.push(pageValues);

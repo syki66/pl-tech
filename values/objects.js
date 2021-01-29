@@ -7,7 +7,7 @@ exports.parsedObj3 = [];
 exports.parsedObj4 = [];
 exports.parsedObj5 = [];
 exports.noticeObj = [null, null, null, null, null];
-exports.welcomeObj = [null, null];
+exports.welcomeObj = [];
 exports.safetyObj = [null, null, null, null, null, null];
 exports.workerObj = [null, null, null, null];
 exports.slideObj = [null];
@@ -49,7 +49,7 @@ exports.calcSafety = (zhVal, startDate, targetDate) => {
     let ymdNow = yyNow + "년 " + mmNow + "월 " + ddNow + "일";
 
     if (startDate === null || targetDate === null) {
-        this.safetyObj = ["-", ymdNow, "-", "-", "설정 필요", "설정 필요"];
+        this.safetyObj = [["-"], [ymdNow], ["-"], ["-"], ["설정 필요"], ["설정 필요"]];
     } else {
         let yyStart = startDate.substring(0, 4);
         let yyTarget = targetDate.substring(0, 4);
@@ -76,7 +76,7 @@ exports.calcSafety = (zhVal, startDate, targetDate) => {
         let snGap = start.getTime() - present.getTime();
         let snResult = Math.floor(snGap / (1000 * 60 * 60 * 24)) * -1;
 
-        this.safetyObj = [snResult, ymdNow, zhVal, stResult, startDate, targetDate];
+        this.safetyObj = [[snResult], [ymdNow], [zhVal], [stResult], [startDate], [targetDate]];
     }
     this.updateObjects();
 };
@@ -84,7 +84,7 @@ exports.calcSafety = (zhVal, startDate, targetDate) => {
 // 디폴트 값 설정
 
 setTimeout(() => {
-    this.welcomeObj = ["관리자님", "환영문구를\n설정해주세요."];
+    this.welcomeObj = [["관리자님"], ["환영문구를\n설정해주세요."]];
     this.calcSafety(this.safetyObj[2], this.safetyObj[4], this.safetyObj[5]);
 }, 3000);
 
