@@ -6,9 +6,9 @@
 
 3. keys폴더에 keys압축 풀기
 
-4. node.js 설치
+4. node.js 13.10.1 설치
 
-5. python 설치 (설치할때 환경변수 등록 체크)
+5. python 3.10.0 설치 (설치할때 환경변수 등록 체크)
 
 6. visual studio 설치 (C++를 사용한 데스크톱 개발)
 
