@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>carousel 7</title>
+    <link rel="stylesheet" type="text/css" href="../styles/page.css" />
+    <style>
+        body {
+            margin: 0vw;
+            background-image: url('../images/7.png');
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+
+        .post__container {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+
+        .post__1,
+        .post__2,
+        .post__3,
+        .post__4,
+        .post__5 {
+            position: absolute;
+            width: 53.2vw;
+            height: 6.8vw;
+            left: 42vw;
+        }
+
+        .post__1 {
+            top: 9.7vw;
+        }
+
+        .post__2 {
+            top: 17.45vw;
+        }
+
+        .post__3 {
+            top: 25.2vw;
+        }
+
+        .post__4 {
+            top: 32.95vw;
+        }
+
+        .post__5 {
+            top: 40.7vw;
+        }
+
+        #post1_date,
+        #post2_date,
+        #post3_date,
+        #post4_date,
+        #post5_date {
+            left: 1.6vw;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2.8vw;
+            font-weight: 600;
+            color: #006b60;
+        }
+
+        #post1_day,
+        #post2_day,
+        #post3_day,
+        #post4_day,
+        #post5_day {
+            left: 10vw;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 4vw;
+            font-weight: 700;
+            color: #013445;
+        }
+
+        #post1_title,
+        #post2_title,
+        #post3_title,
+        #post4_title,
+        #post5_title {
+            position: absolute;
+            width: 34.8vw;
+            height: 6vw;
+            top: 0.3vw;
+            left: 17.4vw;
+            /* border: 1px solid blue; */
+        }
+
+        #post1_title>a,
+        #post2_title>a,
+        #post3_title>a,
+        #post4_title>a,
+        #post5_title>a {
+            width: 100%;
+            text-align: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            text-decoration: none;
+            font-size: 2vw;
+            font-weight: bold;
+            color: white;
+
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        #post1_title>a:hover,
+        #post2_title>a:hover,
+        #post3_title>a:hover,
+        #post4_title>a:hover,
+        #post5_title>a:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .link__1 {
+            position: absolute;
+            font-size: 1.6vw;
+
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+
+            top: 49vw;
+            left: 83vw;
+        }
+
+        .link__1:hover {
+            text-decoration: underline;
+        }
+
+        .row__0,
+        .row__1,
+        .row__2,
+        .row__3,
+        .row__4 {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clock__container"></div>
+
+    <div class="title__container">
+        <span class="title">주요업무 사항</span>
+    </div>
+
+    <div class="post__container">
+        <div class="post__1">
+            <div id="post1_date" class="row__0"></div>
+            <div id="post1_day" class="row__0"></div>
+            <div id="post1_title">
+                <a onclick="alert('서버에 연결되어 있지 않습니다.')" class="row__0"><span>등록된 공지사항이 없습니다.</span></a>
+            </div>
+        </div>
+        <div class="post__2">
+            <div id="post2_date" class="row__1"></div>
+            <div id="post2_day" class="row__1"></div>
+            <div id="post2_title">
+                <a onclick="alert('서버에 연결되어 있지 않습니다.')" class="row__1"><span></span></a>
+            </div>
+        </div>
+        <div class="post__3">
+            <div id="post3_date" class="row__2"></div>
+            <div id="post3_day" class="row__2"></div>
+            <div id="post3_title">
+                <a onclick="alert('서버에 연결되어 있지 않습니다.')" class="row__2"><span></span></a>
+            </div>
+        </div>
+        <div class="post__4">
+            <div id="post4_date" class="row__3"></div>
+            <div id="post4_day" class="row__3"></div>
+            <div id="post4_title">
+                <a onclick="alert('서버에 연결되어 있지 않습니다.')" class="row__3"><span></span></a>
+            </div>
+        </div>
+        <div class="post__5">
+            <div id="post5_date" class="row__4"></div>
+            <div id="post5_day" class="row__4"></div>
+            <div id="post5_title">
+                <a onclick="alert('서버에 연결되어 있지 않습니다.')" class="row__4"><span></span></a>
+            </div>
+        </div>
+        <a class="link__1" href="" onclick="alert('서버에 연결되어 있지 않습니다.')">공지사항 더보기</a>
+    </div>
+
+    <script>const pageNum = 7;</script>
+
+    <script src="../scripts/paintPage.js"></script>
+    <script src="../scripts/index.js"></script>
+    <script src="../scripts/clock.js"></script>
+</body>
+
+</html>

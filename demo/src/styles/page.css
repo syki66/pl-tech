@@ -1,0 +1,33 @@
+:root{
+    --width : 1920px;
+
+    --titleFontSize: calc(var(--width) / 100 * 3.3);
+    --titleTop: calc(var(--width) / 100 * 0.7);
+    --titleLeft: calc(var(--width) / 100 * 5.4);
+    --titleTextShadow: calc(var(--width) / 100 * 0.15);
+
+    --clockFontSize: calc(var(--width) / 100 * 2.4);
+    --clockRight: calc(var(--width) / 100 * 3.7);
+    --clockTop: calc(var(--width) / 100 * 1.1);
+    --clockTextShadow: calc(var(--width) / 100 * 0.1);
+}
+
+.title__container{
+    position: absolute;
+    font-weight: 900;
+    color: white;
+    font-size: var(--titleFontSize);
+    top: var(--titleTop);
+    left: var(--titleLeft);
+    font-family:'sans-serif';
+    text-shadow: var(--titleTextShadow) var(--titleTextShadow) var(--titleTextShadow) black;
+}
+.clock__container{
+    position: absolute;
+    right: var(--clockRight);
+    top: var(--clockTop);
+    font-size: var(--clockFontSize);
+    color: snow;
+    text-shadow: var(--clockTextShadow) var(--clockTextShadow) var(--clockTextShadow) black;
+    font-weight: 900;
+}

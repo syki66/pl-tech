@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 설정 페이지</title>
+    <link rel="stylesheet" type="text/css" href="./src/styles/page.css" />
+    <link rel="stylesheet" href="./src/styles/adminPages.css">
+    <script src="./src/scripts/fetchJson.js"></script>
+
+    <style>
+        :root {
+            --width: 1920px;
+        }
+
+        .container {
+            background-image: url('./src/images/background_nonews.png');
+        }
+
+        .inner__container {
+            position: relative;
+            left: calc(var(--width) / 100 * 21.1);
+        }
+
+        h2 {
+            position: absolute;
+            top: calc(var(--width) / 100 * 8.7);
+            font-size: calc(var(--width) / 100 * 2.3);
+            font-weight: 600;
+        }
+        .logout-btn {
+            position: absolute;
+            top: calc(var(--width) / 100 * 43);
+            left: calc(var(--width) / 100 * 51.5);
+            width: calc(var(--width) / 100 * 6.3);
+            height: calc(var(--width) / 100 * 3.2);
+            border-radius: calc(var(--width) / 100 * 0.7);
+            ;
+            font-size: calc(var(--width) / 100 * 1.26);
+            background-color: #DA0202;
+            opacity: 1;
+            font-weight: 600;
+            transition: 0.1s;
+            cursor: pointer;
+        }
+        .logout-btn:hover {
+            background-color: #B40202;
+        }
+        .link__container{
+            position: absolute;
+            top: calc(var(--width) / 100 * 15.5);
+            font-size: calc(var(--width) / 100 * 1.8);
+            margin: 0vw;
+        }
+        .link__container > li {
+            margin-bottom: calc(var(--width) / 100 * 1);
+        }
+        .links{
+            color: black;
+            text-decoration: none;
+            font-weight: 600;
+            opacity: 0.8;
+            transition: 0.1s;
+        }
+        .links:hover{
+            opacity: 1;
+            text-decoration: underline;
+        }
+        .return-btn {
+            position: absolute;
+            font-size: calc(var(--width) / 100 * 1.4);
+
+            color: black;
+            font-weight: 600;
+            opacity: 0.8;
+            transition: 0.1s;
+            text-decoration: none;
+
+            top: calc(var(--width) / 100 * 43.7);
+        }
+        .return-btn:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="clock__container"></div>
+
+        <div class="title__container">
+            <span class="title"></span>
+        </div>
+
+        <div class="inner__container">
+            <h2>관리자 설정 페이지</h2>
+
+            <ul class="link__container">
+                <li><a class="links" href="admin/notice">공지 작성</a></li>
+                <li><a class="links" href="admin/notice/manage/1">공지 관리</a></li>
+                <li><a class="links" href="admin/welcome">환영문구 작성</a></li>
+                <li><a class="links" href="admin/safety">무재해 기록판 설정</a></li>
+                <li><a class="links" href="admin/worker">근무자 현황 관리</a></li>
+                <li><a class="links" href="admin/slide">슬라이드 관리</a></li>
+            </ul>
+            <form method="post" action="auth/loutprocess">
+                <input type="hidden" name="_method" value="delete" />
+                <button class="logout-btn" type="submit">로그아웃</button>
+            </form>
+            <a class="return-btn" href="/home">돌아가기</a>
+        </div>
+    </div>
+
+    <script src="./src/scripts/clock.js"></script>
+    <script src="./src/scripts/index.js"></script>
+</body>
+
+</html>

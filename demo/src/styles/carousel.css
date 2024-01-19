@@ -1,0 +1,124 @@
+:root {
+    --width : 1920px;
+    --height : 1080px;
+    --sideBtnWidth : calc(var(--width) / 100 * 5);
+    --indicatorWidth: calc(var(--width) / 100 * 2.8);
+    --indicatorHeight: calc(var(--width) / 100 * 1.3);
+    --indicatorMargin: calc(var(--width) / 100 * 0.2);
+    --navBottomPosition: calc(var(--width) / 100 * 5);
+}
+body {
+    overflow:hidden;
+    margin: 0;
+    background-color: black;
+}
+.carousel{
+    position: relative;
+    width: var(--width);
+    height: var(--height);
+    margin: 0 auto;
+    overflow: hidden;
+}
+.carousel__container{
+    position: relative;
+    margin: 0 auto;
+    height : var(--height);
+    width : var(--width);
+    transition: transform 0.4s ease-in-out;
+}
+.carousel__item{
+    height : var(--height);
+    width : var(--width);
+    text-align: center;
+    font-size: xx-large;
+    position: absolute;
+    z-index: 0;
+}
+.carousel__button-prev, .carousel__button-next{
+    position: absolute;
+    z-index: 1;
+    height: var(--height);
+    width: var(--sideBtnWidth);
+    bottom: calc(var(--height) / 2 - var(--height) / 2);
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    cursor: pointer;
+    text-align: center;
+
+    display: flex;
+}
+.carousel__button-prev{
+    background: linear-gradient( to left, transparent, rgba(0, 0, 0, 0.3) );
+}
+.carousel__button-next{
+    left: calc(var(--width) - var(--sideBtnWidth));
+    background: linear-gradient( to right, transparent, rgba(0, 0, 0, 0.3) );
+}
+.carousel__button-prev:hover{
+    opacity: 1;
+}
+.carousel__button-next:hover{
+    opacity: 1;
+}
+.arrow__left, .arrow__right{
+    width: 100%;
+    filter: invert(84%) sepia(27%) saturate(268%) hue-rotate(313deg) brightness(115%) contrast(103%);
+}
+
+.carousel__nav{
+    position: absolute;
+    display: flex;
+    left: calc((var(--width)) / 2);
+    bottom: var(--navBottomPosition);
+}
+
+.carousel__indicator{
+    flex: 1;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: var(--indicatorWidth);
+    height: var(--indicatorHeight);
+    border-radius: var(--indicatorHeight);
+    margin: var(--indicatorMargin);
+    cursor: pointer;
+}
+
+.current__carousel{
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.carousel__pause, .carousel__refresh{
+    position: absolute;
+    width: var(--indicatorHeight);
+    height: var(--indicatorHeight);
+    margin: var(--indicatorMargin);
+    color: white;
+    bottom: var(--navBottomPosition);
+    
+    cursor: pointer;
+
+    opacity: 0.6;
+
+    transition: opacity 0.05s ease-in-out;
+}
+.carousel__pause{
+    left: calc( (var(--width) / 2) - var(--indicatorHeight) - (var(--indicatorMargin) * 2) );
+}
+.carousel__refresh{
+    left: calc( (var(--width) / 2) + var(--indicatorMargin) );
+}
+.carousel__pause:hover, .carousel__refresh:hover{
+    opacity: 1;
+}
+.carousel__pause:active, .carousel__refresh:active{
+    opacity: 0.1;
+}
+
+.play-pause__img{
+    width: 100%;
+    height: 100%;
+}
+
+.refresh__img{
+    width: 100%;
+    height: 100%;
+}

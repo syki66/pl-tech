@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 설정 페이지</title>
+    <link rel="stylesheet" type="text/css" href="./src/styles/page.css" />
+    <link rel="stylesheet" href="./src/styles/adminPages.css">
+    <script src="./src/scripts/fetchJson.js"></script>
+
+    <style>
+        * {
+            transition: all 0.6s;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            background-image: url('./src/images/background_nonews.png');
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+        }
+
+        .fof {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: calc(var(--width) / 100 * 24);
+            font-size: calc(var(--width) / 100 * 5);
+            display: inline-block;
+            padding-right: calc(var(--width) / 100 * 0.18);
+            color: black;
+            font-weight: 600;
+            opacity: 0.8;
+            transition: 0.1s;
+            animation: type .5s alternate infinite;
+        }
+
+        @keyframes type {
+            from {
+                box-shadow: inset calc(var(--width) / 100 * -0.18) 0 0 #888;
+            }
+
+            to {
+                box-shadow: inset calc(var(--width) / 100 * -0.18) 0 0 transparent;
+            }
+        }
+
+        .return-btn {
+            position: absolute;
+            font-size: calc(var(--width) / 100 * 1.4);
+
+            color: black;
+            font-weight: 600;
+            opacity: 0.8;
+            transition: 0.1s;
+            text-decoration: none;
+
+            top: calc(var(--width) / 100 * 43.7);
+            left: calc(var(--width) / 100 * 21.1);
+            font-size: calc(var(--width) / 100 * 1.4);
+        }
+        
+        .return-btn:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clock__container"></div>
+
+    <div id="main">
+        <div class="fof">404 not found</div>
+    </div>
+
+    <a class="return-btn" href="/home">돌아가기</a>
+
+    <script src="./src/scripts/clock.js"></script>
+</body>
+
+</html>

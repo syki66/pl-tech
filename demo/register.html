@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 등록</title>
+    <link rel="stylesheet" type="text/css" href="./src/styles/page.css" />
+    <link rel="stylesheet" href="./src/styles/adminPages.css">
+    <script src="./src/scripts/fetchJson.js"></script>
+
+    <style>
+        p {
+            margin: 0vw;
+        }
+
+        :root {
+            --width: 1920px;
+        }
+
+        .container {
+            background-image: url('./src/images/background_nonews.png');
+        }
+
+        .inner__container {
+            position: relative;
+            left: calc(var(--width) / 100 * 21.1);
+        }
+
+        h2 {
+            position: absolute;
+            top: calc(var(--width) / 100 * 8.7);
+            font-size: calc(var(--width) / 100 * 2.3);
+            font-weight: 600;
+        }
+
+        .input__1,
+        .input__2,
+        .input__3 {
+            position: absolute;
+            background-color: #222222;
+
+            width: calc(var(--width) / 100 * 22.1);
+            height: calc(var(--width) / 100 * 3.5);
+            border-radius: calc(var(--width) / 100 * 0.7);
+
+            color: white;
+
+            font-size: calc(var(--width) / 100 * 1.8);
+            font-weight: 600;
+
+            padding: 0vw calc(var(--width) / 100 * 1);
+        }
+
+        .input__1 {
+            top: calc(var(--width) / 100 * 19.8);
+            left: calc(var(--width) / 100 * 16.8);
+        }
+
+        .input__2 {
+            top: calc(var(--width) / 100 * 26.1);
+            left: calc(var(--width) / 100 * 16.8);
+        }
+
+        .input__3 {
+            top: calc(var(--width) / 100 * 32.4);
+            left: calc(var(--width) / 100 * 16.8);
+        }
+
+        .input__4 {
+            position: absolute;
+            top: calc(var(--width) / 100 * 38.7);
+            left: calc(var(--width) / 100 * 34.5);
+            width: calc(var(--width) / 100 * 6.3);
+            height: calc(var(--width) / 100 * 3.2);
+            border-radius: calc(var(--width) / 100 * 0.7);
+            ;
+            font-size: calc(var(--width) / 100 * 1.4);
+            background-color: #D8D8D8;
+            opacity: 1;
+            font-weight: 600;
+            transition: 0.1s;
+            cursor: pointer;
+        }
+
+        .input__4:hover {
+            background-color: #A4A4A4;
+        }
+
+        .link__1,
+        .link__2 {
+            position: absolute;
+            font-size: calc(var(--width) / 100 * 1.4);
+
+            color: black;
+            font-weight: 600;
+            opacity: 0.8;
+            transition: 0.1s;
+        }
+
+        .link__2 {
+            top: calc(var(--width) / 100 * 44.2);
+            text-decoration: none;
+        }
+
+        .link__1:hover,
+        .link__2:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+        #check__id, #check__password, #check__confirm{
+            position: absolute;
+            left: calc(var(--width) / 100 * 17.5);
+            font-size: calc(var(--width) / 100 * 1);
+            font-weight: 700;
+            color: black;
+            /* border: 1px solid blue; */
+        }
+        #check__id {
+            top: calc(var(--width) / 100 * 24);
+        }
+        #check__password{
+            top: calc(var(--width) / 100 * 30.4);
+        }
+        #check__confirm{
+            top: calc(var(--width) / 100 * 36.8);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="clock__container"></div>
+
+        <div class="title__container">
+            <span class="title"></span>
+        </div>
+
+        <div class="inner__container">
+            <h2>관리자 등록</h2>
+            <form action="/auth/regprocess" method="post">
+                <p><input class="input__1" type="text" name="id" placeholder="아이디" spellcheck="false"></p>
+                <p><div id="check__id"></div></p>
+                <p><input class="input__2" type="password" name="password" placeholder="비밀번호" spellcheck="false"></p>
+                <p><div id="check__password"></div></p>
+                <p><input class="input__3" type="password" name="confirm" placeholder="비밀번호 확인" spellcheck="false"></p>
+                <p><div id="check__confirm"></div></p>
+                <p><input class="input__4" type="submit" value="등록"></p>
+            </form>
+            <a class="link__2" href="/auth/login">돌아가기</a>
+        </div>
+    </div>
+
+    <script src="./src/scripts/clock.js"></script>
+    <script src="./src/scripts/index.js"></script>
+    <script src="./src/scripts/register.js"></script>
+</body>
+
+</html>

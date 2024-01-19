@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전일 열공급 및 판매실적</title>
+    <link rel="stylesheet" type="text/css" href="../styles/page.css" />
+    <style>
+        body{
+            margin: 0vw;
+            background-image: url('../images/2.png');
+            background-size: 100%;
+            background-repeat:no-repeat;
+        }
+        .table__container{
+            position: relative;
+        }
+        table, th, td{
+            border: 0.105vw solid transparent;
+        }
+        .table__1{
+            left: 3.6vw;
+            top: 11.4vw;
+        }
+        .table__2{
+            /* left: 57.2vw; */
+            right: 6.3vw;
+            top: 11.4vw;
+        }
+        table{
+            position: absolute;
+
+            font-size: 3.5vw;
+            text-shadow: 0.11vw 0.11vw 0.11vw black;
+            font-weight: 900;
+
+            /* 오버플로우 방지 */
+            table-layout: fixed;
+            width: 0vw;
+            word-break: keep-all;
+        }
+        .indent{
+            margin-right: 1.5vw;
+        }
+        th{            
+            height: 6.1vw;
+        }
+        td{
+            height: 4.75vw;
+        }
+        .first__col, .second__col{
+            width: 18vw;
+            font-size: 4vw;
+        }
+        tr > td:nth-child(1), th:nth-child(1){
+            text-align: center;
+            color: white;
+        }
+        tr > td:nth-child(2), th:nth-child(2){
+            text-align: right;
+            color: #FCFC00;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="clock__container"></div>
+
+    <div class="title__container">
+        <span class="title">전일 열공급 및 판매실적</span>
+    </div>
+
+    <div class="table__container">    
+        <table class="table__1">
+            <th class="row__0 first__col">열생산량</th>
+            <th class="second__col"><span class="row__0 indent">-</span></th>
+            <tr>
+                <td class="row__1">CHP</td>
+                <td><span class="row__1 indent">-</span></td>
+            </tr>
+            <tr>
+                <td class="row__2">연돌</td>
+                <td><span class="row__2 indent">-</span></td>
+            </tr>
+            <tr>
+                <td class="row__3">자원회수</td>
+                <td><span class="row__3 indent">-</span></td>
+            </tr>
+            <tr>
+                <td class="row__4">PLb</td>
+                <td><span class="row__4 indent">-</span></td>
+            </tr>
+            <tr>
+                <td class="row__5">태양열</td>
+                <td><span class="row__5 indent">-</span></td>
+            </tr>
+        </table>
+
+        <table class="table__2">
+            <th class="row__6 first__col">열공급량</th>
+            <th class="second__col"><span class="row__6 indent">-</span></th>
+            <tr>
+                <td class="row__7">지역공급</td>
+                <td><span class="row__7 indent">-</span></td>
+            </tr>
+            <tr>
+                <td class="row__8">지역판매</td>
+                <td><span class="row__8 indent">-</span></td>
+            </tr>
+            <tr>
+                <td class="row__9">강남연계</td>
+                <td><span class="row__9 indent">-</span></td>
+            </tr>
+            <tr>
+                <td class="row__10">용인연계</td>
+                <td><span class="row__10 indent">-</span></td>
+            </tr>
+            <tr>
+                <td class="row__11">판교연계</td>
+                <td><span class="row__11 indent">-</span></td>
+            </tr>
+        </table>
+    </div>
+    <script>const pageNum = 2;</script>
+    <script src="../scripts/paintPage.js"></script>
+    <script src="../scripts/index.js"></script>
+    <script src="../scripts/clock.js"></script>
+</body>
+</html>
