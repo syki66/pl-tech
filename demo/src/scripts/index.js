@@ -12,8 +12,8 @@ function autoAdjustScreenSize(width, height) {
     return [width, height];
   }
 }
-let pageWidth = autoAdjustScreenSize(screenWidth, screenHeight)[0];
-let pageHeight = autoAdjustScreenSize(screenWidth, screenHeight)[1];
+let pageWidth = autoAdjustScreenSize(screenWidth, screenHeight)[0] * 0.85;
+let pageHeight = autoAdjustScreenSize(screenWidth, screenHeight)[1] * 0.85;
 
 document.documentElement.style.setProperty("--width", `${pageWidth}px`);
 document.documentElement.style.setProperty("--height", `${pageHeight}px`);
