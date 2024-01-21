@@ -268,3 +268,22 @@
     - `--clockRight` : 시계 오른쪽 여백 설정
     - `--clockTop` : 시계 상단 여백 설정
     - `--clockTextShadow` : 시계 그림자 효과 길이 설정
+
+<br />
+
+---
+
+## 실행 방법
+
+1. git 설치
+2. git clone https://github.com/syki66/pl-tech.git (CRLF 때문에 ZIP으로 다운받으면 오류남)
+3. keys폴더를 생성하고 `private.pem` 및 `public.pem` 파일을 넣어줌
+4. node.js `13.10.1` 설치
+5. python `3.10.0` 설치 (설치할때 환경변수 등록 체크)
+6. visual studio 설치 (C++를 사용한 데스크톱 개발)
+7. MySQL8 설치 (Use Legacy Authentication Method 체크)
+8. HeidiSQL 설치 -> New -> 유저 패스워드 입력 후 open -> 최상위 노드 오른쪽 클릭 -> 새로 생성 -> 데이터베이스 -> pltech 입력
+9. `config/config.json`에서 3개, `routes/session.js`에서 1개 비밀번호 변경
+10. npm install
+11. npm install -g -s nodemon
+12. git에 `nodemon` 입력하여 서버실행. (크롬으로 접속 권장 : `localhost/home`, `localhost/auth/login`)
