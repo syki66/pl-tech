@@ -283,7 +283,7 @@
 
 1. git 설치
 2. git clone https://github.com/syki66/pl-tech.git (CRLF 때문에 ZIP으로 다운받으면 오류남)
-3. keys폴더를 생성하고 `private.pem` 및 `public.pem` 파일을 넣어줌
+3. root 디렉토리에 `keys` 폴더를 생성하고 `private.pem` 및 `public.pem` 파일을 넣어줌
 4. node.js `13.10.1` 설치
 5. python `3.10.0` 설치 (설치할때 환경변수 등록 체크)
 6. visual studio 설치 (C++를 사용한 데스크톱 개발)
