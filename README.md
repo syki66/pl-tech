@@ -13,10 +13,6 @@
 
 <br>
 
-### [프론트엔드 파일 및 기능 설명 (링크)](https://github.com/syki66/pl-tech/blob/main/views/Frontend-desc.md)
-
-<br>
-
 ## 🏠 /home
 
 <p align="center">
