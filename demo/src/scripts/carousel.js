@@ -110,3 +110,28 @@ const refreshImg = document.querySelector('.refresh__img');
 
 refreshBtn.style.transform = `translateX(${navWidth/2}px)`;
 refreshBtn.onmouseup = function refresh(){window.location.reload()}
+
+
+// 창 크기가 바뀌어도 현재 슬라이드와 재생 상태를 유지한다.
+function resizeCarousel() {
+    const width = slides[0].getBoundingClientRect().width;
+    slidePointer = [];
+    slides.forEach((slide, index) => {
+        slide.style.left = `${width * index}px`;
+        slidePointer.push(slide.style.left);
+    });
+
+    const transition = container.style.transition;
+    container.style.transition = 'none';
+    container.style.transform = `translateX(-${slidePointer[current]})`;
+    void container.offsetWidth;
+    container.style.transition = transition;
+
+    const widthOfNav = navigation.getBoundingClientRect().width;
+    navigation.style.transform = `translateX(-${widthOfNav / 2}px)`;
+    pauseBtn.style.transform = `translateX(-${widthOfNav / 2}px)`;
+    refreshBtn.style.transform = `translateX(${widthOfNav / 2}px)`;
+}
+
+window.addEventListener('resize', resizeCarousel);
+document.addEventListener('fullscreenchange', resizeCarousel);

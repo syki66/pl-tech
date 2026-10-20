@@ -67,3 +67,7 @@ object{
 .vertical-carousel__item:hover{
     text-decoration: underline;
 }
+
+body {
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+}

@@ -34,3 +34,18 @@ if (rotationTime()[1]){
         v_slideNext(v_slides.length);
     }, rotationTime()[1]);
 }
+
+// 크기를 다시 측정하되 현재 표시하는 뉴스와 다음 순서를 유지한다.
+function resizeNews() {
+    const position = (parseFloat(v_container.style.bottom) || 0) / v_slideHeight;
+    v_slideHeight = v_slides[0].getBoundingClientRect().height +
+        document.querySelector('.link__container').offsetTop;
+    const transition = v_container.style.transition;
+    v_container.style.transition = 'none';
+    v_container.style.bottom = `${position * v_slideHeight}px`;
+    void v_container.offsetHeight;
+    v_container.style.transition = transition;
+}
+
+window.addEventListener('resize', resizeNews);
+document.addEventListener('fullscreenchange', resizeNews);

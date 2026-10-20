@@ -1,8 +1,8 @@
-// 해상도 읽어오기
-let screenWidth = window.screen.width,
-  screenHeight = window.screen.height;
+// 모니터 해상도 대신 현재 브라우저 창의 표시 영역을 사용한다.
+let screenWidth = window.innerWidth,
+  screenHeight = window.innerHeight;
 
-// 출력물을 16:9 풀스크린으로 // 16:9 비율로 작은쪽 해상도로 자동변환
+// 창 안에 들어가는 가장 큰 16:9 크기.
 function autoAdjustScreenSize(width, height) {
   if (height < (width * 9) / 16) {
     return [(height * 16) / 9, height];
@@ -12,8 +12,24 @@ function autoAdjustScreenSize(width, height) {
     return [width, height];
   }
 }
-let pageWidth = autoAdjustScreenSize(screenWidth, screenHeight)[0] * 0.85;
-let pageHeight = autoAdjustScreenSize(screenWidth, screenHeight)[1] * 0.85;
 
-document.documentElement.style.setProperty("--width", `${pageWidth}px`);
-document.documentElement.style.setProperty("--height", `${pageHeight}px`);
+let pageWidth, pageHeight;
+
+function adjustWindowSize() {
+  screenWidth = window.innerWidth;
+  screenHeight = window.innerHeight;
+  [pageWidth, pageHeight] = autoAdjustScreenSize(screenWidth, screenHeight);
+
+  document.documentElement.style.setProperty("--width", `${pageWidth}px`);
+  document.documentElement.style.setProperty("--height", `${pageHeight}px`);
+  document.documentElement.style.overflow = "hidden";
+  document.body.style.width = `${pageWidth}px`;
+  document.body.style.height = `${pageHeight}px`;
+  document.body.style.margin = `${(screenHeight - pageHeight) / 2}px auto 0`;
+  document.body.style.position = "relative";
+  document.body.style.overflow = "hidden";
+}
+
+adjustWindowSize();
+window.addEventListener("resize", adjustWindowSize);
+document.addEventListener("fullscreenchange", adjustWindowSize);

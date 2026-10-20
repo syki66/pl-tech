@@ -13,9 +13,9 @@
 
 <br />
 
-## Carousel 시연 : https://syki66-carousel.netlify.app/
+## 캐러셀 시연 : https://syki66-carousel.netlify.app/
 
-(Windows, Chrome 환경에서만 정상 동작합니다)
+(Windows의 Chrome 브라우저에서 페이지가 정상적으로 표시됩니다)
 
 <br />
 

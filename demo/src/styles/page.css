@@ -19,7 +19,7 @@
     font-size: var(--titleFontSize);
     top: var(--titleTop);
     left: var(--titleLeft);
-    font-family:'sans-serif';
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
     text-shadow: var(--titleTextShadow) var(--titleTextShadow) var(--titleTextShadow) black;
 }
 .clock__container{
@@ -30,4 +30,12 @@
     color: snow;
     text-shadow: var(--clockTextShadow) var(--clockTextShadow) var(--clockTextShadow) black;
     font-weight: 900;
+}
+
+body, input, textarea, select, button {
+    font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
+}
+
+body .safety__container {
+    font-family: "digital-font", "Malgun Gothic", "맑은 고딕", sans-serif;
 }
